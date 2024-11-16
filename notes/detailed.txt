@@ -1,0 +1,444 @@
+MANAS C BAVASKAR
+221080004
+BATCH A
+T.Y. B.TECH. I.T.
+WIM LAB
+EXPERIMENT 7
+AIM:
+1. Define your Problem Statement such that it will accommodate
+all assignments completed till date, i.e. data collection,
+validation, confirmation by email & sms, payment done, report
+generation in pdf form, Dashboard etc.
+2. Your problem statement must be related to realistic scenario
+3. This problem statement should be usable to somebody, after
+hosting.
+4. Data entered can be captured in csv/xml json files, if you feel
+comfortable using database, you may use database of your
+comfort.
+5. Draw Data Model for the problem statement's data
+requirement.
+6. Present integrated application for the problem statement &
+present the Data Model for the problem's data requirement.
+Create a documentProblem Statement:
+Platform Overview:
+The platform aims to streamline the entire lifecycle of event
+management, from creation to post-event analysis, providing a
+unified interface for event organizers, attendees, and speakers. It will
+automate key processes such as event creation, ticket sales, speaker
+scheduling, payment processing, and post-event surveys, thereby
+improving efficiency and reducing manual errors.
+Key stakeholders in the platform include:
+•Event Organizers: The primary users who create and manage
+events.
+•Attendees: Event-goers who purchase tickets and participate in
+the event.
+•Speakers: Those presenting sessions or talks at the event.
+•Admin: Users with full access to manage and monitor the
+system, including generating reports and overseeing the event
+details.
+The platform will be accessible via a web interface, where event
+organizers can create, edit, and manage events, track ticket sales,
+monitor attendee feedback, and generate reports. Attendees will be
+able to browse events, purchase tickets, and participate in post-event
+surveys. Additionally, event organizers can manage speakers and
+speaker sessions, ensuring that all logistics are handled seamlessly.Key Features and Requirements
+1. Event Creation & Management: Organizers can create, edit,
+and view events, including details like name, date, location,
+ticket price, available seats, and speaker information.
+2. Ticketing: Event-goers can purchase various ticket types
+(individual, group, VIP). Organizers can track sales, monitor
+available stock, and validate tickets via QR codes or manual
+lookup.
+3. Speaker Management: Organizers can create speaker profiles,
+assign speakers to sessions, and schedule them based on
+availability.
+4. Registration Confirmation: Automatic email and SMS
+confirmations with event details, ticket info, and a unique ID
+(QR code). Organizers can customize notifications.
+5. Payment Processing: Secure payments via Stripe, transaction
+tracking, and automated refunds for cancellations.
+6. Post-Event Survey: Attendees receive surveys for feedback on
+event aspects. Organizers can define questions and send
+reminders for higher response rates.
+7. Reports Generation: Detailed PDF reports on ticket sales,
+payments, and survey results. Reports can be downloaded or
+emailed to organizers.
+8. Dashboard: Real-time event overview with ticket sales,
+revenue, attendee statuses, and analytics. Admin access for
+event management and platform control.Realistic Scenario: All-in-One Platform for Event Management
+This platform is specifically tailored for event organizers,
+including conference planners, seminar hosts, corporate event
+managers, and other professionals responsible for organizing large
+and small events. The system is designed to handle complex event
+logistics, eliminating the need for manual tracking and integrating all
+necessary event management functions into a single, user-friendly
+platform. By automating workflows, streamlining ticketing, managing
+speakers, and offering post-event analysis, the platform allows
+organizers to focus more on content and audience engagement
+rather than administrative tasks.
+Target Users
+1. Conference Planners: Organizations or individuals coordinating
+multi-day conferences with multiple speakers and parallel
+sessions. Planners can benefit from centralized management of
+schedules, ticketing, and attendee feedback.
+2. Seminar Hosts: Smaller events that require organized ticketing,
+simple speaker management, and efficient handling of attendee
+feedback post-event.
+3. Corporate Event Managers: Professionals tasked with
+organizing company-wide or public events, often needing
+tailored ticketing options (e.g., VIP, group discounts), payment
+processing, and automated confirmation notifications.
+4. Trade Shows and Expos: Organizers managing events with a
+large volume of attendees, complex schedules, and multiple
+speakers.
+5. Non-Profit Event Planners: Charity events or fundraisers that
+require a flexible ticketing system, donor tracking, and post-
+event reports.Use Case Scenario
+•
+Annual Tech Conference
+oEvent Type: Annual tech conference held by a technology
+organization.
+oGoal: Host an engaging event with notable speakers,
+breakout sessions, and networking opportunities for
+attendees.
+oUsage: The conference planner uses the platform to
+create an event listing with multiple ticket options
+(individual, VIP, group), handles ticket sales through
+Stripe, and configures SMS/email confirmations for
+registrations. Each session is assigned a time slot and
+speaker, and attendees are sent reminders leading up to
+the event. After the event, survey feedback is collected,
+with detailed reports generated for analysis.
+Key Benefits
+1. Time Savings: Organizers can set up events, manage ticket
+sales, and generate reports without juggling multiple systems or
+spreadsheets, leading to significant time savings.
+2. Reduced Manual Errors: Automating ticket validation, payment
+processing, and attendee notifications reduces the chances of
+human error.
+3. Enhanced Attendee Engagement: With automatic reminders,
+confirmations, and personalized post-event surveys, attendees
+are kept informed and engaged at every stage of the event.
+4. Insight-Driven Decisions: The platform’s reporting features
+provide event organizers with clear insights into attendance
+patterns, feedback trends, and financial summaries, enabling
+better planning for future events.Hosting and Accessibility
+The platform is designed for easy deployment on cloud servers,
+making it highly scalable and accessible for organizations of any size.
+The web-based interface is optimized for desktop and mobile
+browsers, ensuring organizers and attendees can access it anywhere
+with an internet connection.
+1. For Organizers: The intuitive dashboard lets event planners
+monitor ticket sales, speaker sessions, and attendee feedback,
+giving a full overview of the event’s status.
+2. For Attendees: Attendees can easily browse events, purchase
+tickets, and check event details. Post-event surveys are
+accessible through their profiles, allowing for a seamless
+feedback loop.
+Scalability for a Range of Events
+The platform is flexible and scalable, accommodating a range of
+event sizes and types:
+•Small-Scale Events: For intimate gatherings, such as workshops
+or company meetings, the platform’s basic functionalities—like
+ticketing, payment processing, and automated notifications—
+ensure smooth operations.
+•Large-Scale Conferences: For major events with multiple
+speakers and sessions, the platform supports complex
+scheduling, speaker management, and attendee tracking,
+making it an all-in-one solution for larger events.
+This event management platform brings together all the essential
+tools an organizer needs, from planning and promotion to payment
+processing and performance analysis, creating a realistic, efficient
+solution for modern event management needs.Post-Hosting Usability: How Different User Roles Benefit
+Once hosted, this event management platform offers an
+efficient, web-based solution for various stakeholders
+involved in event planning, attendance, and management,
+minimizing manual intervention. Here’s how each user role
+benefits:
+1. Event Organizers
+Organizers manage the entire event lifecycle, from setup
+to post-event analysis:
+•Create and Customize Events: Set event details,
+ticket categories, and seating limits.
+•Payment and Ticket Management: Track sales and
+transactions securely with Stripe integration.
+•Automated Registration
+Confirmations: Automatically send email/SMS
+confirmations.
+•Speaker Scheduling: Add speakers, assign sessions,
+and manage schedules.
+•Dashboard and Analytics: Real-time insights on
+ticket sales, seating, and attendee check-ins.
+•Post-Event Feedback: Create surveys to analyze
+attendee satisfaction and generate PDF reports.2. Attendees
+Attendees experience a seamless process from
+registration to post-event feedback:
+•Event Browsing and Ticket Purchase: Browse events
+and purchase tickets securely.
+•Automated Confirmation and Reminders: Receive
+instant purchase confirmations and event
+reminders.
+•Access to Event Information: Stay updated on
+schedules and any last-minute changes.
+•Survey Participation: Provide feedback on event
+experience through post-event surveys.
+•Ticket History: View transaction history and
+receipts.
+3. Speakers
+Speakers can stay organized and interact with event
+details:
+•Profile Management: Update bios, photos, and
+contact info for greater visibility.
+•Access to Schedule: View session times, topics, and
+locations.
+•Post-Event Feedback: Receive feedback specific to
+their sessions.4. Admins
+Admins ensure smooth platform operations and data
+management:
+•Global Monitoring: Oversee all events, ticket sales,
+and user engagement.
+•User Management: Manage user roles and
+permissions.
+•Financial Oversight: View transaction histories and
+generate financial reports.
+•Report Generation: Generate performance and
+engagement reports for all events.
+•Platform Maintenance: Troubleshoot issues and
+maintain platform stability.
+User Engagement Without Manual Intervention
+Once live, the platform operates autonomously, with
+automated processes handling:
+•Registration and Ticket Sales: Independent attendee
+registration, payment, and confirmations.
+•Automated Notifications: Event confirmations,
+reminders, and post-event surveys are sent
+automatically.
+•Survey Collection and Feedback: Results are
+automatically compiled for organizers.
+•Reporting: PDF reports are auto-generated for organizers
+and admins.Data Collection & Format for MongoDB and PostgreSQL
+MongoDB (NoSQL Database):
+•Ideal For: Flexible, unstructured data, such as event metadata,
+dynamic ticket structures, and nested survey responses.
+•Data Model: JSON-like document structure, allowing for easy
+storage of hierarchical data (e.g., event and session details
+within a single document).
+•Use Case: Great for handling large volumes of attendee and
+ticket data with flexible schemas. Aggregations can efficiently
+summarize data for reporting without rigid schema constraints.
+PostgreSQL (Relational Database):
+•Ideal For: Structured, relational data that requires complex
+querying and strict schema enforcement.
+•Data Model: Tabular format with tables for users, events,
+tickets, payments, and survey responses. Relationships between
+tables (e.g., attendees to events) are maintained through
+foreign keys.
+•Use Case: Best for structured data scenarios where complex
+joins, transactions, and integrity constraints are essential.
+Enables powerful querying and reporting on ticket sales, survey
+results, and user management.NOTE:
+During the implementation phase, I will choose between MongoDB
+and PostgreSQL based on the project’s data handling requirements.
+•If PostgreSQL is used, I plan to integrate an ORM (Object-
+Relational Mapping) tool, such as Prisma or Drizzle-ORM. The
+ORM will streamline database interactions, enabling easier data
+manipulation, querying, and migrations within a structured
+schema, which is ideal for scenarios requiring relational
+integrity and complex joins.
+•If MongoDB is used, the flexibility of its document-based
+structure will simplify handling nested data like event details
+and attendee responses. This approach allows for a more
+dynamic schema, which is advantageous for handling varied
+and evolving data structures typical in event management.
+The final choice will be guided by the specific data requirements and
+query complexities needed for the platform.Data Model
+The data model for the event management platform encompasses
+several key entities: Users, Events, Tickets, Speakers, Payments,
+Surveys, and Reports. These entities are designed to represent
+various stakeholders and components of the event, and the
+relationships between them ensure comprehensive data tracking
+from event creation to post-event reporting. Here's an in-depth look
+at each entity:
+Entities and Relationships
+1. Users
+•
+•
+Attributes:
+oid (PK): A unique identifier for each user.
+oname: Full name of the user.
+oemail: Email address for communication, registration, and
+verification.
+ophone_number: A contact number, primarily for SMS
+notifications or account recovery.
+orole: The role of the user, which can be Organizer, Speaker,
+or Attendee.
+ocreated_at: Timestamp for when the user account was
+created.
+oupdated_at: Timestamp for when the user’s details were
+last updated.
+Role-Specific Details:
+o
+Organizers are responsible for creating, managing, and
+overseeing events.oSpeakers are invited by Organizers and provide content
+during the event, like sessions or talks.
+oAttendees are individuals who purchase tickets to attend
+the event and may also provide feedback post-event.
+2. Events
+•
+•
+Attributes:
+oid (PK): A unique identifier for each event.
+oname: The title or name of the event (e.g., "Tech
+Conference 2024").
+olocation: The venue for the event, which could be a
+physical address or a virtual platform link.
+ostart_date: The date and time when the event begins.
+oend_date: The date and time when the event concludes.
+oticket_price: The base price for a single ticket.
+oseats_available: The maximum number of attendees the
+event can accommodate.
+ocreated_by (FK): A reference to the Users table, indicating
+which organizer created the event.
+odescription: A brief overview of the event.
+oevent_status: Current status of the event (e.g.,
+"Scheduled", "Ongoing", "Completed").
+ocreated_at: Timestamp for when the event was created.
+oupdated_at: Timestamp for when the event details were
+last updated.
+Relationships:
+o
+An Event is created and managed by an Organizer (Users).oEvents host Speakers (sessions) and sell Tickets to
+Attendees.
+oOrganizers oversee and manage all aspects of the event,
+including content, scheduling, and ticketing.
+3. Tickets
+•
+•
+Attributes:
+oid (PK): A unique identifier for each ticket.
+oevent_id (FK): A reference to the related event.
+ouser_id (FK): A reference to the Attendee who purchased
+the ticket.
+oticket_type: Defines the type of ticket (e.g., VIP, Regular,
+Group).
+opurchase_date: Date and time when the ticket was
+purchased.
+ostatus: Current status of the ticket (e.g., Confirmed,
+Canceled, Refunded).
+oattendee_name: Name of the attendee for personalized
+tickets.
+oticket_number: A unique number or code assigned to the
+ticket.
+oseat_number: The designated seat for the attendee (if
+applicable).
+Relationships:
+oTickets are purchased by Attendees (Users) for Events.
+oTickets are associated with Payments to track financial
+transactions.4. Speakers
+•
+•
+Attributes:
+oid (PK): A unique identifier for each speaker.
+oevent_id (FK): A reference to the event they are
+associated with.
+ouser_id (FK): A reference to the speaker’s profile in the
+Users table.
+osession_title: Title or name of the session the speaker is
+presenting.
+osession_description: A short description of the speaker’s
+session or talk.
+oscheduled_time: The scheduled time for the session.
+oduration: The duration of the session (in minutes).
+ocreated_at: Timestamp when the speaker session was
+created.
+oupdated_at: Timestamp when the session details were
+last updated.
+Relationships:
+oSpeakers are linked to Events and provide content during
+the event.
+oSpeakers are managed by Organizers.5. Payments
+•
+•
+Attributes:
+oid (PK): A unique identifier for each payment.
+oticket_id (FK): A reference to the related ticket.
+oamount: The total amount paid for the ticket, including
+any discounts or taxes.
+opayment_method: The method used for payment (e.g.,
+Stripe, PayPal, Credit Card).
+opayment_status: The status of the payment (e.g.,
+Completed, Pending, Failed, Refunded).
+otransaction_id: A unique transaction ID for the payment.
+opayment_date: Timestamp when the payment was
+processed.
+Relationships:
+oEach Payment corresponds to a Ticket purchase.
+oPayments track the financial status of Tickets and are
+essential for accounting purposes.
+6. Surveys
+•
+Attributes:
+oid (PK): A unique identifier for each survey response.
+oevent_id (FK): A reference to the event being reviewed.
+ouser_id (FK): A reference to the attendee providing the
+feedback.
+orating: A numerical rating (e.g., on a scale of 1-5).
+ocomments: Open-ended comments for additional
+feedback.o
+•
+submitted_at: Timestamp when the survey was
+submitted.
+Relationships:
+oSurveys are linked to Events and Attendees.
+oSurvey feedback helps improve future events and
+provides insights to organizers.
+7. Reports
+•
+•
+Attributes:
+oid (PK): A unique identifier for each report.
+oevent_id (FK): A reference to the associated event.
+oreport_type: Type of report generated (e.g., ticket sales,
+revenue summary, survey feedback).
+ogenerated_at: Date when the report was created.
+opdf_url: A URL linking to the generated PDF version of the
+report.
+oreport_data: Raw data included in the report (e.g., JSON
+or CSV format).
+Relationships:
+oReports are generated for Events to summarize critical
+metrics.
+oReports can include data about Tickets, Payments, and
+Surveys.Entity-Relationship Diagram (ERD) Overview
+The Entity-Relationship Diagram (ERD) will illustrate the
+interconnections between entities. Here’s a brief explanation of the
+primary relationships:
+•Users → Events: Organizers create and manage Events.
+•Users → Tickets: Attendees purchase Tickets for Events.
+•Events → Speakers: Speakers are scheduled for Events and are
+managed by Organizers.
+•Tickets → Payments: Tickets are linked to Payments, tracking
+the financial aspect of each transaction.
+•Users → Surveys: Attendees submit Survey responses for
+Events they attended.
+•Events → Reports: Reports summarize the performance of
+Events and related metrics.DATA MODEL DIAGRAM:SYSTEM ARCHITECTURE DIAGRAM:USE CASE DIAGRAM:SEQUENCE DIAGRAM:CONCLUSION:
+In conclusion, the design and planning stages of the event
+management platform have successfully outlined the core
+components of the system, including the data model, system
+architecture, and key use cases. The system aims to provide a
+comprehensive solution for managing events, handling ticket sales,
+coordinating speakers, processing payments, and gathering attendee
+feedback. While the current design lays a strong foundation, it is
+important to note that some aspects of the data model and
+architecture may evolve during the implementation phase to better
+suit real-world requirements and improve performance. The next
+steps will focus on turning this plan into a functional platform,
+ensuring all features are integrated seamlessly for an efficient and
+user-friendly experience.Note:
+Please note that some parts of the data model and system
+architecture might change during the implementation phase. As I
+move forward with building the project, I may make adjustments to
+improve performance or better meet the needs of the system. Any
+changes will be carefully considered to make sure the system works
+well and meets the goals of the project.

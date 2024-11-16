@@ -1,0 +1,31 @@
+XORA Application Color Theme
+
+Primary Colors:
+- Primary 1 (p1): Bright accent color used for hover states and highlights
+- Primary 4 (p4): Main text color, used for navigation links
+- Primary 5 (p5): Secondary text color, used for footer links
+
+Secondary Colors:
+- Secondary 2 (s2): Dark background color used for mobile navigation
+- Secondary 4 (s4): Used for borders with 25% opacity
+
+Background Colors:
+- Black 100: Semi-transparent black used for navbar background when scrolled
+- Dark background for footer (bg-gray-900)
+
+Accent Elements:
+- Backdrop blur effect on navbar (8px)
+- Soft light blend mode for background elements
+- Semi-transparent overlays (opacity 5% for decorative elements)
+
+Text Hierarchy:
+- Primary text: Full opacity
+- Secondary text: 70% opacity
+- Interactive elements: Transition from p4 to p1 on hover
+
+Special Effects:
+- Smooth transitions (500ms duration)
+- Gradient overlays
+- Mix-blend effects for visual depth
+
+Note: The theme appears to follow a dark mode aesthetic with bright accent colors for interactive elements and a sophisticated transparency system for depth and layering.
