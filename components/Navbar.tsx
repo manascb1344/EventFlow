@@ -1,129 +1,147 @@
-"use client";
+"use client"
 
-import { Link as LinkScroll } from "react-scroll";
-import { useEffect, useState } from "react";
-import clsx from "clsx";
-import { CiCalendar } from "react-icons/ci";
-import { IoClose } from "react-icons/io5";
-import { RxHamburgerMenu } from "react-icons/rx";
-
-interface NavLinkProps {
-  title: string;
-}
+import * as React from "react"
+import Link from "next/link"
+import { motion } from "framer-motion"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Menu } from "lucide-react"
 
 const Navbar = () => {
-  const [hasScrolled, setHasScrolled] = useState<boolean>(false);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isScrolled, setIsScrolled] = React.useState(false)
 
-  useEffect(() => {
+  React.useEffect(() => {
     const handleScroll = () => {
-      setHasScrolled(window.scrollY > 32);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const NavLink = ({ title }: NavLinkProps) => (
-    <LinkScroll
-      onClick={() => setIsOpen(false)}
-      to={title}
-      offset={-100}
-      spy
-      smooth
-      activeClass="nav-active"
-      className="base-bold text-p4 uppercase transition-all duration-500 cursor-pointer hover:text-p1 hover:scale-105 max-lg:my-4 max-lg:h5"
-    >
-      {title}
-    </LinkScroll>
-  );
+      setIsScrolled(window.scrollY > 20)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   return (
-    <header
-      className={clsx(
-        "sticky fixed top-0 left-0 z-50 w-full py-10 transition-all duration-500 max-lg:py-4",
-        hasScrolled && "py-2 bg-black-100/80 backdrop-blur-lg shadow-lg",
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className={cn(
+        "sticky top-0 z-50 w-full transition-all duration-300",
+        isScrolled 
+          ? "border-b border-zinc-800/50 bg-gray-950/80 backdrop-blur-xl supports-[backdrop-filter]:bg-gray-950/80" 
+          : "bg-transparent"
       )}
     >
-      <div className="container flex h-14 items-center max-lg:px-5">
-        <a className="lg:hidden flex-1 cursor-pointer z-2 flex items-center gap-2 transition-transform duration-300 hover:scale-105">
-          <CiCalendar className="w-8 h-8 text-p1" />
-          <span className="text-xl font-semibold text-p1">EVENTFLOW</span>
-        </a>
+      <div className="container flex h-16 items-center justify-between">
+        <div className="flex items-center gap-6">
+          <Link href="/" className="flex items-center space-x-2">
+            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#6366F1] via-[#8B94FA] to-[#6366F1]">EventFlow</span>
+          </Link>
 
-        <div
-          className={clsx(
-            "w-full max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:w-full max-lg:bg-s2/90 max-lg:backdrop-blur-md max-lg:opacity-0 transition-all duration-300",
-            isOpen ? "max-lg:opacity-100 max-lg:translate-x-0" : "max-lg:pointer-events-none max-lg:translate-x-full",
-          )}
-        >
-          <div className="max-lg:relative max-lg:flex max-lg:flex-col max-lg:min-h-screen max-lg:p-6 max-lg:overflow-hidden sidebar-before max-md:px-4">
-            <nav className="max-lg:relative max-lg:z-2 max-lg:my-auto">
-              <ul className="flex max-lg:block max-lg:px-12">
-                <li className="nav-li">
-                  <NavLink title="events" />
-                  <div className="dot animate-pulse" />
-                  <NavLink title="speakers" />
-                </li>
-
-                <li className="nav-logo">
-                  <LinkScroll
-                    to="hero"
-                    offset={-250}
-                    spy
-                    smooth
-                    className={clsx(
-                      "max-lg:hidden transition-all duration-300 cursor-pointer flex items-center gap-2 hover:scale-105",
-                    )}
-                  >
-                    <CiCalendar className="w-10 h-10 text-p1" />
-                    <span className="text-2xl font-semibold text-p1">EVENTFLOW</span>
-                  </LinkScroll>
-                </li>
-
-                <li className="nav-li">
-                  <NavLink title="tickets" />
-                  <div className="dot animate-pulse" />
-                  <NavLink title="contact" />
-                </li>
-              </ul>
-            </nav>
-
-            <div className="lg:hidden block absolute top-1/2 left-0 w-[960px] h-[380px] translate-x-[-290px] -translate-y-1/2 rotate-90 animate-float">
-              <img
-                src="/images/bg-outlines.svg"
-                width={960}
-                height={380}
-                alt="outline"
-                className="relative z-2"
-              />
-              <img
-                src="/images/bg-outlines-fill.png"
-                width={960}
-                height={380}
-                alt="outline"
-                className="absolute inset-0 mix-blend-soft-light opacity-5"
-              />
-            </div>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex">
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <Link href="/features" legacyBehavior passHref>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "text-zinc-400 hover:text-white")}>
+                      Features
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-zinc-400 hover:text-white">Resources</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid gap-3 p-4 w-[200px] bg-gray-950/95 backdrop-blur-xl border border-zinc-800/50">
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            href="/docs"
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-indigo-500/10 hover:text-white focus:bg-indigo-500/10 focus:text-white"
+                          >
+                            <div className="text-sm font-medium leading-none">Documentation</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-zinc-400">
+                              Learn how to use EventFlow
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            href="/blog"
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-indigo-500/10 hover:text-white focus:bg-indigo-500/10 focus:text-white"
+                          >
+                            <div className="text-sm font-medium leading-none">Blog</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-zinc-400">
+                              Latest updates and guides
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link href="/pricing" legacyBehavior passHref>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "text-zinc-400 hover:text-white")}>
+                      Pricing
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
           </div>
         </div>
 
-        <button
-          className="lg:hidden z-2 size-10 border-2 border-s4/25 rounded-full flex justify-center items-center backdrop-blur-sm bg-black-100/30 transition-all duration-300 hover:scale-105 active:scale-95"
-          onClick={() => setIsOpen((prevState) => !prevState)}
-        >
-          {isOpen ? (
-            <IoClose className="w-5 h-5 text-p1" />
-          ) : (
-            <RxHamburgerMenu className="w-5 h-5 text-p1" />
-          )}
-        </button>
-      </div>
-    </header>
-  );
-};
+        {/* Auth Buttons */}
+        <div className="flex items-center gap-4">
+          <div className="hidden sm:flex">
+            <Button variant="ghost" className="text-zinc-400 hover:text-white hover:bg-indigo-500/10">
+              Sign In
+            </Button>
+          </div>
+          <Button className="relative h-10 px-6 text-sm font-medium rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-600 border-0 shadow-[0_0_0_1px_rgba(99,102,241,0.1)] hover:shadow-[0_0_0_2px_rgba(99,102,241,0.2)] transition-all duration-300">
+            Get Started
+          </Button>
 
-export default Navbar;
+          {/* Mobile Menu */}
+          <div className="flex md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="text-zinc-400 hover:text-white">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-64 bg-gray-950/95 backdrop-blur-xl border-zinc-800/50">
+                <nav className="flex flex-col gap-4">
+                  <Link href="/features" className="text-zinc-400 hover:text-white transition-colors">
+                    Features
+                  </Link>
+                  <Link href="/docs" className="text-zinc-400 hover:text-white transition-colors">
+                    Documentation
+                  </Link>
+                  <Link href="/blog" className="text-zinc-400 hover:text-white transition-colors">
+                    Blog
+                  </Link>
+                  <Link href="/pricing" className="text-zinc-400 hover:text-white transition-colors">
+                    Pricing
+                  </Link>
+                </nav>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
+      </div>
+    </motion.header>
+  )
+}
+
+export default Navbar

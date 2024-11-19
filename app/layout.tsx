@@ -4,11 +4,18 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Providers } from '../providers/providers';
+import { cn } from '@/lib/utils';
+import { Inter } from 'next/font/google';
 
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-poppins',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
 });
 
 export const metadata: Metadata = {
@@ -22,13 +29,26 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>
-        <Providers>
-          <Navbar />
-          {children}
-          <Footer />
-        </Providers>
+    <html lang="en" className="dark">
+      <body className={cn(
+        inter.className,
+        "min-h-screen bg-gradient-to-b from-gray-950 via-slate-900 to-gray-950 relative overflow-x-hidden",
+      )}>
+        {/* Deep space gradient overlay */}
+        <div className="fixed inset-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900/50 via-gray-950 to-gray-950 pointer-events-none" />
+        
+        {/* Ambient orbs */}
+        <div className="fixed top-[-10%] left-[-20%] h-[500px] w-[500px] rounded-full bg-indigo-500/5 blur-[100px] pointer-events-none" />
+        <div className="fixed top-[-15%] right-[-20%] h-[500px] w-[500px] rounded-full bg-purple-500/5 blur-[100px] pointer-events-none" />
+        <div className="fixed bottom-[-10%] left-[25%] h-[500px] w-[500px] rounded-full bg-blue-400/5 blur-[100px] pointer-events-none" />
+        
+        <div className="relative">
+          <Providers>
+            <Navbar />
+            {children}
+            <Footer />
+          </Providers>
+        </div>
       </body>
     </html>
   )
