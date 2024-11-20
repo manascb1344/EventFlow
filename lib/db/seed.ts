@@ -6,7 +6,7 @@ async function seed() {
   // Create test organizer
   const organizer = await db.insert(organizers).values({
     name: 'Test Organizer',
-    email: 'organizer@test.com',
+    email: 'organizer@test.com', 
     password: await bcrypt.hash('password123', 10),
     phoneNumber: '+1234567891',
     organization: 'Test Events Inc',
@@ -26,7 +26,7 @@ async function seed() {
     password: await bcrypt.hash('password123', 10),
     phoneNumber: '+1234567893',
     interests: 'Technology, Business',
-    dietaryRestrictions: 'None',
+    dietaryRestrictions: 'None', 
     totalEventsAttended: 0,
     notificationPreferences: true,
     profileImage: 'https://example.com/attendee.jpg',
@@ -35,29 +35,121 @@ async function seed() {
     updatedAt: new Date()
   }).returning();
 
-  // Create test event
-  const event = await db.insert(events).values({
-    name: 'Test Conference 2024',
-    location: 'Test Convention Center',
-    startDate: new Date('2024-06-01'),
-    endDate: new Date('2024-06-03'),
-    ticketPrice: '299.99',
-    seatsAvailable: 500,
-    organizerId: organizer[0].id,
-    description: 'A test technology conference',
-    eventStatus: 'PUBLISHED',
-    bannerImage: 'https://example.com/banner.jpg',
-    venue: 'Main Hall',
-    venueCapacity: 600,
-    isPublic: true,
-    registrationDeadline: new Date('2024-05-15'),
-    createdAt: new Date(),
-    updatedAt: new Date()
-  }).returning();
+  // Create 10 test events with future dates
+  const eventNames = [
+    'Tech Summit 2024',
+    'Business Conference 2024',
+    'Design Workshop',
+    'Marketing Masterclass',
+    'Startup Pitch Night',
+    'AI & ML Conference',
+    'Web3 Summit',
+    'Product Management Forum',
+    'UX Research Conference',
+    'Digital Marketing Summit'
+  ];
 
-  // Create test ticket
+  const venues = [
+    'Convention Center A',
+    'Grand Hotel Ballroom',
+    'Innovation Hub',
+    'Tech Campus',
+    'Business Center',
+    'Conference Hall',
+    'Exhibition Center',
+    'Downtown Arena',
+    'University Auditorium',
+    'Science Center'
+  ];
+
+  const descriptions = [
+    'Join industry leaders for cutting-edge tech insights',
+    'Network with business professionals and learn growth strategies',
+    'Master modern design principles and tools',
+    'Learn advanced marketing techniques from experts',
+    'Watch innovative startups pitch their ideas',
+    'Explore the latest in artificial intelligence',
+    'Dive deep into blockchain and cryptocurrency',
+    'Learn product management best practices',
+    'Understanding user research methodologies',
+    'Latest trends in digital marketing'
+  ];
+
+  // Create future events
+  const futureEvents = await Promise.all(
+    eventNames.map(async (name, index) => {
+      // Create events starting from next month, each 15 days apart
+      const startDate = new Date();
+      startDate.setMonth(startDate.getMonth() + 1);
+      startDate.setDate(startDate.getDate() + (index * 15));
+      
+      const endDate = new Date(startDate);
+      endDate.setDate(endDate.getDate() + 2);
+
+      return db.insert(events).values({
+        name,
+        location: `${venues[index]} Location`,
+        startDate,
+        endDate,
+        ticketPrice: `${299 + (index * 50)}.99`,
+        seatsAvailable: 200 + (index * 50),
+        organizerId: organizer[0].id,
+        description: descriptions[index],
+        eventStatus: 'PUBLISHED',
+        bannerImage: `https://example.com/event${index + 1}.jpg`,
+        venue: venues[index],
+        venueCapacity: 300 + (index * 50),
+        isPublic: true,
+        registrationDeadline: new Date(startDate.getTime() - 7 * 24 * 60 * 60 * 1000),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }).returning();
+    })
+  );
+
+  // Create past events
+  const pastEventNames = [
+    'Tech Summit 2023',
+    'Business Conference 2023',
+    'Design Workshop 2023',
+    'Marketing Masterclass 2023',
+    'Startup Pitch Night 2023'
+  ];
+
+  const pastEvents = await Promise.all(
+    pastEventNames.map(async (name, index) => {
+      // Create events starting from 6 months ago, each 30 days apart
+      const startDate = new Date();
+      startDate.setMonth(startDate.getMonth() - 6);
+      startDate.setDate(startDate.getDate() - (index * 30));
+      
+      const endDate = new Date(startDate);
+      endDate.setDate(endDate.getDate() + 2);
+
+      return db.insert(events).values({
+        name,
+        location: `${venues[index]} Location`,
+        startDate,
+        endDate,
+        ticketPrice: `${299 + (index * 50)}.99`,
+        seatsAvailable: 0, // Past events are fully booked
+        organizerId: organizer[0].id,
+        description: descriptions[index],
+        eventStatus: 'COMPLETED',
+        bannerImage: `https://example.com/past-event${index + 1}.jpg`,
+        venue: venues[index],
+        venueCapacity: 300 + (index * 50),
+        isPublic: true,
+        registrationDeadline: new Date(startDate.getTime() - 7 * 24 * 60 * 60 * 1000),
+        createdAt: new Date(startDate.getTime() - 30 * 24 * 60 * 60 * 1000), // Created 30 days before start
+        updatedAt: new Date(endDate)
+      }).returning();
+    })
+  );
+
+  // Create test tickets for first event
   const ticket = await db.insert(tickets).values({
-    eventId: event[0].id,
+    eventId: futureEvents[0][0].id,
     attendeeId: attendee[0].id,
     ticketType: 'VIP',
     purchaseDate: new Date(),
@@ -70,13 +162,13 @@ async function seed() {
     specialRequirements: 'None'
   }).returning();
 
-  // Create test speaker session
+  // Create test speaker session for first event
   await db.insert(speakers).values({
-    eventId: event[0].id,
+    eventId: futureEvents[0][0].id,
     organizerId: organizer[0].id,
     sessionTitle: 'Future of Technology',
     sessionDescription: 'A look into emerging tech trends',
-    scheduledTime: new Date('2024-06-01T10:00:00'),
+    scheduledTime: new Date(futureEvents[0][0].startDate.getTime() + 2 * 60 * 60 * 1000),
     duration: 60,
     roomNumber: 'Room A1',
     presentationUrl: 'https://example.com/presentation.pdf',
@@ -99,7 +191,7 @@ async function seed() {
 
   // Create test survey
   await db.insert(surveys).values({
-    eventId: event[0].id,
+    eventId: futureEvents[0][0].id,
     attendeeId: attendee[0].id,
     rating: 5,
     comments: 'Great event!',
@@ -113,7 +205,7 @@ async function seed() {
 
   // Create test report
   await db.insert(reports).values({
-    eventId: event[0].id,
+    eventId: futureEvents[0][0].id,
     reportType: 'TICKET_SALES',
     generatedAt: new Date(),
     pdfUrl: 'https://example.com/reports/ticket-sales.pdf',

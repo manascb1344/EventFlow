@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { useRouter } from "next/navigation"
 import { Separator } from "@/components/ui/separator"
+import Link from 'next/link';
 
 const signInSchema = z.object({
   email: z.string().email(),
@@ -60,11 +61,16 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
-      <div className="w-full max-w-sm space-y-6 p-4">
-        <div className="text-center space-y-2">
-          <h1 className="text-2xl font-bold">Welcome Back</h1>
-          <p className="text-zinc-400">Sign in to your account</p>
+    <div className="flex min-h-screen items-center justify-center relative">
+      <div className="w-full max-w-md space-y-8 px-4 py-8 sm:px-6 lg:px-8">
+        <div className="flex flex-col items-center space-y-4">
+          <h1 className="text-4xl font-bold tracking-tight text-white">Sign In</h1>
+          <p className="text-sm text-gray-400">
+            Don&apos;t have an account?{" "}
+            <Link href="/auth/signup" className="font-semibold text-indigo-400 hover:text-indigo-300">
+              Sign up
+            </Link>
+          </p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -104,7 +110,7 @@ export default function SignIn() {
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <Separator />
+            <Separator className="w-full" />
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span className="bg-background px-2 text-muted-foreground">
@@ -113,19 +119,17 @@ export default function SignIn() {
           </div>
         </div>
 
-        {providers &&
-          Object.values(providers)
-            .filter(provider => provider.id !== "credentials")
-            .map((provider: ClientSafeProvider) => (
-              <Button
-                key={provider.name}
-                variant="outline"
-                className="w-full"
-                onClick={() => signIn(provider.id, { callbackUrl: "/dashboard" })}
-              >
-                Sign in with {provider.name}
-              </Button>
-            ))}
+        {providers?.google && (
+          <Button
+            variant="outline"
+            type="button"
+            className="w-full"
+            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+            disabled={isSubmitting}
+          >
+            Continue with Google
+          </Button>
+        )}
       </div>
     </div>
   )

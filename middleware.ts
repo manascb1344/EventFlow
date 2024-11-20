@@ -5,7 +5,17 @@ import { NextResponse } from "next/server";
 const publicRoutes = [
   "/",
   "/auth/signin", 
+  "/auth/signup",
   "/auth/register",
+  "/auth/register/organizer",
+];
+
+// Routes that require onboarding completion for organizers
+const organizerProtectedRoutes = [
+  "/dashboard/organizer",
+  "/dashboard/organizer/events",
+  "/dashboard/organizer/attendees",
+  "/dashboard/organizer/settings"
 ];
 
 // Export middleware configuration first
@@ -33,6 +43,21 @@ export default withAuth(
       return NextResponse.next();
     }
 
+    // Check if the route requires onboarding completion for organizers
+    const requiresOnboarding = organizerProtectedRoutes.some(route =>
+      req.nextUrl.pathname.startsWith(route)
+    );
+
+    if (requiresOnboarding) {
+      const token = req.nextauth.token;
+      
+      // If user is an organizer and hasn't completed onboarding, redirect to onboarding
+      if (token?.role === "ORGANIZER" && !token?.onboardingCompleted) {
+        const onboardingUrl = new URL("/onboarding/organizer", req.url);
+        return NextResponse.redirect(onboardingUrl);
+      }
+    }
+
     return NextResponse.next();
   },
   {
@@ -44,6 +69,11 @@ export default withAuth(
         
         if (isPublicRoute) {
           return true;
+        }
+
+        // Allow access to onboarding routes even if onboarding is not completed
+        if (req.nextUrl.pathname.startsWith("/onboarding/")) {
+          return !!token;
         }
         
         return !!token;

@@ -51,6 +51,11 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link href="/auth/register/organizer" className="text-zinc-400 hover:text-white transition-colors">
+                  Become an Organizer
+                </Link>
+              </li>
+              <li>
                 <Link href="/pricing" className="text-zinc-400 hover:text-white transition-colors">
                   Pricing
                 </Link>

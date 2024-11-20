@@ -18,6 +18,7 @@ const registerSchema = z.object({
   password: z.string().min(8),
   name: z.string().min(2),
   role: z.enum(["ORGANIZER", "ATTENDEE"]),
+  organization: z.string().optional(),
 });
 
 const organizerOnboardingSchema = z.object({
@@ -40,6 +41,7 @@ export async function register(formData: FormData) {
       password: formData.get("password"),
       name: formData.get("name"),
       role: formData.get("role"),
+      organization: formData.get("organization"),
     });
 
     // Hash password
@@ -78,11 +80,16 @@ export async function register(formData: FormData) {
         return { error: "User already exists" };
       }
 
+      if (!validatedFields.organization && validatedFields.role === "ORGANIZER") {
+        return { error: "Organization name is required for organizers" };
+      }
+
       // Create organizer
       const [organizer] = await db.insert(organizers).values({
         email: validatedFields.email,
         password: hashedPassword,
         name: validatedFields.name,
+        organization: validatedFields.organization || "",
         createdAt: new Date(),
         updatedAt: new Date(),
         onboardingCompleted: false,
