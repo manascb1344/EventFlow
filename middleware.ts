@@ -1,48 +1,56 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import { signToken, verifyToken } from '@/lib/auth/session';
+import { withAuth } from "next-auth/middleware";
+import { NextResponse } from "next/server";
 
-const protectedRoutes = '/dashboard';
+// Public routes that don't require authentication
+const publicRoutes = [
+  "/",
+  "/auth/signin", 
+  "/auth/register",
+];
 
-export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-  const sessionCookie = request.cookies.get('session');
-  const isProtectedRoute = pathname.startsWith(protectedRoutes);
-
-  if (isProtectedRoute && !sessionCookie) {
-    return NextResponse.redirect(new URL('/sign-in', request.url));
-  }
-
-  let res = NextResponse.next();
-
-  if (sessionCookie) {
-    try {
-      const parsed = await verifyToken(sessionCookie.value);
-      const expiresInOneDay = new Date(Date.now() + 24 * 60 * 60 * 1000);
-
-      res.cookies.set({
-        name: 'session',
-        value: await signToken({
-          ...parsed,
-          expires: expiresInOneDay.toISOString(),
-        }),
-        httpOnly: true,
-        secure: true,
-        sameSite: 'lax',
-        expires: expiresInOneDay,
-      });
-    } catch (error) {
-      console.error('Error updating session:', error);
-      res.cookies.delete('session');
-      if (isProtectedRoute) {
-        return NextResponse.redirect(new URL('/sign-in', request.url));
-      }
-    }
-  }
-
-  return res;
-}
-
+// Export middleware configuration first
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: [
+    /*
+     * Match all request paths except for:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public folder
+     * - api/auth routes (NextAuth.js endpoints)
+     */
+    "/((?!_next/static|_next/image|favicon.ico|public|api/auth).*)",
+  ],
 };
+
+export default withAuth(
+  function middleware(req) {
+    const isPublicRoute = publicRoutes.some(route => 
+      req.nextUrl.pathname === route || req.nextUrl.pathname.startsWith("/api/auth/")
+    );
+
+    if (isPublicRoute) {
+      return NextResponse.next();
+    }
+
+    return NextResponse.next();
+  },
+  {
+    callbacks: {
+      authorized: ({ req, token }) => {
+        const isPublicRoute = publicRoutes.some(route => 
+          req.nextUrl.pathname === route
+        );
+        
+        if (isPublicRoute) {
+          return true;
+        }
+        
+        return !!token;
+      },
+    },
+    pages: {
+      signIn: "/auth/signin"
+    },
+  }
+);

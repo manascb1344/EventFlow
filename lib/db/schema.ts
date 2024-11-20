@@ -3,9 +3,7 @@ import { relations } from 'drizzle-orm';
 
 // Enum types
 export const UserRole = {
-  ADMIN: 'admin',
-  ORGANIZER: 'organizer', 
-  SPEAKER: 'speaker',
+  ORGANIZER: 'organizer',
   ATTENDEE: 'attendee',
 } as const;
 
@@ -49,22 +47,49 @@ export const ReportType = {
 } as const;
 
 // Tables
-export const users = pgTable('users', {
+export const organizers = pgTable('organizers', {
   id: serial('id').primaryKey(),
-  stripeCustomerId: varchar('stripe_customer_id', { length: 255 }).unique(),
-  name: varchar('name', { length: 255 }).notNull(),
   email: varchar('email', { length: 255 }).notNull().unique(),
-  phoneNumber: varchar('phone_number', { length: 20 }).notNull(),
-  role: varchar('role', { length: 20 }).notNull().$type<keyof typeof UserRole>(),
+  password: varchar('password', { length: 255 }),
+  name: varchar('name', { length: 255 }).notNull(),
+  phoneNumber: varchar('phone_number', { length: 20 }),
+  organization: varchar('organization', { length: 255 }).notNull(),
   bio: text('bio'),
+  verificationStatus: boolean('verification_status').default(false),
+  stripeConnectAccountId: varchar('stripe_connect_account_id', { length: 255 }).unique(),
+  stripeCustomerId: varchar('stripe_customer_id', { length: 255 }).unique(),
+  organizerRating: decimal('organizer_rating', { precision: 3, scale: 2 }),
+  totalEventsOrganized: integer('total_events_organized').default(0),
   profileImage: text('profile_image'),
-  organization: varchar('organization', { length: 255 }),
+  onboardingCompleted: boolean('onboarding_completed').default(false).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
+
+export const attendees = pgTable('attendees', {
+  id: serial('id').primaryKey(),
+  email: varchar('email', { length: 255 }).notNull().unique(),
+  password: varchar('password', { length: 255 }),
+  name: varchar('name', { length: 255 }).notNull(),
+  phoneNumber: varchar('phone_number', { length: 20 }),
+  stripeCustomerId: varchar('stripe_customer_id', { length: 255 }).unique(),
+  interests: text('interests'),
+  dietaryRestrictions: text('dietary_restrictions'),
+  totalEventsAttended: integer('total_events_attended').default(0),
+  preferredPaymentMethod: varchar('preferred_payment_method', { length: 50 }),
+  notificationPreferences: boolean('notification_preferences').default(true),
+  profileImage: text('profile_image'),
+  onboardingCompleted: boolean('onboarding_completed').default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
 export const events = pgTable('events', {
   id: serial('id').primaryKey(),
+  organizerId: integer('organizer_id').notNull().references(() => organizers.id, {
+    onDelete: 'restrict',
+    onUpdate: 'cascade'
+  }),
   stripeProductId: varchar('stripe_product_id', { length: 255 }).unique(),
   stripePriceId: varchar('stripe_price_id', { length: 255 }).unique(),
   name: varchar('name', { length: 255 }).notNull(),
@@ -73,7 +98,6 @@ export const events = pgTable('events', {
   endDate: timestamp('end_date').notNull(),
   ticketPrice: decimal('ticket_price', { precision: 10, scale: 2 }).notNull(),
   seatsAvailable: integer('seats_available').notNull(),
-  createdBy: integer('created_by').notNull().references(() => users.id),
   description: text('description').notNull(),
   eventStatus: varchar('event_status', { length: 20 }).notNull().$type<keyof typeof EventStatus>(),
   bannerImage: text('banner_image'),
@@ -88,8 +112,14 @@ export const events = pgTable('events', {
 export const tickets = pgTable('tickets', {
   id: serial('id').primaryKey(),
   stripePaymentIntentId: varchar('stripe_payment_intent_id', { length: 255 }).unique(),
-  eventId: integer('event_id').notNull().references(() => events.id),
-  userId: integer('user_id').notNull().references(() => users.id),
+  eventId: integer('event_id').notNull().references(() => events.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade'
+  }),
+  attendeeId: integer('attendee_id').notNull().references(() => attendees.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade'
+  }),
   ticketType: varchar('ticket_type', { length: 20 }).notNull().$type<keyof typeof TicketType>(),
   purchaseDate: timestamp('purchase_date').defaultNow().notNull(),
   status: varchar('status', { length: 20 }).notNull().$type<keyof typeof TicketStatus>(),
@@ -103,9 +133,15 @@ export const tickets = pgTable('tickets', {
 
 export const speakers = pgTable('speakers', {
   id: serial('id').primaryKey(),
+  eventId: integer('event_id').notNull().references(() => events.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade'
+  }),
+  organizerId: integer('organizer_id').notNull().references(() => organizers.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade'
+  }),
   stripeConnectAccountId: varchar('stripe_connect_account_id', { length: 255 }).unique(),
-  eventId: integer('event_id').notNull().references(() => events.id),
-  userId: integer('user_id').notNull().references(() => users.id),
   sessionTitle: varchar('session_title', { length: 255 }).notNull(),
   sessionDescription: text('session_description').notNull(),
   scheduledTime: timestamp('scheduled_time').notNull(),
@@ -133,8 +169,14 @@ export const payments = pgTable('payments', {
 
 export const surveys = pgTable('surveys', {
   id: serial('id').primaryKey(),
-  eventId: integer('event_id').notNull().references(() => events.id),
-  userId: integer('user_id').notNull().references(() => users.id),
+  eventId: integer('event_id').notNull().references(() => events.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade'
+  }),
+  attendeeId: integer('attendee_id').notNull().references(() => attendees.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade'
+  }),
   rating: integer('rating').notNull(),
   comments: text('comments'),
   speakerRating: integer('speaker_rating'),
@@ -152,41 +194,41 @@ export const reports = pgTable('reports', {
   generatedAt: timestamp('generated_at').defaultNow().notNull(),
   pdfUrl: text('pdf_url'),
   reportData: text('report_data'),
-  generatedBy: integer('generated_by').references(() => users.id),
+  generatedBy: integer('generated_by').references(() => organizers.id),
   dateRange: text('date_range'),
   filters: text('filters'),
 });
 
 // Relations
-export const usersRelations = relations(users, ({ many }) => ({
-  createdEvents: many(events, { relationName: 'organizer' }),
+export const organizersRelations = relations(organizers, ({ many }) => ({
+  events: many(events),
+  speakers: many(speakers),
+}));
+
+export const attendeesRelations = relations(attendees, ({ many }) => ({
   tickets: many(tickets),
-  speakerSessions: many(speakers),
   surveys: many(surveys),
 }));
 
 export const eventsRelations = relations(events, ({ one, many }) => ({
-  organizer: one(users, {
-    fields: [events.createdBy],
-    references: [users.id],
-    relationName: 'organizer'
+  organizer: one(organizers, {
+    fields: [events.organizerId],
+    references: [organizers.id],
   }),
   tickets: many(tickets),
   speakers: many(speakers),
   surveys: many(surveys),
-  reports: many(reports),
 }));
 
-export const ticketsRelations = relations(tickets, ({ one, many }) => ({
+export const ticketsRelations = relations(tickets, ({ one }) => ({
   event: one(events, {
     fields: [tickets.eventId],
     references: [events.id],
   }),
-  attendee: one(users, {
-    fields: [tickets.userId],
-    references: [users.id],
+  attendee: one(attendees, {
+    fields: [tickets.attendeeId],
+    references: [attendees.id],
   }),
-  payments: many(payments),
 }));
 
 export const speakersRelations = relations(speakers, ({ one }) => ({
@@ -194,9 +236,9 @@ export const speakersRelations = relations(speakers, ({ one }) => ({
     fields: [speakers.eventId],
     references: [events.id],
   }),
-  speaker: one(users, {
-    fields: [speakers.userId],
-    references: [users.id],
+  organizer: one(organizers, {
+    fields: [speakers.organizerId],
+    references: [organizers.id],
   }),
 }));
 
@@ -212,9 +254,9 @@ export const surveysRelations = relations(surveys, ({ one }) => ({
     fields: [surveys.eventId],
     references: [events.id],
   }),
-  attendee: one(users, {
-    fields: [surveys.userId],
-    references: [users.id],
+  attendee: one(attendees, {
+    fields: [surveys.attendeeId],
+    references: [attendees.id],
   }),
 }));
 
@@ -223,8 +265,8 @@ export const reportsRelations = relations(reports, ({ one }) => ({
     fields: [reports.eventId],
     references: [events.id],
   }),
-  generator: one(users, {
+  generator: one(organizers, {
     fields: [reports.generatedBy],
-    references: [users.id],
+    references: [organizers.id],
   }),
 }));

@@ -16,9 +16,20 @@ import {
 } from "@/components/ui/navigation-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu } from "lucide-react"
+import { useSession, signOut } from "next-auth/react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = React.useState(false)
+  const { data: session } = useSession()
+  const [isDropdownOpen, setIsDropdownOpen] = React.useState(false)
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -28,20 +39,51 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const ListItem = React.forwardRef<
+    React.ElementRef<"a">,
+    React.ComponentPropsWithoutRef<"a"> & { title: string }
+  >(({ className, title, children, ...props }, ref) => {
+    return (
+      <li>
+        <NavigationMenuLink asChild>
+          <a
+            ref={ref}
+            className={cn(
+              "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
+              "hover:bg-indigo-500/10 hover:text-white focus:bg-indigo-500/10 focus:text-white",
+              className
+            )}
+            {...props}
+          >
+            <div className="text-sm font-medium leading-none text-white">{title}</div>
+            <p className="line-clamp-2 text-sm leading-snug text-zinc-400 mt-2">
+              {children}
+            </p>
+          </a>
+        </NavigationMenuLink>
+      </li>
+    )
+  })
+  ListItem.displayName = "ListItem"
+
   return (
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
+      transition={{ duration: 0.3 }}
       className={cn(
         "sticky top-0 z-50 w-full transition-all duration-300",
         isScrolled 
-          ? "border-b border-zinc-800/50 bg-gray-950/80 backdrop-blur-xl supports-[backdrop-filter]:bg-gray-950/80" 
+          ? "border-b border-white/10 bg-white/[0.02] backdrop-blur-[12px] backdrop-saturate-[1.8] supports-[backdrop-filter]:bg-background/60" 
           : "bg-transparent"
       )}
     >
-      <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center gap-6">
-          <Link href="/" className="flex items-center space-x-2">
+      <div className="container flex h-16 items-center justify-between bg-gradient-to-r from-gray-950/50 via-transparent to-gray-950/50">
+        <div className="flex items-center gap-8">
+          <Link 
+            href="/" 
+            className="flex items-center space-x-2 transition-opacity hover:opacity-80"
+          >
             <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#6366F1] via-[#8B94FA] to-[#6366F1]">EventFlow</span>
           </Link>
 
@@ -51,47 +93,43 @@ const Navbar = () => {
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <Link href="/features" legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "text-zinc-400 hover:text-white")}>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "text-zinc-300 hover:text-white")}>
                       Features
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="text-zinc-400 hover:text-white">Resources</NavigationMenuTrigger>
+                  <NavigationMenuTrigger className="text-zinc-300 hover:text-white">Resources</NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid gap-3 p-4 w-[200px] bg-gray-950/95 backdrop-blur-xl border border-zinc-800/50">
-                      <li>
+                    <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr] bg-gray-950 border border-zinc-800/50 rounded-lg shadow-lg">
+                      <li className="row-span-3">
                         <NavigationMenuLink asChild>
                           <Link
                             href="/docs"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-indigo-500/10 hover:text-white focus:bg-indigo-500/10 focus:text-white"
+                            className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-indigo-500/10 to-indigo-500/20 p-6 no-underline outline-none focus:shadow-md"
                           >
-                            <div className="text-sm font-medium leading-none">Documentation</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-zinc-400">
-                              Learn how to use EventFlow
+                            <div className="mb-2 mt-4 text-lg font-medium text-white">Documentation</div>
+                            <p className="text-sm leading-tight text-zinc-400">
+                              Learn how to integrate and use EventFlow effectively
                             </p>
                           </Link>
                         </NavigationMenuLink>
                       </li>
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link
-                            href="/blog"
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-indigo-500/10 hover:text-white focus:bg-indigo-500/10 focus:text-white"
-                          >
-                            <div className="text-sm font-medium leading-none">Blog</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-zinc-400">
-                              Latest updates and guides
-                            </p>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
+                      <ListItem href="/guides" title="Guides">
+                        Step-by-step guides for common EventFlow use cases
+                      </ListItem>
+                      <ListItem href="/blog" title="Blog">
+                        Latest updates, tips, and best practices
+                      </ListItem>
+                      <ListItem href="/api" title="API Reference">
+                        Detailed API documentation and examples
+                      </ListItem>
                     </ul>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <Link href="/pricing" legacyBehavior passHref>
-                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "text-zinc-400 hover:text-white")}>
+                    <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "text-zinc-300 hover:text-white")}>
                       Pricing
                     </NavigationMenuLink>
                   </Link>
@@ -103,35 +141,105 @@ const Navbar = () => {
 
         {/* Auth Buttons */}
         <div className="flex items-center gap-4">
-          <div className="hidden sm:flex">
-            <Button variant="ghost" className="text-zinc-400 hover:text-white hover:bg-indigo-500/10">
-              Sign In
-            </Button>
-          </div>
-          <Button className="relative h-10 px-6 text-sm font-medium rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-600 border-0 shadow-[0_0_0_1px_rgba(99,102,241,0.1)] hover:shadow-[0_0_0_2px_rgba(99,102,241,0.2)] transition-all duration-300">
-            Get Started
-          </Button>
+          {session ? (
+            <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
+              <DropdownMenuTrigger asChild onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+                <Button 
+                  variant="ghost" 
+                  className="relative h-9 w-9 rounded-full ring-2 ring-zinc-800 hover:ring-zinc-700 transition-all"
+                >
+                  <Avatar className="h-9 w-9">
+                    <AvatarImage src={session.user?.name || ""} alt={session.user?.name || ""} />
+                    <AvatarFallback className="bg-indigo-500/10 text-indigo-500">
+                      {session.user?.name?.charAt(0).toUpperCase()}
+                    </AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-64 mt-2 bg-gray-950 border border-zinc-800/50" align="end">
+                <div className="flex flex-col space-y-1 p-2">
+                  <p className="text-sm font-medium text-zinc-200">{session.user?.name}</p>
+                  <p className="text-xs text-zinc-400 truncate">
+                    {session.user?.email}
+                  </p>
+                </div>
+                <DropdownMenuSeparator className="bg-zinc-800/50" />
+                <DropdownMenuItem asChild className="focus:bg-indigo-500/10">
+                  <Link href="/dashboard" className="cursor-pointer">Dashboard</Link>
+                </DropdownMenuItem>
+                {session.user?.role === "ATTENDEE" && !session.user?.onboardingCompleted && (
+                  <DropdownMenuItem asChild className="focus:bg-indigo-500/10">
+                    <Link href="/onboarding" className="cursor-pointer">Complete Profile</Link>
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuSeparator className="bg-zinc-800/50" />
+                <DropdownMenuItem
+                  className="text-red-500 focus:text-red-500 focus:bg-red-500/10 cursor-pointer"
+                  onClick={() => signOut()}
+                >
+                  Sign Out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <div className="hidden sm:flex">
+                <Button 
+                  variant="ghost" 
+                  asChild 
+                  className="text-zinc-300 hover:text-white hover:bg-indigo-500/10"
+                >
+                  <Link href="/auth/signin">Sign In</Link>
+                </Button>
+              </div>
+              <Button 
+                asChild 
+                className="relative h-10 px-6 text-sm font-medium rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-600 border-0 shadow-lg hover:shadow-indigo-500/25 transition-all duration-300"
+              >
+                <Link href="/auth/register">Get Started</Link>
+              </Button>
+            </>
+          )}
 
           {/* Mobile Menu */}
           <div className="flex md:hidden">
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="text-zinc-400 hover:text-white">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="text-zinc-300 hover:text-white hover:bg-indigo-500/10"
+                >
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-64 bg-gray-950/95 backdrop-blur-xl border-zinc-800/50">
-                <nav className="flex flex-col gap-4">
-                  <Link href="/features" className="text-zinc-400 hover:text-white transition-colors">
+              <SheetContent 
+                side="right" 
+                className="w-80 bg-gray-950 border-zinc-800/50"
+              >
+                <nav className="flex flex-col gap-4 mt-8">
+                  <Link 
+                    href="/features" 
+                    className="text-zinc-300 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-indigo-500/10"
+                  >
                     Features
                   </Link>
-                  <Link href="/docs" className="text-zinc-400 hover:text-white transition-colors">
+                  <Link 
+                    href="/docs" 
+                    className="text-zinc-300 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-indigo-500/10"
+                  >
                     Documentation
                   </Link>
-                  <Link href="/blog" className="text-zinc-400 hover:text-white transition-colors">
+                  <Link 
+                    href="/blog" 
+                    className="text-zinc-300 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-indigo-500/10"
+                  >
                     Blog
                   </Link>
-                  <Link href="/pricing" className="text-zinc-400 hover:text-white transition-colors">
+                  <Link 
+                    href="/pricing" 
+                    className="text-zinc-300 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-indigo-500/10"
+                  >
                     Pricing
                   </Link>
                 </nav>
