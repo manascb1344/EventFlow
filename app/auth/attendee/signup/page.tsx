@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { register } from "./actions";
+import { FcGoogle } from "react-icons/fc";
 
 export default function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
@@ -57,96 +58,101 @@ export default function SignUp() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center relative">
-      <div className="w-full max-w-md space-y-8 px-4 py-8 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center space-y-4">
-          <h1 className="text-4xl font-bold tracking-tight text-white">Sign Up</h1>
-          <p className="text-sm text-gray-400">
-            Already have an account?{" "}
-            <Link href="/auth/attendee/signin" className="font-semibold text-indigo-400 hover:text-indigo-300">
-              Sign in
-            </Link>
-          </p>
+    <div className="flex min-h-screen flex-col items-center justify-center bg-background">
+      <div className="w-full max-w-md space-y-8 p-8 rounded-lg border border-border">
+        <div className="text-center space-y-2">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">Create an Account</h1>
+          <p className="text-muted-foreground">Sign up to attend amazing events</p>
         </div>
 
-        <form onSubmit={onSubmit} className="mt-8 space-y-6">
+        <form onSubmit={onSubmit} className="space-y-6">
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md text-sm">
-              {error}
+            <div className="bg-destructive/10 text-destructive rounded-md p-3">
+              <p className="text-sm font-medium">{error}</p>
             </div>
           )}
 
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email address</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                required
-                placeholder="you@example.com"
-                disabled={isLoading}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                required
-                disabled={isLoading}
-                minLength={8}
-                placeholder="••••••••"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
-              <Input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                required
-                disabled={isLoading}
-                minLength={8}
-                placeholder="••••••••"
-              />
-            </div>
+          <div className="space-y-2">
+            <Label htmlFor="email" className="text-foreground">Email address</Label>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              required
+              placeholder="you@example.com"
+              className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors"
+              disabled={isLoading}
+            />
           </div>
 
-          <Button className="w-full" type="submit" disabled={isLoading}>
+          <div className="space-y-2">
+            <Label htmlFor="password" className="text-foreground">Password</Label>
+            <Input
+              id="password"
+              name="password"
+              type="password"
+              required
+              minLength={8}
+              className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors"
+              disabled={isLoading}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="confirmPassword" className="text-foreground">Confirm Password</Label>
+            <Input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              required
+              minLength={8}
+              className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors"
+              disabled={isLoading}
+            />
+          </div>
+
+          <Button
+            type="submit"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-bold border-2 border-primary-foreground/20 h-12"
+            disabled={isLoading}
+          >
             {isLoading ? (
-              <div className="inline-block animate-spin h-4 w-4 border-2 border-current border-t-transparent text-white rounded-full mr-2" />
-            ) : null}
-            Sign up
+              <div className="flex items-center justify-center gap-2">
+                <div className="h-5 w-5 animate-spin rounded-full border-3 border-current border-t-transparent" />
+                <span>Creating Account...</span>
+              </div>
+            ) : (
+              "Create Account"
+            )}
           </Button>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <Separator className="w-full border-border" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+            </div>
+          </div>
+
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full border-white/30 hover:border-white/40 bg-transparent backdrop-blur-sm text-white transition-all hover:shadow-[0_0_25px_rgba(0,0,0,0.1)] active:scale-[0.98] flex items-center justify-center gap-2"
+            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+            disabled={isLoading}
+          >
+            <FcGoogle className="w-5 h-5" />
+            Continue with Google
+          </Button>
+
+          <p className="text-center text-sm text-muted-foreground">
+            Already have an account?{" "}
+            <Link href="/auth/attendee/signin" className="text-primary hover:text-primary/90 font-medium">
+              Sign in
+            </Link>
+          </p>
         </form>
-
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <Separator />
-          </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">
-              Or continue with
-            </span>
-          </div>
-        </div>
-
-        <Button
-          variant="outline"
-          type="button"
-          disabled={isLoading}
-          className="w-full"
-          onClick={() => signIn("google", { callbackUrl: "/" })}
-        >
-          {isLoading ? (
-            <div className="inline-block animate-spin h-4 w-4 border-2 border-current border-t-transparent text-white rounded-full mr-2" />
-          ) : null}
-          Continue with Google
-        </Button>
       </div>
     </div>
   );

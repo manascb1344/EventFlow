@@ -73,80 +73,95 @@ export default function Register() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
-      <div className="w-full max-w-sm space-y-6 p-4">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-background">
+      <div className="w-full max-w-md space-y-8 p-8 rounded-lg border border-border">
         <div className="text-center space-y-2">
-          <h1 className="text-2xl font-bold">Create an Organizer Account</h1>
-          <p className="text-zinc-400">Sign up to start organizing events</p>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">Create an Organizer Account</h1>
+          <p className="text-muted-foreground">Sign up to start organizing events</p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="name">Full Name</Label>
+            <Label htmlFor="name" className="text-foreground">Full Name</Label>
             <Input
               id="name"
               placeholder="John Doe"
+              className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors"
               {...registerField("name")}
             />
             {errors.name && (
-              <p className="text-sm text-red-500">{errors.name.message}</p>
+              <p className="text-sm text-destructive font-medium">{errors.name.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email" className="text-foreground">Email</Label>
             <Input
               id="email"
               type="email"
               placeholder="john@example.com"
+              className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors"
               {...registerField("email")}
             />
             {errors.email && (
-              <p className="text-sm text-red-500">{errors.email.message}</p>
+              <p className="text-sm text-destructive font-medium">{errors.email.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password" className="text-foreground">Password</Label>
             <Input
               id="password"
               type="password"
-              placeholder="********"
+              className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors"
               {...registerField("password")}
             />
             {errors.password && (
-              <p className="text-sm text-red-500">{errors.password.message}</p>
+              <p className="text-sm text-destructive font-medium">{errors.password.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirm Password</Label>
+            <Label htmlFor="confirmPassword" className="text-foreground">Confirm Password</Label>
             <Input
               id="confirmPassword"
               type="password"
-              placeholder="********"
+              className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors"
               {...registerField("confirmPassword")}
             />
             {errors.confirmPassword && (
-              <p className="text-sm text-red-500">{errors.confirmPassword.message}</p>
+              <p className="text-sm text-destructive font-medium">{errors.confirmPassword.message}</p>
             )}
           </div>
 
           {error && (
-            <p className="text-sm text-red-500">{error}</p>
+            <div className="bg-destructive/10 text-destructive rounded-md p-3">
+              <p className="text-sm font-medium">{error}</p>
+            </div>
           )}
 
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? "Creating account..." : "Create Organizer Account"}
+          <Button
+            type="submit"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-bold border-2 border-primary-foreground/20 h-12"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <div className="flex items-center justify-center gap-2">
+                <div className="h-5 w-5 animate-spin rounded-full border-3 border-current border-t-transparent" />
+                <span>Creating Account...</span>
+              </div>
+            ) : (
+              "Create Account"
+            )}
           </Button>
-        </form>
 
-        <p className="text-center text-sm text-zinc-400">
-          Already have an organizer account?{" "}
-          <Link href="/auth/organizer/signin" className="text-indigo-500 hover:text-indigo-400">
-            Sign in
-          </Link>
-        </p>
+          <p className="text-center text-sm text-muted-foreground">
+            Already have an account?{" "}
+            <Link href="/auth/organizer/signin" className="text-primary hover:text-primary/90 font-medium">
+              Sign in
+            </Link>
+          </p>
+        </form>
       </div>
     </div>
   )
