@@ -8,6 +8,14 @@ const publicRoutes = [
   "/auth/attendee/signup",
   "/auth/organizer/signup",
   "/auth/organizer/signin",
+  "/features",
+  "/about",
+  "/contact",
+  "/pricing",
+  "/blog",
+  "/careers",
+  "/docs",
+  "/changelog"
 ];
 
 // Routes that require onboarding completion for organizers
