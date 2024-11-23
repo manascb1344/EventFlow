@@ -18,6 +18,11 @@ const Navbar = () => {
   const { data: session, status } = useSession()
   const [isScrolled, setIsScrolled] = React.useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false)
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +34,7 @@ const Navbar = () => {
 
   const getNavItems = () => {
     // During loading state or if session is not available, return default navigation
-    if (status === "loading") {
+    if (!mounted || status === "loading" || !session) {
       return [
         { href: "/features", label: "Features" },
         { href: "/events", label: "Events" },
@@ -96,7 +101,7 @@ const Navbar = () => {
 
         {/* Auth Buttons */}
         <div className="flex items-center gap-4">
-          {session ? (
+          {!mounted ? null : session ? (
             <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
               <DropdownMenuTrigger asChild onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                 <Button
