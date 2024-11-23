@@ -12,25 +12,19 @@ import { signIn } from "next-auth/react"
 import Link from "next/link"
 import { useState } from "react"
 
-const organizerRegisterSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string()
-    .min(8, "Password must be at least 8 characters")
-    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-    .regex(/[0-9]/, "Password must contain at least one number")
-    .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"),
-  confirmPassword: z.string(),
+const registerSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+  confirmPassword: z.string().min(8, "Password must be at least 8 characters"),
   name: z.string().min(2, "Name must be at least 2 characters"),
-  organization: z.string().min(2, "Organization name must be at least 2 characters"),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],
 });
 
-type OrganizerRegisterFormData = z.infer<typeof organizerRegisterSchema>;
+type RegisterFormData = z.infer<typeof registerSchema>;
 
-export default function OrganizerRegister() {
+export default function Register() {
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
 
@@ -38,18 +32,17 @@ export default function OrganizerRegister() {
     register: registerField,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<OrganizerRegisterFormData>({
-    resolver: zodResolver(organizerRegisterSchema),
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit = async (data: OrganizerRegisterFormData) => {
+  const onSubmit = async (data: RegisterFormData) => {
     try {
       const formData = new FormData();
       formData.append("email", data.email);
       formData.append("password", data.password);
       formData.append("name", data.name);
       formData.append("role", "ORGANIZER");
-      formData.append("organization", data.organization);
 
       const result = await register(formData);
 
@@ -58,7 +51,7 @@ export default function OrganizerRegister() {
         return;
       }
 
-      // Sign in the organizer after successful registration
+      // Sign in the user after successful registration
       const signInResult = await signIn("credentials", {
         email: data.email,
         password: data.password,
@@ -71,8 +64,8 @@ export default function OrganizerRegister() {
         return;
       }
 
-      // Redirect to onboarding first
-      router.push("/onboarding/organizer");
+      // Redirect to the appropriate onboarding page based on role
+      router.push(`/onboarding/organizer`);
       router.refresh();
     } catch (error) {
       setError("Something went wrong");
@@ -101,18 +94,6 @@ export default function OrganizerRegister() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="organization">Organization Name</Label>
-            <Input
-              id="organization"
-              placeholder="Event Masters Inc."
-              {...registerField("organization")}
-            />
-            {errors.organization && (
-              <p className="text-sm text-red-500">{errors.organization.message}</p>
-            )}
-          </div>
-
-          <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
@@ -130,6 +111,7 @@ export default function OrganizerRegister() {
             <Input
               id="password"
               type="password"
+              placeholder="********"
               {...registerField("password")}
             />
             {errors.password && (
@@ -142,6 +124,7 @@ export default function OrganizerRegister() {
             <Input
               id="confirmPassword"
               type="password"
+              placeholder="********"
               {...registerField("confirmPassword")}
             />
             {errors.confirmPassword && (
@@ -150,27 +133,21 @@ export default function OrganizerRegister() {
           </div>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 rounded p-3">
-              <p className="text-sm text-red-600">{error}</p>
-            </div>
+            <p className="text-sm text-red-500">{error}</p>
           )}
 
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Creating Account..." : "Create Account"}
+          <Button type="submit" className="w-full" disabled={isSubmitting}>
+            {isSubmitting ? "Creating account..." : "Create Organizer Account"}
           </Button>
-
-          <p className="text-sm text-center text-zinc-400">
-            Already have an account?{" "}
-            <Link href="/auth/signin" className="text-blue-500 hover:underline">
-              Sign In
-            </Link>
-          </p>
         </form>
+
+        <p className="text-center text-sm text-zinc-400">
+          Already have an organizer account?{" "}
+          <Link href="/auth/organizer/signin" className="text-indigo-500 hover:text-indigo-400">
+            Sign in
+          </Link>
+        </p>
       </div>
     </div>
-  );
+  )
 }

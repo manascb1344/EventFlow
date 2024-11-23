@@ -177,8 +177,8 @@ export const authOptions: AuthOptions = {
     },
   },
   pages: {
-    signIn: '/auth/signin',
-    newUser: '/auth/register',
+    signIn: '/auth/attendee/signin',
+    newUser: '/auth/attendee/signup',
   },
   session: {
     strategy: "jwt",

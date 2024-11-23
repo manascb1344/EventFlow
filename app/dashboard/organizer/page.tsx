@@ -12,7 +12,7 @@ export default function OrganizerDashboard() {
 
   // Redirect if not authenticated or not an organizer
   if (status === "unauthenticated") {
-    redirect("/auth/signin");
+    redirect("/auth/organizer/signin");
   }
 
   if (session?.user?.role !== "ORGANIZER") {

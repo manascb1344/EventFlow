@@ -1,48 +1,50 @@
 'use client';
 
-import { signIn, useSession } from "next-auth/react"
+import { getProviders, signIn, ClientSafeProvider } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { useRouter } from "next/navigation"
+import { Separator } from "@/components/ui/separator"
 import Link from 'next/link';
 
-const organizerSignInSchema = z.object({
+const signInSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
 });
 
-type OrganizerSignInFormData = z.infer<typeof organizerSignInSchema>;
+type SignInFormData = z.infer<typeof signInSchema>;
 
-export default function OrganizerSignIn() {
+export default function SignIn() {
+  const [providers, setProviders] = useState<Record<string, ClientSafeProvider> | null>(null)
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
-  const { data: session } = useSession()
-
-  useEffect(() => {
-    if (session?.user?.role === "ORGANIZER") {
-      router.push("/dashboard/organizer")
-    }
-  }, [session, router])
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<OrganizerSignInFormData>({
-    resolver: zodResolver(organizerSignInSchema),
+  } = useForm<SignInFormData>({
+    resolver: zodResolver(signInSchema),
   });
 
-  const onSubmit = async (data: OrganizerSignInFormData) => {
+  useEffect(() => {
+    const fetchProviders = async () => {
+      const providers = await getProviders()
+      setProviders(providers)
+    }
+    fetchProviders()
+  }, [])
+
+  const onSubmit = async (data: SignInFormData) => {
     try {
       const result = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        role: "ORGANIZER",
         redirect: false,
       });
 
@@ -51,7 +53,7 @@ export default function OrganizerSignIn() {
         return;
       }
 
-      router.push("/dashboard/organizer");
+      router.push("/dashboard");
       router.refresh();
     } catch (error) {
       setError("Something went wrong");
@@ -62,11 +64,11 @@ export default function OrganizerSignIn() {
     <div className="flex min-h-screen items-center justify-center relative">
       <div className="w-full max-w-md space-y-8 px-4 py-8 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center space-y-4">
-          <h1 className="text-4xl font-bold tracking-tight text-white">Organizer Sign In</h1>
+          <h1 className="text-4xl font-bold tracking-tight text-white">Sign In</h1>
           <p className="text-sm text-gray-400">
-            Don&apos;t have an organizer account?{" "}
-            <Link href="/auth/register/organizer" className="font-semibold text-indigo-400 hover:text-indigo-300">
-              Register as organizer
+            Don&apos;t have an account?{" "}
+            <Link href="/auth/attendee/signup" className="font-semibold text-indigo-400 hover:text-indigo-300">
+              Sign up
             </Link>
           </p>
         </div>
@@ -106,11 +108,28 @@ export default function OrganizerSignIn() {
           </Button>
         </form>
 
-        <div className="text-center text-sm text-gray-400">
-          <Link href="/auth/signin" className="text-indigo-400 hover:text-indigo-300">
-            Sign in as attendee instead
-          </Link>
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <Separator className="w-full" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-background px-2 text-muted-foreground">
+              Or continue with
+            </span>
+          </div>
         </div>
+
+        {providers?.google && (
+          <Button
+            variant="outline"
+            type="button"
+            className="w-full"
+            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+            disabled={isSubmitting}
+          >
+            Continue with Google
+          </Button>
+        )}
       </div>
     </div>
   )

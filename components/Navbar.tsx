@@ -149,14 +149,14 @@ const Navbar = () => {
                   asChild
                   className="text-zinc-300 hover:text-white hover:bg-indigo-500/10"
                 >
-                  <Link href="/auth/signin">Sign In</Link>
+                  <Link href="/auth/attendee/signin">Sign In</Link>
                 </Button>
               </div>
               <Button
                 asChild
                 className="relative h-10 px-6 text-sm font-medium rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-600 border-0 shadow-lg hover:shadow-indigo-500/25 transition-all duration-300"
               >
-                <Link href="/auth/register">Get Started</Link>
+                <Link href="/auth/attendee/signup">Get Started</Link>
               </Button>
             </>
           )}
@@ -190,13 +190,13 @@ const Navbar = () => {
                   {!session?.user && (
                     <>
                       <Link
-                        href="/auth/signin"
+                        href="/auth/attendee/signin"
                         className="text-zinc-300 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-indigo-500/10"
                       >
                         Sign In
                       </Link>
                       <Link
-                        href="/auth/register"
+                        href="/auth/attendee/signup"
                         className="text-white bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-600 transition-colors px-4 py-2 rounded-lg"
                       >
                         Get Started

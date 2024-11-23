@@ -4,11 +4,10 @@ import { NextResponse } from "next/server";
 // Public routes that don't require authentication
 const publicRoutes = [
   "/",
-  "/auth/signin", 
-  "/auth/signup",
-  "/auth/register",
-  "/auth/register/organizer",
-  "/auth/organizer-signin",
+  "/auth/attendee/signin", 
+  "/auth/attendee/signup",
+  "/auth/organizer/signup",
+  "/auth/organizer/signin",
 ];
 
 // Routes that require onboarding completion for organizers
@@ -81,7 +80,7 @@ export default withAuth(
       },
     },
     pages: {
-      signIn: "/auth/signin"
+      signIn: "/auth/attendee/signin"
     },
   }
 );

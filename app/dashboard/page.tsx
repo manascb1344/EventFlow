@@ -10,7 +10,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (!session?.user) {
-      router.push('/auth/signin');
+      router.push('/auth/attendee/signin');
       return;
     }
 

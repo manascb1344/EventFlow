@@ -16,6 +16,7 @@ import { useState, useEffect } from "react"
 
 const organizerOnboardingSchema = z.object({
   organization: z.string().min(2, "Organization name is required"),
+  phoneNumber: z.string().min(10, "Please enter a valid phone number"),
   bio: z.string().optional(),
 });
 
@@ -29,7 +30,7 @@ export default function OrganizerOnboarding() {
   // Redirect if user is not authenticated or is not an organizer
   useEffect(() => {
     if (!session) {
-      router.push("/auth/signin");
+      router.push("/auth/organizer/signin");
       return;
     }
     if (session.user?.role !== "ORGANIZER") {
@@ -54,6 +55,7 @@ export default function OrganizerOnboarding() {
     try {
       const formData = new FormData();
       formData.append("organization", data.organization);
+      formData.append("phoneNumber", data.phoneNumber);
       if (data.bio) formData.append("bio", data.bio);
 
       const result = await completeOrganizerOnboarding(formData);
@@ -110,50 +112,54 @@ export default function OrganizerOnboarding() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="organization">
-                Organization Name
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <HelpCircle className="w-4 h-4 ml-2 inline-block text-muted-foreground" />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>The name of your organization that will be displayed to attendees</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </Label>
+              <Label htmlFor="organization">Organization Name</Label>
               <Input
                 id="organization"
                 placeholder="Event Masters Inc."
                 {...register("organization")}
               />
               {errors.organization && (
-                <p className="text-sm text-destructive">{errors.organization.message}</p>
+                <p className="text-sm text-red-500">{errors.organization.message}</p>
               )}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="bio">
-                Organization Bio
+              <Label htmlFor="phoneNumber">Phone Number</Label>
+              <Input
+                id="phoneNumber"
+                type="tel"
+                placeholder="+1 (555) 000-0000"
+                {...register("phoneNumber")}
+              />
+              {errors.phoneNumber && (
+                <p className="text-sm text-red-500">{errors.phoneNumber.message}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="bio">Bio</Label>
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <HelpCircle className="w-4 h-4 ml-2 inline-block text-muted-foreground" />
+                      <span className="cursor-help">
+                        <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                      </span>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>A brief description of your organization (optional)</p>
+                      <p>Tell us about your organization and events you plan to host</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
-              </Label>
+              </div>
               <Textarea
                 id="bio"
-                placeholder="Tell attendees about your organization..."
+                placeholder="Tell us about your organization..."
+                className="h-32"
                 {...register("bio")}
               />
               {errors.bio && (
-                <p className="text-sm text-destructive">{errors.bio.message}</p>
+                <p className="text-sm text-red-500">{errors.bio.message}</p>
               )}
             </div>
           </div>

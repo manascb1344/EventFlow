@@ -18,7 +18,7 @@ export default async function AttendeeDashboardPage() {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    redirect("/auth/signin");
+    redirect("/auth/attendee/signin");
   }
 
   const attendeeId = parseInt(session.user.id);

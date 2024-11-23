@@ -39,7 +39,7 @@ export default function AttendeeOnboarding() {
 
   useEffect(() => {
     if (!session) {
-      router.push("/auth/signin");
+      router.push("/auth/attendee/signin");
       return;
     }
     if (session.user?.role !== "ATTENDEE") {
