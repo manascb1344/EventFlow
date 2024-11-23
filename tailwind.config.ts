@@ -11,6 +11,10 @@ export default {
 	theme: {
 		extend: {
 			colors: {
+				destructive: {
+					DEFAULT: "#ef4444",
+					foreground: "#f8fafc",
+				},
 				p1: "#2EF2FF",
 				p2: "#3C52D9",
 				p3: "#C8EA80",
