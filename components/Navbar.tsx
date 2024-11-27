@@ -13,12 +13,14 @@ import { Menu } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { getProfileImage } from "@/app/actions/profile"
 
 const Navbar = () => {
   const { data: session, status } = useSession()
   const [isScrolled, setIsScrolled] = React.useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false)
   const [mounted, setMounted] = React.useState(false)
+  const [profileImage, setProfileImage] = React.useState<string | null>(null)
 
   React.useEffect(() => {
     setMounted(true)
@@ -31,6 +33,16 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  React.useEffect(() => {
+    const loadProfileImage = async () => {
+      if (session?.user) {
+        const image = await getProfileImage()
+        setProfileImage(image)
+      }
+    }
+    loadProfileImage()
+  }, [session])
 
   const getNavItems = () => {
     // During loading state or if session is not available, return default navigation
@@ -103,16 +115,11 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           {!mounted ? null : session ? (
             <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
-              <DropdownMenuTrigger asChild onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                <Button
-                  variant="ghost"
-                  className="relative h-9 w-9 rounded-full ring-2 ring-zinc-800 hover:ring-zinc-700 transition-all"
-                >
-                  <Avatar className="h-9 w-9">
-                    <AvatarImage src={session.user?.image || ""} alt={session.user?.name || ""} />
-                    <AvatarFallback className="bg-indigo-500/10 text-indigo-500">
-                      {session.user?.name?.charAt(0).toUpperCase()}
-                    </AvatarFallback>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage src={profileImage || session?.user?.image || undefined} alt="Profile" />
+                    <AvatarFallback>{session?.user?.name?.[0]?.toUpperCase() || "?"}</AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>

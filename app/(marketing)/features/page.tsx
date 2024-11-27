@@ -1,5 +1,6 @@
-import { Check, Calendar, Users, ChartBar, Sparkles, Shield, Zap, Globe, Clock, MessageSquare } from "lucide-react"
+import { Check, Calendar, Users, ChartBar, Sparkles, Shield, Zap, Globe, Clock, MessageSquare, Paintbrush } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default function FeaturesPage() {
   const mainFeatures = [
@@ -48,7 +49,6 @@ export default function FeaturesPage() {
       ]
     }
   ]
-
   const additionalFeatures = [
     {
       title: "Global Reach",
@@ -74,6 +74,11 @@ export default function FeaturesPage() {
       title: "Community Features",
       description: "Build engagement with integrated chat, networking, and social features.",
       icon: MessageSquare
+    },
+    {
+      title: "Customizable Branding",
+      description: "Tailor the event platform to match your brand identity and create a cohesive experience.",
+      icon: Paintbrush
     }
   ]
 
@@ -150,7 +155,9 @@ export default function FeaturesPage() {
         </p>
         <div className="flex gap-4 justify-center">
           <Button size="lg" className="bg-indigo-500 hover:bg-indigo-600">
-            Start Free Trial
+            <Link href="/auth/organizer/signin">
+              Start Free Trial
+            </Link>
           </Button>
           <Button size="lg" variant="outline">
             Schedule Demo

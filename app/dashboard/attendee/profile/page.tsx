@@ -13,6 +13,9 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useSession } from 'next-auth/react';
 import { toast } from 'sonner';
+import Image from "next/image";
+import { UploadDropzone } from "@uploadthing/react";
+import { UploadRouter } from "@/app/api/uploadthing/core";
 
 interface AttendeeProfile {
   id: number;
@@ -153,14 +156,46 @@ export default function AttendeeProfilePage() {
                 </div>
 
                 <div className="grid gap-3">
-                  <Label htmlFor="profileImage" className="text-p4 font-medium">Profile Image URL</Label>
-                  <Input
-                    id="profileImage"
-                    name="profileImage"
-                    defaultValue={attendee?.profileImage ?? ''}
-                    placeholder="Enter profile image URL"
-                    className="h-12 bg-s2/50 backdrop-blur-sm border-white/10 text-white placeholder:text-s3 focus:border-p1/50 hover:border-white/20 transition-colors"
-                  />
+                  <Label htmlFor="profileImage" className="text-p4 font-medium">Profile Image</Label>
+                  <div className="space-y-4">
+                    {attendee?.profileImage && (
+                      <div className="relative w-32 h-32 rounded-full overflow-hidden">
+                        <Image
+                          src={attendee.profileImage}
+                          alt="Profile"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
+                    <UploadDropzone<UploadRouter, "strictImageAttachment">
+                      endpoint="strictImageAttachment"
+                      onClientUploadComplete={async (res) => {
+                        if (res?.[0]) {
+                          // Update local state
+                          setAttendee((prev) => ({
+                            ...prev!,
+                            profileImage: res[0].url
+                          }));
+                          
+                          // Update database with all existing data
+                          const formData = new FormData();
+                          formData.set('name', attendee?.name || '');
+                          formData.set('phoneNumber', attendee?.phoneNumber || '');
+                          formData.set('interests', attendee?.interests || '');
+                          formData.set('dietaryRestrictions', attendee?.dietaryRestrictions || '');
+                          formData.set('preferredPaymentMethod', attendee?.preferredPaymentMethod || '');
+                          formData.set('notificationPreferences', String(attendee?.notificationPreferences || false));
+                          formData.set('profileImage', res[0].url);
+                          await updateAttendeeProfile(attendee?.id, formData);
+                        }
+                      }}
+                      onUploadError={(error: Error) => {
+                        console.error("Profile image upload error:", error);
+                      }}
+                      config={{ mode: "auto" }}
+                    />
+                  </div>
                 </div>
               </div>
 

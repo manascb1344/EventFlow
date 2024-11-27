@@ -3,6 +3,12 @@ import { attendees, organizers, events, tickets, speakers, surveys, payments, re
 import bcrypt from 'bcryptjs';
 
 async function seed() {
+  const getRandomImage = async (query: string) => {
+    const response = await fetch(`https://api.unsplash.com/photos/random?query=${query}&client_id=${process.env.UNSPLASH_API_KEY}`);
+    const data = await response.json();
+    return data.urls.regular;
+  };
+
   // Create test organizer
   const organizer = await db.insert(organizers).values({
     name: 'Test Organizer',
@@ -11,7 +17,7 @@ async function seed() {
     phoneNumber: '+1234567891',
     organization: 'Test Events Inc',
     bio: 'Test organizer bio',
-    profileImage: 'https://example.com/organizer.jpg',
+    profileImage: await getRandomImage('profile'),
     verificationStatus: true,
     totalEventsOrganized: 0,
     onboardingCompleted: true,
@@ -29,7 +35,7 @@ async function seed() {
     dietaryRestrictions: 'None', 
     totalEventsAttended: 0,
     notificationPreferences: true,
-    profileImage: 'https://example.com/attendee.jpg',
+    profileImage: await getRandomImage('profile'),
     onboardingCompleted: true,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -78,7 +84,6 @@ async function seed() {
   // Create future events
   const futureEvents = await Promise.all(
     eventNames.map(async (name, index) => {
-      // Create events starting from next month, each 15 days apart
       const startDate = new Date();
       startDate.setMonth(startDate.getMonth() + 1);
       startDate.setDate(startDate.getDate() + (index * 15));
@@ -96,7 +101,7 @@ async function seed() {
         organizerId: organizer[0].id,
         description: descriptions[index],
         eventStatus: 'PUBLISHED',
-        bannerImage: `https://example.com/event${index + 1}.jpg`,
+        bannerImage: await getRandomImage(name),
         venue: venues[index],
         venueCapacity: 300 + (index * 50),
         isPublic: true,
@@ -118,7 +123,6 @@ async function seed() {
 
   const pastEvents = await Promise.all(
     pastEventNames.map(async (name, index) => {
-      // Create events starting from 6 months ago, each 30 days apart
       const startDate = new Date();
       startDate.setMonth(startDate.getMonth() - 6);
       startDate.setDate(startDate.getDate() - (index * 30));
@@ -132,16 +136,16 @@ async function seed() {
         startDate,
         endDate,
         ticketPrice: `${299 + (index * 50)}.99`,
-        seatsAvailable: 0, // Past events are fully booked
+        seatsAvailable: 0,
         organizerId: organizer[0].id,
         description: descriptions[index],
         eventStatus: 'COMPLETED',
-        bannerImage: `https://example.com/past-event${index + 1}.jpg`,
+        bannerImage: await getRandomImage(name),
         venue: venues[index],
         venueCapacity: 300 + (index * 50),
         isPublic: true,
         registrationDeadline: new Date(startDate.getTime() - 7 * 24 * 60 * 60 * 1000),
-        createdAt: new Date(startDate.getTime() - 30 * 24 * 60 * 60 * 1000), // Created 30 days before start
+        createdAt: new Date(startDate.getTime() - 30 * 24 * 60 * 60 * 1000),
         updatedAt: new Date(endDate)
       }).returning();
     })
@@ -171,7 +175,7 @@ async function seed() {
     scheduledTime: new Date(futureEvents[0][0].startDate.getTime() + 2 * 60 * 60 * 1000),
     duration: 60,
     roomNumber: 'Room A1',
-    presentationUrl: 'https://example.com/presentation.pdf',
+    presentationUrl: await getRandomImage('presentation'),
     maxAttendees: 100,
     createdAt: new Date(),
     updatedAt: new Date()

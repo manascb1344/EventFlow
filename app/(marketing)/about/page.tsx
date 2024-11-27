@@ -38,7 +38,7 @@ export default function AboutPage() {
     {
       icon: Sparkles,
       title: "Innovation",
-      description: "Constantly pushing boundaries with AI and cutting-edge technology."
+      description: "Constantly pushing boundaries with cutting-edge technology."
     },
     {
       icon: Globe,
@@ -66,7 +66,7 @@ export default function AboutPage() {
     {
       name: "Manas Bavaskar",
       role: "CEO & Founder",
-      image: "https://images.unsplash.com/photo-",
+      image: "https://utfs.io/f/oEeAcIZsLgjpztmK9uO9RX704uqnL6UjYHsZw1ECM8ock2Wl",
       description: "Pre-final year student passionate about startups and SaaS, eager to innovate and contribute to the evolving tech landscape."
     }
   ]
@@ -79,21 +79,21 @@ export default function AboutPage() {
           About EventFlow
         </h1>
         <p className="text-xl text-zinc-400 max-w-2xl mx-auto mb-12">
-          Revolutionizing event management with AI-powered solutions
+          Revolutionizing event management with cutting-edge solutions
         </p>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="text-left">
             <h2 className="text-3xl font-bold text-white mb-6">Our Story</h2>
             <div className="space-y-4">
               <p className="text-zinc-400">
-                Founded in 2023, EventFlow emerged from a simple observation: event management 
-                was unnecessarily complex and disconnected. Our founders, seasoned event industry 
-                veterans, envisioned a platform that would revolutionize how events are created, 
+                Founded in 2023, EventFlow emerged from a simple observation: event management
+                was unnecessarily complex and disconnected. Our founders, seasoned event industry
+                veterans, envisioned a platform that would revolutionize how events are created,
                 managed, and experienced.
               </p>
               <p className="text-zinc-400">
-                Today, we're proud to be the platform of choice for thousands of event organizers 
-                worldwide, powered by cutting-edge AI technology and a passionate team dedicated 
+                Today, we're proud to be the platform of choice for thousands of event organizers
+                worldwide, powered by cutting-edge technology and a passionate team dedicated
                 to transforming the events industry.
               </p>
             </div>
@@ -163,27 +163,6 @@ export default function AboutPage() {
               <p className="text-zinc-400">{member.description}</p>
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* CTA Section */}
-      <div className="text-center">
-        <div className="inline-flex items-center justify-center p-1 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 mb-8">
-          <span className="px-4 py-1 rounded-full bg-zinc-900">We're hiring!</span>
-        </div>
-        <h2 className="text-3xl font-bold text-white mb-4">Join Our Team</h2>
-        <p className="text-zinc-400 mb-8 max-w-2xl mx-auto">
-          We're always looking for talented individuals who share our passion for 
-          revolutionizing the events industry. Check out our open positions and become 
-          part of our journey.
-        </p>
-        <div className="flex gap-4 justify-center">
-          <Button size="lg" className="bg-indigo-500 hover:bg-indigo-600">
-            View Open Positions
-          </Button>
-          <Button size="lg" variant="outline">
-            Learn About Culture
-          </Button>
         </div>
       </div>
     </div>

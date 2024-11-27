@@ -14,13 +14,13 @@ export default function ContactPage() {
     {
       icon: Phone,
       title: "Phone",
-      details: ["+1 (555) 123-4567", "+1 (555) 765-4321"],
-      description: "Mon-Fri from 9am to 6pm PST"
+      details: ["+91 99999 99999", "+91 87654 32109"],
+      description: "Mon-Fri from 9:30am to 6:30pm IST"
     },
     {
       icon: MapPin,
       title: "Office",
-      details: ["123 Innovation Drive", "San Francisco, CA 94105"],
+      details: ["VJTI", "Mumbai, Maharashtra 400019"],
       description: "Come visit us!"
     }
   ]
@@ -189,19 +189,6 @@ export default function ContactPage() {
               <p className="text-zinc-400 leading-relaxed">{faq.answer}</p>
             </div>
           ))}
-        </div>
-        <div className="text-center">
-          <p className="text-zinc-400 mb-4">
-            Can't find what you're looking for?
-          </p>
-          <Button 
-            variant="outline" 
-            size="lg"
-            className="inline-flex items-center hover:bg-indigo-500/10"
-          >
-            <MessageSquare className="h-4 w-4 mr-2" />
-            Start a Live Chat
-          </Button>
         </div>
       </div>
     </div>

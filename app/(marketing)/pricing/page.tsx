@@ -1,5 +1,6 @@
 import { Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export default function PricingPage() {
   const plans = [
@@ -25,7 +26,7 @@ export default function PricingPage() {
         "Priority support",
         "Custom branding",
         "1000 attendees per event",
-        "AI-powered insights",
+        "custom-powered insights",
         "Custom domains"
       ]
     },
@@ -40,7 +41,7 @@ export default function PricingPage() {
         "Custom integrations",
         "Dedicated account manager",
         "SLA guarantees",
-        "Custom AI models"
+        "Custom Service models"
       ]
     }
   ]
@@ -78,8 +79,11 @@ export default function PricingPage() {
               className={`w-full mb-8 ${
                 plan.name === "Pro" ? "bg-indigo-500 hover:bg-indigo-600" : ""
               }`}
+              asChild
             >
-              {plan.price === "Custom" ? "Contact Sales" : "Get Started"}
+              <Link href={plan.price === "Custom" ? "/contact" : "/auth/organizer/signup"}>
+                {plan.price === "Custom" ? "Contact Sales" : "Get Started"}
+              </Link>
             </Button>
             <ul className="space-y-4">
               {plan.features.map((feature, featureIndex) => (

@@ -8,7 +8,7 @@ import { Github, Twitter, Linkedin, Mail } from "lucide-react"
 
 const Footer = () => {
   return (
-    <motion.footer 
+    <motion.footer
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -20,7 +20,7 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-[#6366F1] via-[#8B94FA] to-[#6366F1]">EventFlow</h3>
             <p className="text-sm text-zinc-400">
-              Making event planning smarter and more efficient with AI-powered tools.
+              Making event planning smarter and more efficient.
             </p>
             <div className="flex space-x-4">
               <Button variant="ghost" size="icon" className="text-zinc-400 hover:text-white hover:bg-indigo-500/10" asChild>
@@ -60,16 +60,6 @@ const Footer = () => {
                   Pricing
                 </Link>
               </li>
-              <li>
-                <Link href="/docs" className="text-zinc-400 hover:text-white transition-colors">
-                  Documentation
-                </Link>
-              </li>
-              <li>
-                <Link href="/changelog" className="text-zinc-400 hover:text-white transition-colors">
-                  Changelog
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -80,16 +70,6 @@ const Footer = () => {
               <li>
                 <Link href="/about" className="text-zinc-400 hover:text-white transition-colors">
                   About
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="text-zinc-400 hover:text-white transition-colors">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/careers" className="text-zinc-400 hover:text-white transition-colors">
-                  Careers
                 </Link>
               </li>
               <li>
@@ -107,9 +87,9 @@ const Footer = () => {
               Subscribe to our newsletter for the latest updates.
             </p>
             <div className="flex gap-2">
-              <Input 
-                type="email" 
-                placeholder="Enter your email" 
+              <Input
+                type="email"
+                placeholder="Enter your email"
                 className="bg-zinc-900/50 border-zinc-800 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 placeholder:text-zinc-600"
               />
               <Button className="bg-indigo-600 hover:bg-indigo-500 transition-colors">

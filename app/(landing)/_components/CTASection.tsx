@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Sparkles } from "lucide-react";
+import Link from "next/link";
 
 export function CTASection() {
   return (
@@ -48,9 +49,11 @@ export function CTASection() {
             transition={{ delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-6 justify-center items-center"
           >
-            <Button size="lg" className="h-14 px-8 text-base rounded-full bg-primary hover:bg-primary/90 group">
-              Start Free Trial
-              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+            <Button size="lg" className="h-14 px-8 text-base rounded-full bg-primary hover:bg-primary/90 group" asChild>
+              <Link href="/auth/organizer/signin">
+                Start Free Trial
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </Link>
             </Button>
             <Button variant="outline" size="lg" className="h-14 px-8 text-base rounded-full border-primary/20 hover:bg-primary/10">
               Schedule Demo
