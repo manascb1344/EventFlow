@@ -84,8 +84,8 @@ export default async function AttendeeDashboardPage() {
           <CardContent>
             {upcomingEvents.length > 0 ? (
               <div className="divide-y divide-border rounded-md border">
-                {upcomingEvents.map((event) => (
-                  <div key={event.id} className="p-4">
+                {upcomingEvents.map((event, index) => (
+                  <div key={event.id + index} className="p-4">
                     <h3 className="font-semibold">{event.name}</h3>
                     <div className="mt-1 text-sm text-muted-foreground">
                       <p>{event.location}</p>

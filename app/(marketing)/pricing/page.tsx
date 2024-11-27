@@ -18,7 +18,7 @@ export default function PricingPage() {
     },
     {
       name: "Pro",
-      price: "49",
+      price: "4999",
       description: "Best for growing organizations",
       features: [
         "Unlimited events",
@@ -70,7 +70,7 @@ export default function PricingPage() {
             <h3 className="text-2xl font-bold text-white mb-2">{plan.name}</h3>
             <div className="mb-4">
               <span className="text-4xl font-bold text-white">
-                {plan.price === "Custom" ? "Custom" : `$${plan.price}`}
+                {plan.price === "Custom" ? "Custom" : `₹${plan.price}`}
               </span>
               {plan.price !== "Custom" && <span className="text-zinc-400">/month</span>}
             </div>

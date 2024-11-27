@@ -56,36 +56,38 @@ export default function EventsContent({ initialEvents }: EventsContentProps) {
   };
 
   return (
-    <div className="container mx-auto p-6 space-y-8">
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold">Events</h1>
-          <p className="text-zinc-500">Manage your events</p>
+    <div className="container mx-auto py-8 px-4 sm:px-6 lg:px-8 max-w-7xl space-y-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="space-y-1">
+          <h1 className="text-3xl font-bold tracking-tight text-white">Events</h1>
+          <p className="text-sm text-white/70">Manage your events and track their performance</p>
         </div>
-        <Button asChild>
-          <Link href="/dashboard/organizer/events/create">Create New Event</Link>
+        <Button size="lg" className="w-full sm:w-auto" asChild>
+          <Link href="/dashboard/organizer/events/create">
+            <span className="flex items-center gap-2">Create New Event</span>
+          </Link>
         </Button>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Your Events</CardTitle>
-          <CardDescription>
+      <Card className="shadow-sm border-zinc-200 bg-zinc-900/50">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-xl font-semibold text-white">Your Events</CardTitle>
+          <CardDescription className="text-sm text-white/70">
             View and manage all your created events
           </CardDescription>
         </CardHeader>
         <CardContent>
           {events.length === 0 ? (
-            <div className="text-center py-6">
-              <CalendarDays className="mx-auto h-12 w-12 text-zinc-400" />
-              <h3 className="mt-2 text-sm font-semibold text-zinc-900">
-                No events
+            <div className="text-center py-12">
+              <CalendarDays className="mx-auto h-12 w-12 text-white/30" />
+              <h3 className="mt-4 text-base font-medium text-white">
+                No events yet
               </h3>
-              <p className="mt-1 text-sm text-zinc-500">
-                Get started by creating a new event.
+              <p className="mt-2 text-sm text-white/70 max-w-sm mx-auto">
+                Get started by creating your first event. It only takes a few minutes.
               </p>
-              <div className="mt-6">
-                <Button asChild>
+              <div className="mt-8">
+                <Button size="lg" asChild>
                   <Link href="/dashboard/organizer/events/create">
                     Create New Event
                   </Link>
@@ -93,35 +95,46 @@ export default function EventsContent({ initialEvents }: EventsContentProps) {
               </div>
             </div>
           ) : (
-            <div className="relative overflow-x-auto">
+            <div className="relative overflow-x-auto -mx-6">
               <Table>
                 <TableHeader>
-                  <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Location</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Tickets</TableHead>
-                    <TableHead>Actions</TableHead>
+                  <TableRow className="border-zinc-700">
+                    <TableHead className="font-medium text-white/90">Name</TableHead>
+                    <TableHead className="font-medium text-white/90">Date</TableHead>
+                    <TableHead className="font-medium text-white/90">Location</TableHead>
+                    <TableHead className="font-medium text-white/90">Status</TableHead>
+                    <TableHead className="font-medium text-white/90">Tickets</TableHead>
+                    <TableHead className="font-medium text-white/90">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {events.map((event) => (
-                    <TableRow key={event.id}>
-                      <TableCell className="font-medium">{event.name}</TableCell>
-                      <TableCell>
+                    <TableRow key={event.id} className="hover:bg-zinc-800/50 border-zinc-700">
+                      <TableCell className="font-medium text-white">{event.name}</TableCell>
+                      <TableCell className="text-white/80">
                         {format(new Date(event.startDate), "PPP")}
                       </TableCell>
-                      <TableCell>{event.location}</TableCell>
-                      <TableCell>{event.eventStatus}</TableCell>
+                      <TableCell className="text-white/80">{event.location}</TableCell>
                       <TableCell>
-                        {event.ticketsSold || 0}/{event.seatsAvailable}
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize
+                          ${event.eventStatus === 'DRAFT' ? 'bg-yellow-500/20 text-yellow-200' : 
+                          event.eventStatus === 'PUBLISHED' ? 'bg-green-500/20 text-green-200' :
+                          event.eventStatus === 'CANCELED' ? 'bg-red-500/20 text-red-200' :
+                          'bg-zinc-500/20 text-white/80'}`}>
+                          {event.eventStatus.toLowerCase()}
+                        </span>
+                      </TableCell>
+                      <TableCell className="text-white/80">
+                        <span className="font-medium text-white">{event.ticketsSold || 0}</span>
+                        <span className="text-white/40">/</span>
+                        <span>{event.seatsAvailable}</span>
                       </TableCell>
                       <TableCell>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1">
                           <Button
                             variant="ghost"
                             size="icon"
+                            className="hover:bg-zinc-700 text-white/60 hover:text-white"
                             asChild
                           >
                             <Link href={`/dashboard/organizer/events/${event.id}`}>
@@ -131,17 +144,17 @@ export default function EventsContent({ initialEvents }: EventsContentProps) {
                           <Button
                             variant="ghost"
                             size="icon"
+                            className="hover:bg-zinc-700 text-white/60 hover:text-white"
                             asChild
                           >
-                            <Link
-                              href={`/dashboard/organizer/events/${event.id}/edit`}
-                            >
+                            <Link href={`/dashboard/organizer/events/${event.id}/edit`}>
                               <Edit className="h-4 w-4" />
                             </Link>
                           </Button>
                           <Button
                             variant="ghost"
                             size="icon"
+                            className="hover:bg-zinc-700 text-white/60 hover:text-red-300"
                             onClick={() => handleDeleteEvent(event.id)}
                           >
                             <Trash2 className="h-4 w-4" />

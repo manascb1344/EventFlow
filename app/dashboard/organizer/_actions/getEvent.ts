@@ -1,5 +1,6 @@
 'use server';
 
+import { authOptions } from "@/lib/auth/authOptions";
 import { db } from "@/lib/db/drizzle";
 import { events } from "@/lib/db/schema";
 import { eq, and } from "drizzle-orm";
@@ -7,7 +8,7 @@ import { getServerSession } from "next-auth";
 
 export async function getEvent(eventId: number) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
 
     if (!session?.user?.id) {
       return { error: "Unauthorized" };
@@ -31,7 +32,7 @@ export async function getEvent(eventId: number) {
 
     // Calculate tickets sold
     const ticketsSold = event.tickets?.filter(ticket => 
-      ticket.status === "confirmed" || ticket.status === "used"
+      ticket.status === "CONFIRMED" || ticket.status === "USED"
     ).length || 0;
 
     return {

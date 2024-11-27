@@ -26,7 +26,7 @@ export default async function SettingsPage() {
         heading="Settings"
         text="Manage your account settings and preferences."
       />
-      
+
       <div className="space-y-6">
         <Card>
           <CardHeader>
@@ -43,7 +43,11 @@ export default async function SettingsPage() {
                   Receive email updates about your registered events
                 </span>
               </Label>
-              <Switch id="email-notifications" defaultChecked />
+              <Switch 
+                id="email-notifications" 
+                className="border-white/10 data-[state=checked]:bg-p1" 
+                defaultChecked
+              />
             </div>
             <div className="flex items-center justify-between space-x-2">
               <Label htmlFor="marketing-emails" className="flex flex-col space-y-1">
@@ -52,7 +56,10 @@ export default async function SettingsPage() {
                   Receive emails about new events and features
                 </span>
               </Label>
-              <Switch id="marketing-emails" />
+              <Switch 
+                id="marketing-emails" 
+                className="border-white/10 data-[state=checked]:bg-p1" 
+              />
             </div>
           </CardContent>
         </Card>
@@ -72,7 +79,10 @@ export default async function SettingsPage() {
                   Allow other users to see your profile
                 </span>
               </Label>
-              <Switch id="public-profile" />
+              <Switch 
+                id="public-profile" 
+                className="border-white/10 data-[state=checked]:bg-p1" 
+              />
             </div>
             <div className="flex items-center justify-between space-x-2">
               <Label htmlFor="show-attendance" className="flex flex-col space-y-1">
@@ -81,7 +91,10 @@ export default async function SettingsPage() {
                   Show which events you're attending to other users
                 </span>
               </Label>
-              <Switch id="show-attendance" />
+              <Switch 
+                id="show-attendance" 
+                className="border-white/10 data-[state=checked]:bg-p1"
+              />
             </div>
           </CardContent>
         </Card>
@@ -101,7 +114,10 @@ export default async function SettingsPage() {
                   Add an extra layer of security to your account
                 </span>
               </Label>
-              <Switch id="two-factor" />
+              <Switch 
+                id="two-factor" 
+                className="border-white/10 data-[state=checked]:bg-p1" 
+              />
             </div>
           </CardContent>
         </Card>

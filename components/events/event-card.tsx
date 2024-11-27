@@ -117,7 +117,7 @@ export function EventCard({
           <span>
             {event.ticketPrice === "0.00" || event.ticketPrice === "0"
               ? "Free"
-              : `$${Number(event.ticketPrice).toFixed(2)}`}
+              : `₹${Number(event.ticketPrice).toFixed(2)}`}
           </span>
         </div>
         <Button asChild>

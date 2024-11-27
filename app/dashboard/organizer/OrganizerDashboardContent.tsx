@@ -30,7 +30,7 @@ export default function OrganizerDashboardContent({ profile, stats }: DashboardP
           </h1>
           <p className="text-zinc-400">Manage your events and track performance</p>
         </div>
-        <Button 
+        <Button
           className="relative h-10 px-6 text-sm font-medium rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-600 border-0 shadow-lg hover:shadow-indigo-500/25 transition-all duration-300"
         >
           <Link href="/dashboard/organizer/events/create">
@@ -111,14 +111,15 @@ export default function OrganizerDashboardContent({ profile, stats }: DashboardP
               <CardTitle className="text-lg font-medium text-zinc-200">Upcoming Events</CardTitle>
               <CardDescription className="text-zinc-400">Your next scheduled events</CardDescription>
             </div>
-            <Button variant="ghost" className="text-zinc-400 hover:text-zinc-200">
-              View all
-              <ChevronRight className="ml-2 h-4 w-4" />
-            </Button>
+            <Link href="/dashboard/organizer/events">
+              <Button variant="ghost" className="text-zinc-400 hover:text-zinc-200">
+                View all
+                <ChevronRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {/* Event list would go here */}
               <p className="text-zinc-400 text-sm">No upcoming events</p>
             </div>
           </CardContent>

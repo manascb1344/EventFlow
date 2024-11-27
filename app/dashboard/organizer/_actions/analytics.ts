@@ -85,6 +85,17 @@ interface OrganizerStats {
   revenueData: { date: string; revenue: number }[];
   ticketsByEvent: { event: string; tickets: number }[];
   ratingDistribution: { rating: number; count: number }[];
+  eventCompletionRate: number;
+  averageAttendanceRate: number;
+  ticketTypeDistribution: { type: string; count: number }[];
+  revenueByTicketType: { type: string; revenue: number }[];
+  refundRate: number;
+  paymentMethodDistribution: { method: string; count: number }[];
+  monthlyRecurringRevenue: { month: string; revenue: number }[];
+  attendeeRetentionRate: number;
+  firstTimeVsReturning: { type: string; count: number }[];
+  registrationTimingDistribution: { timing: string; count: number }[];
+  popularEventTimes: { time: string; count: number }[];
 }
 
 export async function getOrganizerStats(organizerId: number): Promise<{ success: true; stats: OrganizerStats } | { error: string }> {
@@ -102,7 +113,7 @@ export async function getOrganizerStats(organizerId: number): Promise<{ success:
 
     console.log("Date ranges:", { lastMonthStr, sixMonthsAgoStr, previousMonthStr });
 
-    const [basicStats, recentStats, revenueData, ticketsByEvent, ratingDistribution, salesGrowth] = await Promise.all([
+    const [basicStats, recentStats, revenueData, ticketsByEvent, ratingDistribution, salesGrowth, eventMetrics, ticketTypeStats, paymentStats, attendeeStats, timingStats] = await Promise.all([
       db.select({
         totalEvents: sql<number>`COUNT(DISTINCT ${events.id})`,
         totalTickets: sql<number>`COUNT(${tickets.id})`,
@@ -142,10 +153,10 @@ export async function getOrganizerStats(organizerId: number): Promise<{ success:
       })
         .from(events)
         .leftJoin(tickets, eq(tickets.eventId, events.id))
-        .where(and(eq(events.organizerId, organizerId), eq(events.eventStatus, EventStatus.COMPLETED)))
+        .where(eq(events.organizerId, organizerId))
         .groupBy(events.id, events.name)
         .orderBy(sql<number>`COUNT(${tickets.id}) DESC`)
-        .limit(10),
+        .limit(5),
 
       db.select({
         rating: surveys.rating,
@@ -164,15 +175,98 @@ export async function getOrganizerStats(organizerId: number): Promise<{ success:
         .from(tickets)
         .innerJoin(events, eq(events.id, tickets.eventId))
         .where(eq(events.organizerId, organizerId)),
+
+      db.select({
+        totalEvents: sql<number>`COUNT(*)`,
+        completedEvents: sql<number>`SUM(CASE WHEN ${events.eventStatus} = ${EventStatus.COMPLETED} THEN 1 ELSE 0 END)`,
+        totalAttendance: sql<number>`SUM(CASE WHEN ${tickets.status} = ${TicketStatus.USED} THEN 1 ELSE 0 END)`,
+      })
+        .from(events)
+        .leftJoin(tickets, eq(events.id, tickets.eventId))
+        .where(eq(events.organizerId, organizerId)),
+
+      db.select({
+        ticketType: tickets.ticketType,
+        count: sql<number>`COUNT(*)`,
+        revenue: sql<number>`COALESCE(SUM(${payments.amount}), 0)`,
+      })
+        .from(tickets)
+        .leftJoin(payments, eq(tickets.id, payments.ticketId))
+        .innerJoin(events, eq(tickets.eventId, events.id))
+        .where(eq(events.organizerId, organizerId))
+        .groupBy(tickets.ticketType),
+
+      db.select({
+        totalPayments: sql<number>`COUNT(*)`,
+        refundedPayments: sql<number>`SUM(CASE WHEN ${payments.paymentStatus} = ${PaymentStatus.REFUNDED} THEN 1 ELSE 0 END)`,
+        paymentMethod: payments.paymentMethod,
+      })
+        .from(payments)
+        .innerJoin(tickets, eq(payments.ticketId, tickets.id))
+        .innerJoin(events, eq(tickets.eventId, events.id))
+        .where(eq(events.organizerId, organizerId))
+        .groupBy(payments.paymentMethod),
+
+      db.select({
+        attendeeId: tickets.attendeeId,
+        purchaseCount: sql<number>`COUNT(*)`,
+      })
+        .from(tickets)
+        .innerJoin(events, eq(tickets.eventId, events.id))
+        .where(eq(events.organizerId, organizerId))
+        .groupBy(tickets.attendeeId),
+
+      db.select({
+        hour: sql<string>`EXTRACT(HOUR FROM ${events.startDate})::text`,
+        count: sql<number>`COUNT(*)`,
+      })
+        .from(events)
+        .where(eq(events.organizerId, organizerId))
+        .groupBy(sql`EXTRACT(HOUR FROM ${events.startDate})`)
+        .orderBy(sql`COUNT(*) DESC`)
+        .limit(10),
     ]);
 
-    console.log("Query results:", { basicStats, recentStats, revenueData, ticketsByEvent, ratingDistribution, salesGrowth });
+    console.log("Query results:", { basicStats, recentStats, revenueData, ticketsByEvent, ratingDistribution, salesGrowth, eventMetrics, ticketTypeStats, paymentStats, attendeeStats, timingStats });
 
     const ticketSalesGrowth = salesGrowth[0].previousMonthSales === 0 
       ? 100 
       : Math.round(((salesGrowth[0].currentMonthSales - salesGrowth[0].previousMonthSales) / salesGrowth[0].previousMonthSales) * 100);
 
-    console.log("Calculated ticket sales growth:", ticketSalesGrowth);
+    const eventCompletionRate = eventMetrics[0].completedEvents / eventMetrics[0].totalEvents;
+    const averageAttendanceRate = eventMetrics[0].totalAttendance / eventMetrics[0].totalEvents;
+    
+    const ticketTypeDistribution = ticketTypeStats.map(stat => ({
+      type: stat.ticketType,
+      count: Number(stat.count),
+    }));
+
+    const revenueByTicketType = ticketTypeStats.map(stat => ({
+      type: stat.ticketType,
+      revenue: Number(stat.revenue),
+    }));
+
+    const refundRate = paymentStats.reduce((acc, stat) => 
+      acc + Number(stat.refundedPayments), 0) / paymentStats.reduce((acc, stat) => 
+      acc + Number(stat.totalPayments), 0);
+
+    const paymentMethodDistribution = paymentStats.map(stat => ({
+      method: stat.paymentMethod,
+      count: Number(stat.totalPayments),
+    }));
+
+    const attendeeRetentionRate = attendeeStats.filter(stat => 
+      Number(stat.purchaseCount) > 1).length / attendeeStats.length;
+
+    const firstTimeVsReturning = [
+      { type: 'First Time', count: attendeeStats.filter(stat => Number(stat.purchaseCount) === 1).length },
+      { type: 'Returning', count: attendeeStats.filter(stat => Number(stat.purchaseCount) > 1).length },
+    ];
+
+    const popularEventTimes = timingStats.map(stat => ({
+      time: `${stat.hour}:00`,
+      count: Number(stat.count),
+    }));
 
     return {
       success: true,
@@ -183,6 +277,17 @@ export async function getOrganizerStats(organizerId: number): Promise<{ success:
         revenueData,
         ticketsByEvent,
         ratingDistribution,
+        eventCompletionRate,
+        averageAttendanceRate,
+        ticketTypeDistribution,
+        revenueByTicketType,
+        refundRate,
+        paymentMethodDistribution,
+        attendeeRetentionRate,
+        firstTimeVsReturning,
+        popularEventTimes,
+        monthlyRecurringRevenue: revenueData,
+        registrationTimingDistribution: ticketsByEvent,
       },
     };
   } catch (error) {

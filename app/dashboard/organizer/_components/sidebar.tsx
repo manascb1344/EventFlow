@@ -25,11 +25,6 @@ const sidebarNavItems = [
     icon: CalendarDays,
   },
   {
-    title: "Attendees",
-    href: "/dashboard/organizer/attendees",
-    icon: Users,
-  },
-  {
     title: "Analytics",
     href: "/dashboard/organizer/analytics",
     icon: BarChart3,

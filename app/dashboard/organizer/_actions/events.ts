@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from "@/lib/db/drizzle";
-import { events, } from "@/lib/db/schema";
+import { events, tickets, attendees } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
@@ -80,5 +80,45 @@ export async function publishEvent(eventId: number) {
   } catch (error) {
     console.error("Error publishing event:", error);
     return { error: "Failed to publish event" };
+  }
+}
+
+export async function getEventTickets(eventId: number) {
+  try {
+    const eventTickets = await db.query.tickets.findMany({
+      where: eq(tickets.eventId, eventId),
+      with: {
+        attendee: true
+      }
+    });
+    
+    return { tickets: eventTickets };
+  } catch (error) {
+    console.error("Error fetching event tickets:", error);
+    return { error: "Failed to fetch tickets" };
+  }
+}
+
+export async function getEventAttendees(eventId: number) {
+  try {
+    const eventAttendees = await db.query.tickets.findMany({
+      where: eq(tickets.eventId, eventId),
+      with: {
+        attendee: {
+          columns: {
+            id: true,
+            name: true,
+            email: true,
+            phoneNumber: true,
+            profileImage: true
+          }
+        }
+      }
+    });
+    
+    return { attendees: eventAttendees.map(ticket => ticket.attendee) };
+  } catch (error) {
+    console.error("Error fetching event attendees:", error);
+    return { error: "Failed to fetch attendees" };
   }
 }

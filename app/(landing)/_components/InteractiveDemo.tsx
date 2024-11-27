@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { LineChart, BarChart, Calendar, Users, Ticket, Sparkles } from "lucide-react";
+import Image from "next/image";
 
 const tabs = [
   {
@@ -14,7 +15,6 @@ const tabs = [
     content: {
       title: "Powerful Analytics Dashboard",
       description: "Get real-time insights into your event's performance with our comprehensive analytics dashboard.",
-      image: "/dashboard-preview.png"
     }
   },
   {
@@ -24,7 +24,6 @@ const tabs = [
     content: {
       title: "Smart Ticketing System",
       description: "Manage ticket sales, types, and pricing with our intuitive ticketing interface.",
-      image: "/ticketing-preview.png"
     }
   },
   {
@@ -34,7 +33,6 @@ const tabs = [
     content: {
       title: "Event Scheduling Made Easy",
       description: "Plan and organize your events with our drag-and-drop scheduling system.",
-      image: "/scheduling-preview.png"
     }
   },
   {
@@ -44,7 +42,6 @@ const tabs = [
     content: {
       title: "Attendee Management",
       description: "Keep track of your attendees, manage registrations, and handle check-ins seamlessly.",
-      image: "/attendees-preview.png"
     }
   }
 ];
@@ -118,18 +115,19 @@ export function InteractiveDemo() {
                   <h3 className="text-2xl font-semibold mb-4 text-white/90">{tab.content.title}</h3>
                   <p className="text-muted-foreground leading-relaxed mb-6">{tab.content.description}</p>
                   <div className="relative aspect-video rounded-lg overflow-hidden bg-primary/5 ring-1 ring-primary/10">
-                    {/* Replace with actual images */}
-                    <div className="absolute inset-0 flex items-center justify-center text-primary/40">
-                      <tab.icon className="w-12 h-12" />
+                    <div className="flex items-center justify-center w-full h-full">
+                      <tab.icon className="h-16 w-16 text-primary/50" />
                     </div>
                   </div>
                 </Card>
                 
                 <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-primary/10 to-transparent opacity-20" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <tab.icon className="w-16 h-16 text-primary/40" />
-                  </div>
+                  <Image
+                    src="/dashboard-preview.png"
+                    alt="Dashboard Demo"
+                    layout="fill"
+                    objectFit="cover"
+                  />
                 </div>
               </motion.div>
             </TabsContent>

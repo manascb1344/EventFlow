@@ -8,11 +8,6 @@ const sidebarNavItems = [
     icon: "home",
   },
   {
-    title: "My Events",
-    href: "/dashboard/attendee/events",
-    icon: "calendar",
-  },
-  {
     title: "My Tickets",
     href: "/dashboard/attendee/my-tickets",
     icon: "ticket",

@@ -91,7 +91,7 @@ export default function CreateEventPage() {
       }
 
       toast.success('Event created successfully');
-      router.push('/dashboard/organizer/events');
+      redirect('/dashboard/organizer/events');
     } catch (error) {
       console.error("Error creating event:", error);
       toast.error('Failed to create event');
@@ -103,15 +103,15 @@ export default function CreateEventPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-3xl font-bold tracking-tight text-foreground">Create New Event</h2>
-        <p className="text-muted-foreground">
+        <h2 className="text-3xl font-bold tracking-tight text-white">Create New Event</h2>
+        <p className="text-white">
           Fill in the details below to create a new event.
         </p>
       </div>
 
       <Card className="border-accent/20">
         <CardHeader>
-          <CardTitle className="text-foreground">Event Details</CardTitle>
+          <CardTitle className="text-white">Event Details</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -122,11 +122,11 @@ export default function CreateEventPage() {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground">Event Name</FormLabel>
+                      <FormLabel className="text-white">Event Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Tech Conference 2024" {...field} className="border-accent/20 bg-background" />
+                        <Input placeholder="Tech Conference 2024" {...field} className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors" />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-500" />
                     </FormItem>
                   )}
                 />
@@ -136,11 +136,11 @@ export default function CreateEventPage() {
                   name="location"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground">Location</FormLabel>
+                      <FormLabel className="text-white">Location</FormLabel>
                       <FormControl>
-                        <Input placeholder="San Francisco, CA" {...field} className="border-accent/20 bg-background" />
+                        <Input placeholder="San Francisco, CA" {...field} className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors" />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-500" />
                     </FormItem>
                   )}
                 />
@@ -150,11 +150,11 @@ export default function CreateEventPage() {
                   name="startDate"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground">Start Date</FormLabel>
+                      <FormLabel className="text-white">Start Date</FormLabel>
                       <FormControl>
-                        <Input type="datetime-local" {...field} className="border-accent/20 bg-background" />
+                        <Input type="datetime-local" {...field} className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors" />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-500" />
                     </FormItem>
                   )}
                 />
@@ -164,11 +164,11 @@ export default function CreateEventPage() {
                   name="endDate"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground">End Date</FormLabel>
+                      <FormLabel className="text-white">End Date</FormLabel>
                       <FormControl>
-                        <Input type="datetime-local" {...field} className="border-accent/20 bg-background" />
+                        <Input type="datetime-local" {...field} className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors" />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-500" />
                     </FormItem>
                   )}
                 />
@@ -178,11 +178,11 @@ export default function CreateEventPage() {
                   name="venue"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground">Venue</FormLabel>
+                      <FormLabel className="text-white">Venue</FormLabel>
                       <FormControl>
-                        <Input placeholder="Moscone Center" {...field} className="border-accent/20 bg-background" />
+                        <Input placeholder="Moscone Center" {...field} className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors" />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-500" />
                     </FormItem>
                   )}
                 />
@@ -192,11 +192,11 @@ export default function CreateEventPage() {
                   name="venueCapacity"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground">Venue Capacity</FormLabel>
+                      <FormLabel className="text-white">Venue Capacity</FormLabel>
                       <FormControl>
-                        <Input type="number" placeholder="1000" {...field} className="border-accent/20 bg-background" />
+                        <Input type="number" placeholder="1000" {...field} className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors" />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-500" />
                     </FormItem>
                   )}
                 />
@@ -206,11 +206,11 @@ export default function CreateEventPage() {
                   name="ticketPrice"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground">Ticket Price ($)</FormLabel>
+                      <FormLabel className="text-white">Ticket Price (₹)</FormLabel>
                       <FormControl>
-                        <Input type="number" step="0.01" placeholder="99.99" {...field} className="border-accent/20 bg-background" />
+                        <Input type="number" step="0.01" placeholder="99.99" {...field} className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors" />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-500" />
                     </FormItem>
                   )}
                 />
@@ -220,11 +220,11 @@ export default function CreateEventPage() {
                   name="seatsAvailable"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground">Available Seats</FormLabel>
+                      <FormLabel className="text-white">Available Seats</FormLabel>
                       <FormControl>
-                        <Input type="number" placeholder="200" {...field} className="border-accent/20 bg-background" />
+                        <Input type="number" placeholder="200" {...field} className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors" />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-500" />
                     </FormItem>
                   )}
                 />
@@ -234,11 +234,11 @@ export default function CreateEventPage() {
                   name="registrationDeadline"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground">Registration Deadline</FormLabel>
+                      <FormLabel className="text-white">Registration Deadline</FormLabel>
                       <FormControl>
-                        <Input type="datetime-local" {...field} className="border-accent/20 bg-background" />
+                        <Input type="datetime-local" {...field} className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors" />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className="text-red-500" />
                     </FormItem>
                   )}
                 />
@@ -249,15 +249,15 @@ export default function CreateEventPage() {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-foreground">Description</FormLabel>
+                    <FormLabel className="text-white">Description</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Enter event description..."
-                        className="min-h-[100px] border-accent/20 bg-background"
+                        className="min-h-[100px] bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors"
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className="text-red-500" />
                   </FormItem>
                 )}
               />
@@ -267,11 +267,11 @@ export default function CreateEventPage() {
                   type="button"
                   variant="outline"
                   onClick={() => router.back()}
-                  className="border-accent/20"
+                  className="border-accent/20 text-white"
                 >
                   Cancel
                 </Button>
-                <Button type="submit" disabled={isSubmitting}>
+                <Button type="submit" disabled={isSubmitting} className="text-white">
                   {isSubmitting ? "Creating..." : "Create Event"}
                 </Button>
               </div>
