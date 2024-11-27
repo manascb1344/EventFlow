@@ -1,10 +1,10 @@
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
-import { EventCard } from "./_components/event-card";
+import { EventCard, type Event } from "@/components/events/event-card";
 import { EventsFilters } from "./_components/events-filters";
 import { EventsHeader } from "./_components/events-header";
-import { Event, getEvents } from "./actions";
+import { getEvents, saveEvent, unsaveEvent } from "./actions";
 
 export default function EventsPage() {
   const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([]);
@@ -14,7 +14,6 @@ export default function EventsPage() {
     async function fetchEvents() {
       try {
         const events = await getEvents();
-        console.log(events);
         setUpcomingEvents(events);
       } catch (error) {
         console.error("Failed to fetch events:", error);
@@ -41,7 +40,12 @@ export default function EventsPage() {
               ) : (
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                   {upcomingEvents.map((event) => (
-                    <EventCard key={event.id} event={event} />
+                    <EventCard 
+                      key={event.id} 
+                      event={event}
+                      onSaveToggle={saveEvent}
+                      onUnsaveToggle={unsaveEvent}
+                    />
                   ))}
                 </div>
               )}

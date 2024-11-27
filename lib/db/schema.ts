@@ -199,6 +199,19 @@ export const reports = pgTable('reports', {
   filters: text('filters'),
 });
 
+export const savedEvents = pgTable('saved_events', {
+  id: serial('id').primaryKey(),
+  attendeeId: integer('attendee_id').notNull().references(() => attendees.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade'
+  }),
+  eventId: integer('event_id').notNull().references(() => events.id, {
+    onDelete: 'cascade',
+    onUpdate: 'cascade'
+  }),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
 // Relations
 export const organizersRelations = relations(organizers, ({ many }) => ({
   events: many(events),
@@ -268,5 +281,16 @@ export const reportsRelations = relations(reports, ({ one }) => ({
   generator: one(organizers, {
     fields: [reports.generatedBy],
     references: [organizers.id],
+  }),
+}));
+
+export const savedEventsRelations = relations(savedEvents, ({ one }) => ({
+  attendee: one(attendees, {
+    fields: [savedEvents.attendeeId],
+    references: [attendees.id],
+  }),
+  event: one(events, {
+    fields: [savedEvents.eventId],
+    references: [events.id],
   }),
 }));

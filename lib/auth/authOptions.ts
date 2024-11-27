@@ -41,7 +41,7 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
         console.log("Authorizing credentials:", { email: credentials?.email, role: credentials?.role });
-        
+
         if (!credentials?.email || !credentials?.password || !credentials?.role) {
           console.log("Missing credentials");
           throw new Error("Invalid credentials");

@@ -57,8 +57,8 @@ const Navbar = () => {
     if (session?.user?.role === "ATTENDEE") {
       return [
         { href: "/events", label: "Browse Events" },
-        { href: "/my-tickets", label: "My Tickets" },
-        { href: "/saved-events", label: "Saved Events" },
+        { href: "/dashboard/attendee/my-tickets", label: "My Tickets" },
+        { href: "/dashboard/attendee/saved-events", label: "Saved Events" },
         { href: "/profile", label: "Profile" },
       ];
     }

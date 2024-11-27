@@ -1,8 +1,11 @@
 "use server";
 
 import { db } from "@/lib/db/drizzle";
-import { events } from "@/lib/db/schema";
-import { desc, gte } from "drizzle-orm";
+import { events, savedEvents } from "@/lib/db/schema";
+import { desc, eq, gte, and } from "drizzle-orm";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth/authOptions";
+import { redirect } from "next/navigation";
 
 export type Event = {
   id: number;
@@ -15,11 +18,14 @@ export type Event = {
   bannerImage: string | null;
   venue: string | null;
   seatsAvailable: number;
+  isSaved?: boolean;
 };
 
 export async function getEvents(): Promise<Event[]> {
+  const session = await getServerSession(authOptions);
   const now = new Date();
-  return await db
+  
+  const eventsList = await db
     .select({
       id: events.id,
       name: events.name,
@@ -35,4 +41,65 @@ export async function getEvents(): Promise<Event[]> {
     .from(events)
     .where(gte(events.startDate, now))
     .orderBy(desc(events.startDate));
+
+  if (session?.user?.role === 'ATTENDEE') {
+    const savedEventIds = await db
+      .select({ eventId: savedEvents.eventId })
+      .from(savedEvents)
+      .where(eq(savedEvents.attendeeId, +session.user.id));
+
+    const savedEventIdSet = new Set(savedEventIds.map(e => e.eventId));
+    
+    return eventsList.map(event => ({
+      ...event,
+      isSaved: savedEventIdSet.has(event.id)
+    }));
+  }
+
+  return eventsList.map(event => ({
+    ...event,
+    isSaved: false
+  }));
+}
+
+export async function saveEvent(eventId: number) {
+  const session = await getServerSession(authOptions);
+
+  if (!session || session.user.role !== 'ATTENDEE') {
+    redirect('/auth/attendee/signin');
+  }
+
+  const existingSave = await db
+    .select()
+    .from(savedEvents)
+    .where(
+      and(
+        eq(savedEvents.eventId, eventId),
+        eq(savedEvents.attendeeId, +session.user.id)
+      )
+    );
+
+  if (existingSave.length === 0) {
+    await db.insert(savedEvents).values({
+      eventId,
+      attendeeId: +session.user.id,
+    });
+  }
+}
+
+export async function unsaveEvent(eventId: number) {
+  const session = await getServerSession(authOptions);
+
+  if (!session || session.user.role !== 'ATTENDEE') {
+    redirect('/auth/attendee/signin');
+  }
+
+  await db
+    .delete(savedEvents)
+    .where(
+      and(
+        eq(savedEvents.eventId, eventId),
+        eq(savedEvents.attendeeId, +session.user.id)
+      )
+    );
 }
