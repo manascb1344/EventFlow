@@ -14,9 +14,16 @@ export default function EventsPage() {
     async function fetchEvents() {
       try {
         const events = await getEvents();
-        setUpcomingEvents(events);
+        // Ensure dates are properly serialized
+        const serializedEvents = events.map(event => ({
+          ...event,
+          startDate: new Date(event.startDate),
+          endDate: new Date(event.endDate),
+        }));
+        setUpcomingEvents(serializedEvents);
       } catch (error) {
         console.error("Failed to fetch events:", error);
+        setUpcomingEvents([]); // Set empty array on error
       } finally {
         setLoading(false);
       }

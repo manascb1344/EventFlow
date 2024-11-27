@@ -73,7 +73,6 @@ export default function CreateEventPage() {
       registrationDeadline: "",
     },
   });
-
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
     try {
       setIsSubmitting(true);

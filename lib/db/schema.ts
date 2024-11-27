@@ -3,47 +3,47 @@ import { relations } from 'drizzle-orm';
 
 // Enum types
 export const UserRole = {
-  ORGANIZER: 'organizer',
-  ATTENDEE: 'attendee',
+  ORGANIZER: 'ORGANIZER',
+  ATTENDEE: 'ATTENDEE',
 } as const;
 
 export const EventStatus = {
-  DRAFT: 'draft',
-  PUBLISHED: 'published',
-  SCHEDULED: 'scheduled',
-  ONGOING: 'ongoing',
-  COMPLETED: 'completed', 
-  CANCELED: 'canceled'
+  DRAFT: 'DRAFT',
+  PUBLISHED: 'PUBLISHED',
+  SCHEDULED: 'SCHEDULED',
+  ONGOING: 'ONGOING',
+  COMPLETED: 'COMPLETED', 
+  CANCELED: 'CANCELED'
 } as const;
 
 export const TicketStatus = {
-  CONFIRMED: 'confirmed',
-  CANCELED: 'canceled',
-  REFUNDED: 'refunded',
-  PENDING: 'pending',
-  USED: 'used'
+  CONFIRMED: 'CONFIRMED',
+  CANCELED: 'CANCELED',
+  REFUNDED: 'REFUNDED',
+  PENDING: 'PENDING',
+  USED: 'USED'
 } as const;
 
 export const PaymentStatus = {
-  COMPLETED: 'completed',
-  PENDING: 'pending',
-  FAILED: 'failed',
-  REFUNDED: 'refunded',
+  COMPLETED: 'COMPLETED',
+  PENDING: 'PENDING',
+  FAILED: 'FAILED',
+  REFUNDED: 'REFUNDED',
 } as const;
 
 export const TicketType = {
-  VIP: 'vip',
-  REGULAR: 'regular',
-  GROUP: 'group',
-  EARLY_BIRD: 'early_bird'
+  VIP: 'VIP',
+  REGULAR: 'REGULAR',
+  GROUP: 'GROUP',
+  EARLY_BIRD: 'EARLY_BIRD'
 } as const;
 
 export const ReportType = {
-  TICKET_SALES: 'ticket_sales',
-  REVENUE_SUMMARY: 'revenue_summary',
-  SURVEY_FEEDBACK: 'survey_feedback',
-  ATTENDANCE: 'attendance',
-  SPEAKER_SCHEDULE: 'speaker_schedule'
+  TICKET_SALES: 'TICKET_SALES',
+  REVENUE_SUMMARY: 'REVENUE_SUMMARY',
+  SURVEY_FEEDBACK: 'SURVEY_FEEDBACK',
+  ATTENDANCE: 'ATTENDANCE',
+  SPEAKER_SCHEDULE: 'SPEAKER_SCHEDULE'
 } as const;
 
 // Tables
@@ -145,7 +145,7 @@ export const speakers = pgTable('speakers', {
   sessionTitle: varchar('session_title', { length: 255 }).notNull(),
   sessionDescription: text('session_description').notNull(),
   scheduledTime: timestamp('scheduled_time').notNull(),
-  duration: integer('duration').notNull(), // in minutes
+  duration: integer('duration').notNull(),
   roomNumber: varchar('room_number', { length: 50 }),
   presentationUrl: text('presentation_url'),
   maxAttendees: integer('max_attendees'),

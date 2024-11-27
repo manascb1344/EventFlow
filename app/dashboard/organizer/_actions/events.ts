@@ -1,5 +1,7 @@
+'use server';
+
 import { db } from "@/lib/db/drizzle";
-import { events, type Event } from "@/lib/db/schema";
+import { events, } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
@@ -11,10 +13,10 @@ export async function createEvent(formData: FormData) {
       location: formData.get("location") as string,
       startDate: new Date(formData.get("startDate") as string),
       endDate: new Date(formData.get("endDate") as string),
-      ticketPrice: parseFloat(formData.get("ticketPrice") as string),
+      ticketPrice: formData.get("ticketPrice") as string,
       seatsAvailable: parseInt(formData.get("seatsAvailable") as string),
       organizerId: parseInt(formData.get("organizerId") as string),
-      eventStatus: "draft",
+      eventStatus: "PUBLISHED" as const,
       venue: formData.get("venue") as string,
       venueCapacity: parseInt(formData.get("venueCapacity") as string),
       isPublic: formData.get("isPublic") === "true",
@@ -38,7 +40,7 @@ export async function updateEvent(eventId: number, formData: FormData) {
       location: formData.get("location") as string,
       startDate: new Date(formData.get("startDate") as string),
       endDate: new Date(formData.get("endDate") as string),
-      ticketPrice: parseFloat(formData.get("ticketPrice") as string),
+      ticketPrice: formData.get("ticketPrice") as string,
       seatsAvailable: parseInt(formData.get("seatsAvailable") as string),
       eventStatus: formData.get("eventStatus") as string,
       venue: formData.get("venue") as string,
@@ -71,7 +73,7 @@ export async function deleteEvent(eventId: number) {
 export async function publishEvent(eventId: number) {
   try {
     await db.update(events)
-      .set({ eventStatus: "published" })
+      .set({ eventStatus: "PUBLISHED" })
       .where(eq(events.id, eventId));
     revalidatePath(`/dashboard/organizer/events/${eventId}`);
     return { success: true };

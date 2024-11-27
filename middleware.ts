@@ -15,7 +15,8 @@ const publicRoutes = [
   "/blog",
   "/careers",
   "/docs",
-  "/changelog"
+  "/changelog",
+  "/api/stripe/webhook",
 ];
 
 // Routes that require onboarding completion for organizers

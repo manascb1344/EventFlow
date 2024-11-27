@@ -103,3 +103,47 @@ export async function unsaveEvent(eventId: number) {
       )
     );
 }
+
+export async function registerForEvent(eventId: number) {
+  const session = await getServerSession(authOptions);
+
+  if (!session || session.user.role !== 'ATTENDEE') {
+    redirect('/auth/attendee/signin');
+  }
+
+  // Check if event exists and has available seats
+  const event = await db
+    .select()
+    .from(events)
+    .where(eq(events.id, eventId))
+    .limit(1);
+
+  if (!event.length || event[0].seatsAvailable <= 0) {
+    throw new Error('Event is not available for registration');
+  }
+
+  // TODO: Add registration logic here once registration table is set up
+  // For now, just decrease available seats
+  await db
+    .update(events)
+    .set({ 
+      seatsAvailable: event[0].seatsAvailable - 1 
+    })
+    .where(eq(events.id, eventId));
+
+  return { success: true };
+}
+
+export async function getEventById(id: string) {
+  const event = await db
+    .select()
+    .from(events)
+    .where(eq(events.id, parseInt(id)))
+    .limit(1);
+
+  if (!event.length) {
+    return null;
+  }
+
+  return event[0];
+}

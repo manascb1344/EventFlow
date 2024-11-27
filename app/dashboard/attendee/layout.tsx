@@ -13,8 +13,8 @@ const sidebarNavItems = [
     icon: "calendar",
   },
   {
-    title: "Tickets",
-    href: "/dashboard/attendee/tickets",
+    title: "My Tickets",
+    href: "/dashboard/attendee/my-tickets",
     icon: "ticket",
   },
   {

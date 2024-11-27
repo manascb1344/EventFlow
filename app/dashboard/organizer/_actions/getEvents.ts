@@ -1,5 +1,6 @@
 'use server';
 
+import { authOptions } from "@/lib/auth/authOptions";
 import { db } from "@/lib/db/drizzle";
 import { events } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -7,7 +8,7 @@ import { getServerSession } from "next-auth";
 
 export async function getEvents() {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(authOptions);
 
     if (!session?.user?.id) {
       return { error: "Unauthorized" };
@@ -23,17 +24,15 @@ export async function getEvents() {
       },
     });
 
-    // Calculate tickets sold for each event
-    const eventsWithTickets = organizerEvents.map(event => ({
-      ...event,
-      ticketsSold: event.tickets?.filter(ticket => 
-        ticket.status === "confirmed" || ticket.status === "used"
-      ).length || 0,
-    }));
+    const eventsWithTickets = organizerEvents.map(event => {
+      const ticketsSold = event.tickets?.filter(ticket =>
+        ticket.status === "CONFIRMED" || ticket.status === "USED"
+      ).length || 0;
+      return { ...event, ticketsSold };
+    });
 
     return { events: eventsWithTickets };
   } catch (error) {
-    console.error("Error fetching events:", error);
     return { error: "Internal server error" };
   }
 }
