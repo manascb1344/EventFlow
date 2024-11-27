@@ -17,8 +17,13 @@ export default async function OrganizerDashboard() {
   }
 
   const organizerId = parseInt(session.user.id);
-  const { stats } = await getOrganizerStats(organizerId);
+  const statsResult = await getOrganizerStats(organizerId);
   const { profile } = await getOrganizerProfile(organizerId);
 
-  return <OrganizerDashboardContent stats={stats} profile={profile} />;
+  if ("error" in statsResult) {
+    // Handle error case, maybe redirect or show an error message
+    return <div>Error loading organizer stats: {statsResult.error}</div>;
+  }
+
+  return <OrganizerDashboardContent stats={statsResult.stats} profile={profile} />;
 }

@@ -25,19 +25,9 @@ const sidebarNavItems = [
     icon: CalendarDays,
   },
   {
-    title: "Tickets",
-    href: "/dashboard/organizer/tickets",
-    icon: Ticket,
-  },
-  {
     title: "Attendees",
     href: "/dashboard/organizer/attendees",
     icon: Users,
-  },
-  {
-    title: "Feedback",
-    href: "/dashboard/organizer/feedback",
-    icon: MessageSquare,
   },
   {
     title: "Analytics",

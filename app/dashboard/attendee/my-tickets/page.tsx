@@ -12,7 +12,6 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/h
 import { Separator } from '@/components/ui/separator';
 import { QrCode, Calendar, MapPin, Clock, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
-import { QRCodeSVG } from 'qrcode.react';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -192,7 +191,7 @@ export default async function MyTicketsPage() {
 
                                   <Separator />
 
-                                  {ticket.qrCode && (
+                                  {/* {ticket.qrCode && (
                                     <div className="rounded-lg border bg-muted/40 p-6">
                                       <div className="flex flex-col items-center space-y-4">
                                         <QRCodeSVG 
@@ -205,7 +204,7 @@ export default async function MyTicketsPage() {
                                         </p>
                                       </div>
                                     </div>
-                                  )}
+                                  )} */}
                                 </div>
                               </DialogContent>
                             </Dialog>

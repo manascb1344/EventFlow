@@ -116,6 +116,7 @@ export default function OrganizerOnboarding() {
               <Input
                 id="organization"
                 placeholder="Event Masters Inc."
+                className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors"
                 {...register("organization")}
               />
               {errors.organization && (
@@ -128,7 +129,8 @@ export default function OrganizerOnboarding() {
               <Input
                 id="phoneNumber"
                 type="tel"
-                placeholder="+1 (555) 000-0000"
+                placeholder="+91 99999 99999"
+                className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors"
                 {...register("phoneNumber")}
               />
               {errors.phoneNumber && (
@@ -155,7 +157,7 @@ export default function OrganizerOnboarding() {
               <Textarea
                 id="bio"
                 placeholder="Tell us about your organization..."
-                className="h-32"
+                className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors min-h-[100px]"
                 {...register("bio")}
               />
               {errors.bio && (

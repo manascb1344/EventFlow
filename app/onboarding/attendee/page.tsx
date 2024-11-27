@@ -154,8 +154,8 @@ export default function AttendeeOnboarding() {
             <Input
               id="phoneNumber"
               type="tel"
-              placeholder="+1 (555) 000-0000"
-              className="w-full bg-s3 text-p4 border-s5"
+              placeholder="+91 99999 99999"
+              className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors"
               {...register("phoneNumber")}
             />
             {errors.phoneNumber && (
@@ -181,7 +181,7 @@ export default function AttendeeOnboarding() {
             <Textarea
               id="interests"
               placeholder="Tech conferences, music festivals, workshops..."
-              className="min-h-[80px] resize-none bg-s3 text-p4 border-s5"
+              className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors min-h-[80px] resize-none"
               {...register("interests")}
             />
           </div>
@@ -204,7 +204,7 @@ export default function AttendeeOnboarding() {
             <Textarea
               id="dietaryRestrictions"
               placeholder="Vegetarian, gluten-free, allergies..."
-              className="min-h-[80px] resize-none bg-s3 text-p4 border-s5"
+              className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors min-h-[80px] resize-none"
               {...register("dietaryRestrictions")}
             />
           </div>
@@ -229,12 +229,12 @@ export default function AttendeeOnboarding() {
               control={control}
               render={({ field }) => (
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <SelectTrigger className="bg-s3 text-p4 border-s5">
+                  <SelectTrigger className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors">
                     <SelectValue placeholder="Select payment method" />
                   </SelectTrigger>
-                  <SelectContent className="bg-s2 text-p4 border-s5">
+                  <SelectContent className="bg-background/80 backdrop-blur-sm border border-white/30 text-white">
                     {paymentMethods.map((method) => (
-                      <SelectItem key={method.value} value={method.value} className="hover:bg-s3">
+                      <SelectItem key={method.value} value={method.value} className="hover:bg-white/10 focus:bg-white/10">
                         {method.label}
                       </SelectItem>
                     ))}

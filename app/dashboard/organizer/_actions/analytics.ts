@@ -57,6 +57,8 @@ export async function getEventStats(eventId: number) {
         .where(eq(surveys.eventId, eventId)),
     ]);
 
+    console.log("Event stats fetched:", { ticketStats, revenueStats, surveyStats });
+
     return {
       success: true,
       stats: {
@@ -94,10 +96,11 @@ export async function getOrganizerStats(organizerId: number): Promise<{ success:
     const previousMonth = new Date(lastMonth);
     previousMonth.setMonth(previousMonth.getMonth() - 1);
 
-    // Convert dates to ISO strings for SQL
     const lastMonthStr = lastMonth.toISOString();
     const sixMonthsAgoStr = sixMonthsAgo.toISOString();
     const previousMonthStr = previousMonth.toISOString();
+
+    console.log("Date ranges:", { lastMonthStr, sixMonthsAgoStr, previousMonthStr });
 
     const [basicStats, recentStats, revenueData, ticketsByEvent, ratingDistribution, salesGrowth] = await Promise.all([
       db.select({
@@ -163,9 +166,13 @@ export async function getOrganizerStats(organizerId: number): Promise<{ success:
         .where(eq(events.organizerId, organizerId)),
     ]);
 
+    console.log("Query results:", { basicStats, recentStats, revenueData, ticketsByEvent, ratingDistribution, salesGrowth });
+
     const ticketSalesGrowth = salesGrowth[0].previousMonthSales === 0 
       ? 100 
       : Math.round(((salesGrowth[0].currentMonthSales - salesGrowth[0].previousMonthSales) / salesGrowth[0].previousMonthSales) * 100);
+
+    console.log("Calculated ticket sales growth:", ticketSalesGrowth);
 
     return {
       success: true,
