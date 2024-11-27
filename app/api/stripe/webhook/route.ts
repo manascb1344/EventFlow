@@ -10,11 +10,9 @@ import { sendEmail, generatePaymentSuccessEmail, generatePaymentErrorEmail } fro
 export const runtime = 'nodejs';
 
 // Disable body parsing, as we need the raw body for webhook signature verification
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+export const dynamic = 'force-dynamic';
+export const preferredRegion = 'auto';
+export const maxDuration = 10;
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
