@@ -1,0 +1,95 @@
+flowchart TD
+    %% External Systems
+    subgraph ExternalServices[External Services]
+        Stripe[Stripe Payment Gateway]
+        GoogleAuth[Google OAuth]
+        EmailService[Email Service]
+    end
+
+    %% Database Tables
+    subgraph Database[PostgreSQL Database]
+        Users[("Users\n(attendees/organizers)")]
+        Events[("Events")]
+        Tickets[("Tickets")]
+        Payments[("Payments")]
+        Speakers[("Speakers")]
+        Surveys[("Surveys")]
+        Reports[("Reports")]
+        SavedEvents[("Saved Events")]
+    end
+
+    %% Authentication Flow
+    subgraph AuthFlow[Authentication System]
+        AuthController[Auth Controller]
+        JWT[JWT Service]
+        Bcrypt[Password Hash]
+    end
+
+    %% Main Application Components
+    subgraph AppComponents[Application Components]
+        EventManager[Event Management]
+        TicketManager[Ticket Management]
+        PaymentProcessor[Payment Processing]
+        ReportGenerator[Report Generation]
+        UserManager[User Management]
+        NotificationSystem[Notification System]
+    end
+
+    %% Data Flow Connections
+
+    %% Authentication Flows
+    GoogleAuth -->|OAuth Data| AuthController
+    AuthController -->|Hash| Bcrypt
+    AuthController -->|Generate| JWT
+    AuthController -->|Store| Users
+    JWT -->|Token| UserManager
+
+    %% User Management
+    UserManager -->|Query| Users
+    UserManager -->|Update| Users
+    UserManager -->|Preferences| NotificationSystem
+
+    %% Event Management
+    EventManager -->|CRUD| Events
+    EventManager -->|Associate| Speakers
+    EventManager -->|Query| SavedEvents
+    Events -->|Available Events| TicketManager
+
+    %% Ticket Management
+    TicketManager -->|Create| Tickets
+    TicketManager -->|Process| PaymentProcessor
+    PaymentProcessor -->|Validate| Stripe
+    PaymentProcessor -->|Record| Payments
+    Tickets -->|Generate| Reports
+
+    %% Survey and Feedback
+    Surveys -->|Input| ReportGenerator
+    ReportGenerator -->|Create| Reports
+    Reports -->|Notify| NotificationSystem
+
+    %% Notification Flow
+    NotificationSystem -->|Send| EmailService
+    
+    %% Payment Flow
+    Stripe -->|Confirmation| PaymentProcessor
+    PaymentProcessor -->|Update| Tickets
+    PaymentProcessor -->|Record| Payments
+
+    %% Relations
+    Events -->|Reference| Users
+    Tickets -->|Reference| Events
+    Tickets -->|Reference| Users
+    Payments -->|Reference| Tickets
+    Surveys -->|Reference| Events
+    Reports -->|Reference| Events
+
+    %% Styles
+    classDef database fill:#f9f,stroke:#333,stroke-width:2px
+    classDef external fill:#bbf,stroke:#333,stroke-width:2px
+    classDef service fill:#bfb,stroke:#333,stroke-width:2px
+    classDef auth fill:#fbf,stroke:#333,stroke-width:2px
+
+    class Users,Events,Tickets,Payments,Speakers,Surveys,Reports,SavedEvents database
+    class Stripe,GoogleAuth,EmailService external
+    class EventManager,TicketManager,PaymentProcessor,ReportGenerator,UserManager,NotificationSystem service
+    class AuthController,JWT,Bcrypt auth

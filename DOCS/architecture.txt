@@ -1,0 +1,85 @@
+graph TB
+    %% Client Layer
+    subgraph ClientLayer[Client Layer]
+        NextJS[Next.js Frontend]
+        ReactComponents[React Components]
+        TailwindCSS[TailwindCSS Styling]
+        ClientState[Client State Management]
+    end
+
+    %% API Layer
+    subgraph APILayer[API Layer]
+        direction TB
+        APIRoutes[Next.js API Routes]
+        Middleware[Authentication Middleware]
+        ServerActions[Server Actions]
+    end
+
+    %% Service Layer
+    subgraph ServiceLayer[Service Layer]
+        AuthService[Authentication Service]
+        EventService[Event Service]
+        PaymentService[Payment Service]
+        NotificationService[Notification Service]
+        ReportingService[Reporting Service]
+    end
+
+    %% Data Layer
+    subgraph DataLayer[Data Layer]
+        DrizzleORM[Drizzle ORM]
+        PostgreSQL[(PostgreSQL Database)]
+        Redis[(Redis Cache)]
+    end
+
+    %% External Services
+    subgraph ExternalServices[External Services]
+        Stripe[Stripe Payment]
+        GoogleAuth[Google OAuth]
+        EmailProvider[Email Service]
+        UploadThing[UploadThing Storage]
+    end
+
+    %% Infrastructure
+    subgraph Infrastructure[Infrastructure]
+        Docker[Docker Containers]
+        NGINX[NGINX Proxy]
+        SSL[SSL/TLS]
+    end
+
+    %% Connections between layers
+    ClientLayer -->|HTTP/HTTPS| APILayer
+    APILayer -->|Business Logic| ServiceLayer
+    ServiceLayer -->|Data Access| DataLayer
+    ServiceLayer -->|External Calls| ExternalServices
+
+    %% Specific Connections
+    NextJS -->|Server Components| APIRoutes
+    APIRoutes -->|Auth| Middleware
+    Middleware -->|Validate| AuthService
+    AuthService -->|Store| DrizzleORM
+    DrizzleORM -->|Query| PostgreSQL
+    EventService -->|Cache| Redis
+    PaymentService -->|Process| Stripe
+    NotificationService -->|Send| EmailProvider
+    ServerActions -->|Upload| UploadThing
+    AuthService -->|OAuth| GoogleAuth
+
+    %% Infrastructure Connections
+    NGINX -->|Proxy| NextJS
+    Docker -->|Containerize| PostgreSQL
+    Docker -->|Containerize| Redis
+    SSL -->|Secure| NGINX
+
+    %% Styling
+    classDef frontend fill:#42b883,stroke:#2c3e50,color:white
+    classDef backend fill:#3498db,stroke:#2980b9,color:white
+    classDef database fill:#e74c3c,stroke:#c0392b,color:white
+    classDef external fill:#f1c40f,stroke:#f39c12,color:black
+    classDef infra fill:#95a5a6,stroke:#7f8c8d,color:white
+
+    %% Apply styles
+    class NextJS,ReactComponents,TailwindCSS,ClientState frontend
+    class APIRoutes,Middleware,ServerActions,AuthService,EventService,PaymentService,NotificationService,ReportingService backend
+    class PostgreSQL,Redis,DrizzleORM database
+    class Stripe,GoogleAuth,EmailProvider,UploadThing external
+    class Docker,NGINX,SSL infra
