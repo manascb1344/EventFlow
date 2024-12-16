@@ -15,7 +15,6 @@ const auth = async (req: Request) => {
 };
 
 export const uploadRouter = {
-    // Example "profile picture upload" route - these can be named whatever you want!
     profilePicture: f({
         image: {
             maxFileSize: "4MB",

@@ -36,7 +36,6 @@ export function EventCard({ event: initialEvent }: EventCardProps) {
         } else {
           await saveEvent(event.id);
         }
-        // Update local state instead of reloading
         setEvent(prev => ({
           ...prev,
           isSaved: !prev.isSaved

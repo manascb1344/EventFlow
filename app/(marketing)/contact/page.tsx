@@ -124,9 +124,7 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* Contact Information */}
         <div className="space-y-6">
-          {/* Contact Cards */}
           {contactInfo.map((item, index) => (
             <div 
               key={index}

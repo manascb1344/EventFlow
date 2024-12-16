@@ -80,7 +80,6 @@ export default function AttendeeOnboarding() {
         return;
       }
 
-      // Update session with correct structure
       await update({
         ...session,
         user: {
@@ -89,7 +88,6 @@ export default function AttendeeOnboarding() {
         }
       });
       
-      // Then redirect after a short delay to ensure session is updated
       setTimeout(() => {
         router.push("/dashboard");
         router.refresh();

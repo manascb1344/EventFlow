@@ -6,10 +6,8 @@ import { events, tickets, payments } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { sendEmail, generatePaymentSuccessEmail, generatePaymentErrorEmail } from '@/lib/email';
 
-// Set runtime to edge or nodejs
 export const runtime = 'nodejs';
 
-// Disable body parsing, as we need the raw body for webhook signature verification
 export const dynamic = 'force-dynamic';
 export const preferredRegion = 'auto';
 export const maxDuration = 10;
@@ -131,14 +129,12 @@ async function createTicketAndPayment(session: Stripe.Checkout.Session, eventId:
 
 async function sendSuccessEmail(session: Stripe.Checkout.Session, event: any, ticket: any) {
   try {
-    // Retrieve the invoice for the session
     let invoiceUrl: string | undefined;
     if (session.invoice) {
       const invoice = await stripe.invoices.retrieve(session.invoice as string);
       invoiceUrl = invoice.hosted_invoice_url || undefined;
     }
 
-    // Format event date
     const eventDate = event.startDate ? new Date(event.startDate).toLocaleDateString('en-US', {
       weekday: 'long',
       year: 'numeric',

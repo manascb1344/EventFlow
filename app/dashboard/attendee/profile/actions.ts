@@ -31,7 +31,6 @@ export async function updateAttendeeProfile(attendeeId: number | undefined, form
       profileImage: formData.get("profileImage")?.toString() || undefined,
     };
 
-    // Validate required fields
     if (!data.name?.trim()) {
       throw new Error("Name is required");
     }

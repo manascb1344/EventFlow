@@ -24,32 +24,31 @@ export function UserNav() {
         {
           href: "/organizer/profile",
           label: "Organization Profile",
-          shortcut: "⇧P",
+          shortcut: "Ctrl+Shift+P",
         },
         {
           href: "/organizer/billing",
           label: "Billing",
-          shortcut: "⌘B",
+          shortcut: "Ctrl+B",
         },
         {
           href: "/organizer/team",
           label: "Team Members",
-          shortcut: "⌘T",
+          shortcut: "Ctrl+T",
         },
       ];
     }
 
-    // Default attendee items
     return [
       {
         href: "/profile",
         label: "Profile",
-        shortcut: "⇧P",
+        shortcut: "Ctrl+Shift+P",
       },
       {
         href: "/preferences",
         label: "Preferences",
-        shortcut: "⌘,",
+        shortcut: "Ctrl+,",
       },
     ];
   };
@@ -92,7 +91,7 @@ export function UserNav() {
           onClick={() => signOut({ callbackUrl: "/" })}
         >
           Log out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+          <DropdownMenuShortcut>Ctrl+Shift+Q</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

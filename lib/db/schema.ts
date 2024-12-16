@@ -1,7 +1,6 @@
 import { pgTable, serial, text, timestamp, varchar, decimal, integer, boolean } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
-// Enum types
 export const UserRole = {
   ORGANIZER: 'ORGANIZER',
   ATTENDEE: 'ATTENDEE',
@@ -46,7 +45,6 @@ export const ReportType = {
   SPEAKER_SCHEDULE: 'SPEAKER_SCHEDULE'
 } as const;
 
-// Tables
 export const organizers = pgTable('organizers', {
   id: serial('id').primaryKey(),
   email: varchar('email', { length: 255 }).notNull().unique(),
@@ -212,7 +210,6 @@ export const savedEvents = pgTable('saved_events', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
-// Relations
 export const organizersRelations = relations(organizers, ({ many }) => ({
   events: many(events),
   speakers: many(speakers),

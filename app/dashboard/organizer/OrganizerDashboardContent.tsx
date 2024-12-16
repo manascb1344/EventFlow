@@ -104,7 +104,6 @@ export default function OrganizerDashboardContent({ profile, stats }: DashboardP
           </Card>
         </div>
 
-        {/* Upcoming Events - Full Width */}
         <Card className="relative overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 border border-primary/10 bg-gradient-to-b from-background/80 via-background to-background backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <div>

@@ -93,7 +93,6 @@ export default function FeaturesPage() {
         </p>
       </div>
 
-      {/* Main Features */}
       <div className="grid lg:grid-cols-2 gap-8 mb-24">
         {mainFeatures.map((feature, index) => (
           <div
@@ -121,7 +120,6 @@ export default function FeaturesPage() {
         ))}
       </div>
 
-      {/* Additional Features */}
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold text-white mb-4">Additional Features</h2>
         <p className="text-zinc-400 max-w-2xl mx-auto">
@@ -144,7 +142,6 @@ export default function FeaturesPage() {
         ))}
       </div>
 
-      {/* CTA Section */}
       <div className="mt-24 text-center">
         <div className="inline-flex items-center justify-center p-1 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 mb-8">
           <span className="px-4 py-1 rounded-full bg-zinc-900">New: Event suggestions</span>

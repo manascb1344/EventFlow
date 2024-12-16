@@ -27,7 +27,6 @@ export default function OrganizerOnboarding() {
   const router = useRouter()
   const { data: session, update } = useSession()
 
-  // Redirect if user is not authenticated or is not an organizer
   useEffect(() => {
     if (!session) {
       router.push("/auth/organizer/signin");
@@ -65,7 +64,6 @@ export default function OrganizerOnboarding() {
         return;
       }
 
-      // Update the session with new data
       await update({
         ...session,
         user: {
@@ -74,7 +72,6 @@ export default function OrganizerOnboarding() {
         }
       });
 
-      // Wait a bit for the session to update
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       router.push("/dashboard/organizer");

@@ -8,7 +8,7 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   typescript: true,
 });
 
-// Helper function to format price for Stripe (converts to cents)
+//converts to cents
 export const formatAmountForStripe = (amount: number, currency: string): number => {
   const currencies = ['USD', 'EUR', 'GBP', 'INR'];
   if (!currencies.includes(currency)) {

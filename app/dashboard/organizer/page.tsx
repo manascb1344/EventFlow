@@ -21,7 +21,6 @@ export default async function OrganizerDashboard() {
   const { profile } = await getOrganizerProfile(organizerId);
 
   if ("error" in statsResult) {
-    // Handle error case, maybe redirect or show an error message
     return <div>Error loading organizer stats: {statsResult.error}</div>;
   }
 

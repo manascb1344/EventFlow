@@ -86,7 +86,7 @@ export default function AboutPage() {
             <h2 className="text-3xl font-bold text-white mb-6">Our Story</h2>
             <div className="space-y-4">
               <p className="text-zinc-400">
-                Founded in 2023, EventFlow emerged from a simple observation: event management
+                Founded in 2024, EventFlow emerged from a simple observation: event management
                 was unnecessarily complex and disconnected. Our founders, seasoned event industry
                 veterans, envisioned a platform that would revolutionize how events are created,
                 managed, and experienced.

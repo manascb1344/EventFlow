@@ -9,7 +9,6 @@ async function seed() {
     return data.urls.regular;
   };
 
-  // Create test organizer
   const organizer = await db.insert(organizers).values({
     name: 'Test Organizer',
     email: 'organizer@test.com', 
@@ -25,7 +24,6 @@ async function seed() {
     updatedAt: new Date()
   }).returning();
 
-  // Create test attendee
   const attendee = await db.insert(attendees).values({
     name: 'Test Attendee',
     email: 'attendee@test.com',
@@ -41,7 +39,6 @@ async function seed() {
     updatedAt: new Date()
   }).returning();
 
-  // Create 10 test events with future dates
   const eventNames = [
     'Tech Summit 2024',
     'Business Conference 2024',
@@ -81,7 +78,6 @@ async function seed() {
     'Latest trends in digital marketing'
   ];
 
-  // Create future events
   const futureEvents = await Promise.all(
     eventNames.map(async (name, index) => {
       const startDate = new Date();
@@ -112,7 +108,6 @@ async function seed() {
     })
   );
 
-  // Create past events
   const pastEventNames = [
     'Tech Summit 2023',
     'Business Conference 2023',
@@ -151,7 +146,6 @@ async function seed() {
     })
   );
 
-  // Create test tickets for first event
   const ticket = await db.insert(tickets).values({
     eventId: futureEvents[0][0].id,
     attendeeId: attendee[0].id,
@@ -166,7 +160,6 @@ async function seed() {
     specialRequirements: 'None'
   }).returning();
 
-  // Create test speaker session for first event
   await db.insert(speakers).values({
     eventId: futureEvents[0][0].id,
     organizerId: organizer[0].id,
@@ -181,7 +174,6 @@ async function seed() {
     updatedAt: new Date()
   }).returning();
 
-  // Create test payment
   await db.insert(payments).values({
     ticketId: ticket[0].id,
     amount: '299.99',
@@ -193,7 +185,6 @@ async function seed() {
     paymentDate: new Date()
   }).returning();
 
-  // Create test survey
   await db.insert(surveys).values({
     eventId: futureEvents[0][0].id,
     attendeeId: attendee[0].id,
@@ -207,7 +198,6 @@ async function seed() {
     submittedAt: new Date()
   }).returning();
 
-  // Create test report
   await db.insert(reports).values({
     eventId: futureEvents[0][0].id,
     reportType: 'TICKET_SALES',

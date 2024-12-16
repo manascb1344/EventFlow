@@ -6,7 +6,6 @@ import { useSession } from "next-auth/react";
 export function Search() {
   const { data: session } = useSession();
 
-  // Only show search for attendees or unauthenticated users
   if (session?.user?.role === "ORGANIZER") {
     return null;
   }

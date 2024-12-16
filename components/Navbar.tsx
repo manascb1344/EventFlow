@@ -45,7 +45,6 @@ const Navbar = () => {
   }, [session])
 
   const getNavItems = () => {
-    // During loading state or if session is not available, return default navigation
     if (!mounted || status === "loading" || !session) {
       return [
         { href: "/features", label: "Features" },
@@ -55,7 +54,6 @@ const Navbar = () => {
       ];
     }
 
-    // After session is loaded, return role-specific navigation
     if (session?.user?.role === "ORGANIZER") {
       return [
         { href: "/dashboard/organizer", label: "Dashboard" },
@@ -75,7 +73,6 @@ const Navbar = () => {
       ];
     }
 
-    // Default navigation for unauthenticated users
     return [
       { href: "/features", label: "Features" },
       { href: "/events", label: "Events" },

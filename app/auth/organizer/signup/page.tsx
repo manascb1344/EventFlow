@@ -64,7 +64,7 @@ export default function Register() {
         return;
       }
 
-      // Redirect to the appropriate onboarding page based on role
+      // Redirect to the onboarding page based on role
       router.push(`/onboarding/organizer`);
       router.refresh();
     } catch (error) {
