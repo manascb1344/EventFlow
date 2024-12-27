@@ -1,0 +1,29 @@
+Bugs Identified
+Double Payment:
+No session expiration or cleanup for double payment sessions.
+Error Handling:
+No recovery mechanisms or automatic retries.
+No webhook retry and error tracking.
+Race Condition:
+No atomic operations or temporary seat holding which can cause overselling in high demand cases.
+No queue system currently to manage users.
+Security Issues:
+Missing price validation and webhook signature verification
+No rate limiting for payments implemented.
+Performance Issues:
+Non-optimized payment queries and lack of caching for event availability.
+
+
+Solutions
+Double Payment Prevention:
+I plan to implement a session expiration (e.g., 15 minutes) and automate abandoned session cleanup.
+So I can temporarily hold the seat so that race conditions can also be prevented.
+Error Handling:
+I plan to add automatic retries or an improved webhook retry mechanism.
+Race Condition in Ticket Purchases:
+I plan to introduce atomic seat reservation, temporary seat holding during checkout, and a queue system for high demand events.
+Security Enhancements:
+I plan to periodically validate the prices against the database and verify webhook signatures.
+Also, I plan to implement rate limiting so that I can prevent the payment module from going down.
+Performance Optimizations:
+Also I pkan to add database indexing in an optimized way and caching to optimize payment queries and event availability checks.
