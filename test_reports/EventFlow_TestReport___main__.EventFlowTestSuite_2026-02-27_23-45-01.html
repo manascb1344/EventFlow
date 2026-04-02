@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EventFlow Selenium Automation Test Report</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="text-capitalize">EventFlow Selenium Automation Test Report</h2>
+                <p class='attribute'><strong>Start Time: </strong>2026-02-27 23:45:01</p>
+                <p class='attribute'><strong>Duration: </strong>678 ms</p>
+                <p class='attribute'><strong>Summary: </strong>Total: 15, Pass: 0, Error: 15</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <table class='table table-hover table-responsive'>
+                    <thead>
+                        <tr>
+                            <th>__main__.EventFlowTestSuite</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_01_homepage_loading</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[Test 01] Homepage Loading Test
+</p><p style="color:maroon;">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "/home/mcb76/projects/EventFlow/selenium_test_suite.py", line 60, in test_01_homepage_loading
+    self.driver.get("http://localhost:3000")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 466, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_02_navigation_elements</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[Test 02] Navigation Elements Test
+</p><p style="color:maroon;">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "/home/mcb76/projects/EventFlow/selenium_test_suite.py", line 77, in test_02_navigation_elements
+    self.driver.get("http://localhost:3000")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 466, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_03_signin_page</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[Test 03] Sign In Page Test
+</p><p style="color:maroon;">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "/home/mcb76/projects/EventFlow/selenium_test_suite.py", line 98, in test_03_signin_page
+    self.driver.get("http://localhost:3000/auth/attendee/signin")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 466, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_04_signin_form_interaction</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[Test 04] Sign In Form Interaction Test
+</p><p style="color:maroon;">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "/home/mcb76/projects/EventFlow/selenium_test_suite.py", line 120, in test_04_signin_form_interaction
+    self.driver.get("http://localhost:3000/auth/attendee/signin")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 466, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_05_signup_page</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[Test 05] Sign Up Page Test
+</p><p style="color:maroon;">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "/home/mcb76/projects/EventFlow/selenium_test_suite.py", line 143, in test_05_signup_page
+    self.driver.get("http://localhost:3000/auth/attendee/signup")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 466, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_06_contact_page</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[Test 06] Contact Page Test
+</p><p style="color:maroon;">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "/home/mcb76/projects/EventFlow/selenium_test_suite.py", line 158, in test_06_contact_page
+    self.driver.get("http://localhost:3000/contact")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 466, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_07_contact_form_submission</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[Test 07] Contact Form Data Entry Test
+</p><p style="color:maroon;">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "/home/mcb76/projects/EventFlow/selenium_test_suite.py", line 176, in test_07_contact_form_submission
+    self.driver.get("http://localhost:3000/contact")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 466, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_08_features_page</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[Test 08] Features Page Test
+</p><p style="color:maroon;">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "/home/mcb76/projects/EventFlow/selenium_test_suite.py", line 205, in test_08_features_page
+    self.driver.get("http://localhost:3000/features")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 466, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_09_pricing_page</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[Test 09] Pricing Page Test
+</p><p style="color:maroon;">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "/home/mcb76/projects/EventFlow/selenium_test_suite.py", line 217, in test_09_pricing_page
+    self.driver.get("http://localhost:3000/pricing")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 466, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_10_about_page</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[Test 10] About Page Test
+</p><p style="color:maroon;">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "/home/mcb76/projects/EventFlow/selenium_test_suite.py", line 232, in test_10_about_page
+    self.driver.get("http://localhost:3000/about")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 466, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_11_responsive_mobile</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[Test 11] Responsive Mobile Test
+</p><p style="color:maroon;">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "/home/mcb76/projects/EventFlow/selenium_test_suite.py", line 248, in test_11_responsive_mobile
+    self.driver.get("http://localhost:3000")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 466, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_12_responsive_tablet</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[Test 12] Responsive Tablet Test
+</p><p style="color:maroon;">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "/home/mcb76/projects/EventFlow/selenium_test_suite.py", line 266, in test_12_responsive_tablet
+    self.driver.get("http://localhost:3000")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 466, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_13_page_performance</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[Test 13] Page Performance Test
+</p><p style="color:maroon;">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "/home/mcb76/projects/EventFlow/selenium_test_suite.py", line 289, in test_13_page_performance
+    self.driver.get(f"http://localhost:3000{page}")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 466, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_14_landing_page_elements</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[Test 14] Landing Page Elements Test
+</p><p style="color:maroon;">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "/home/mcb76/projects/EventFlow/selenium_test_suite.py", line 306, in test_14_landing_page_elements
+    self.driver.get("http://localhost:3000")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 466, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+
+</p>
+                            </td>
+                        </tr>
+                        <tr class='warning'>
+                            <td class="col-xs-10">test_15_authentication_redirect</td>
+                            <td class="col-xs-1">
+                                <span class="label label-warning" style="display:block;width:40px;">Error</span>
+                            </td>
+                            <td class="col-xs-1">
+                                <button class="btn btn-default btn-xs">View</button>
+                            </td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td class="col-xs-9" colspan="3"><p>
+[Test 15] Authentication Redirect Test
+</p><p style="color:maroon;">WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+</p><p style="color:maroon;">Traceback (most recent call last):
+  File "/home/mcb76/projects/EventFlow/selenium_test_suite.py", line 326, in test_15_authentication_redirect
+    self.driver.get("http://localhost:3000/events")
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 466, in get
+    self.execute(Command.GET, {"url": url})
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/webdriver.py", line 446, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/home/mcb76/projects/EventFlow/venv/lib/python3.14/site-packages/selenium/webdriver/remote/errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.WebDriverException: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=145.0.7632.116)
+Stacktrace:
+#0 0x628c002a3b6a <unknown>
+#1 0x628bffcb6a32 <unknown>
+#2 0x628bffcad7ba <unknown>
+#3 0x628bffc9e481 <unknown>
+#4 0x628bffca027c <unknown>
+#5 0x628bffc9e979 <unknown>
+#6 0x628bffc9e065 <unknown>
+#7 0x628bffc9dc16 <unknown>
+#8 0x628bffc9b731 <unknown>
+#9 0x628bffc9bf80 <unknown>
+#10 0x628bffcba41d <unknown>
+#11 0x628bffd54feb <unknown>
+#12 0x628bffd54369 <unknown>
+#13 0x628bffcfdc0f <unknown>
+#14 0x628bffcfe9d1 <unknown>
+#15 0x628c002686b9 <unknown>
+#16 0x628c0026b5c1 <unknown>
+#17 0x628c00254e29 <unknown>
+#18 0x628c0026c17e <unknown>
+#19 0x628c0023b4b0 <unknown>
+#20 0x628c00290578 <unknown>
+#21 0x628c0029074b <unknown>
+#22 0x628c002a21a3 <unknown>
+#23 0x78ad29e9caa4 <unknown>
+#24 0x78ad29f29c6c <unknown>
+
+</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Total: 15, Pass: 0, Error: 15 -- Duration: 678 ms
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('td').on('click', '.btn', function(e){
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var $this = $(this);
+                var $nextRow = $this.closest('tr').next('tr');
+                $nextRow.slideToggle("fast");
+                $this.text(function(i, text){
+                    if (text === 'View') {
+                        return 'Hide';
+                    } else {
+                        return 'View';
+                    };
+                });
+            });
+        });
+    </script>
+</body>
+</html

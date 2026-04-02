@@ -1,0 +1,69 @@
+
+================================================================================
+                    EVENTFLOW SELENIUM TEST SUITE SUMMARY
+================================================================================
+
+Test Suite: EventFlow Web Application Automation Testing
+Execution Date: 2026-02-27 23:06:14
+Browser: Google Chrome (Headless)
+Test Framework: Python unittest + Selenium WebDriver
+Report Type: HTML Test Report with Screenshots
+
+================================================================================
+                              TEST CASES OVERVIEW
+================================================================================
+
+Total Test Cases: 15
+Test Categories:
+  - Homepage & Navigation:     2 tests (TC_001, TC_002)
+  - Authentication Flow:       4 tests (TC_003, TC_004, TC_005, TC_015)
+  - Contact Form:              2 tests (TC_006, TC_007)
+  - Page Content:              3 tests (TC_008, TC_009, TC_010)
+  - Responsive Design:         2 tests (TC_011, TC_012)
+  - Performance & Elements:    2 tests (TC_013, TC_014)
+
+================================================================================
+                            KEY TESTING AREAS
+================================================================================
+
+✓ Homepage Loading            - Page title, key elements, content verification
+✓ Navigation System           - Menu links, navigation structure
+✓ Sign In Functionality       - Form elements, input validation
+✓ Sign Up Functionality       - Registration form structure
+✓ Contact Form                - Data entry, form submission
+✓ Features Page               - Content loading, feature display
+✓ Pricing Page                - Pricing information, plans display
+✓ About Page                  - Company information, content
+✓ Responsive Design           - Mobile (375x667), Tablet (768x1024)
+✓ Page Performance            - Load time verification (< 5 seconds)
+✓ Interactive Elements        - Buttons, links count verification
+✓ Authentication Security     - Protected route redirects
+
+================================================================================
+                           SOFTWARE & TOOLS USED
+================================================================================
+
+Operating System:       Linux (Ubuntu/Debian-based)
+Programming Language:   Python 3.14.3
+Automation Framework:   Selenium WebDriver 4.41.0
+Browser:               Google Chrome 145.0.7632.116
+WebDriver Manager:     4.0.2
+Testing Framework:     Python unittest
+HTML Reporting:        html-testRunner 1.2.1
+Front-end Framework:   Next.js 15.0.3
+Package Manager:       PNPM 10.30.2
+Documentation:         python-docx 1.2.0
+
+================================================================================
+                              TEST EXECUTION
+================================================================================
+
+All test cases were executed sequentially in headless mode.
+Screenshots captured at key verification points.
+Test results generated in HTML format for easy viewing.
+
+Report Location: test_reports/EventFlow_TestReport.html
+Screenshots:     test_reports/screenshots/
+
+================================================================================
+    
