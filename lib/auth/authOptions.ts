@@ -44,10 +44,8 @@ export const authOptions: AuthOptions = {
         role: { label: "Role", type: "text" }
       },
       async authorize(credentials) {
-        console.log("Authorizing credentials:", { email: credentials?.email, role: credentials?.role });
 
         if (!credentials?.email || !credentials?.password || !credentials?.role) {
-          console.log("Missing credentials");
           throw new Error("Invalid credentials");
         }
 
@@ -109,10 +107,8 @@ export const authOptions: AuthOptions = {
   ],
   callbacks: {
     async signIn({ user, account }) {
-      console.log("Sign in callback:", { user, account });
 
       if (!user?.email) {
-        console.log("No email provided");
         return false;
       }
 
@@ -124,7 +120,6 @@ export const authOptions: AuthOptions = {
         });
 
         if (existingOrganizer) {
-          console.log("Organizer attempting to use Google sign-in");
           return false;
         }
 

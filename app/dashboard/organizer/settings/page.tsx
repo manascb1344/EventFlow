@@ -12,7 +12,7 @@ export default function SettingsPage() {
     const { data: session, status } = useSession()
 
     if (status === "unauthenticated") {
-        redirect("/auth/signin")
+        redirect("/auth/organizer/signin")
     }
 
     if (status === "loading") {

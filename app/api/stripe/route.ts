@@ -10,12 +10,9 @@ import { authOptions } from "@/lib/auth/authOptions";
 
 export async function POST(req: Request) {
   try {
-    console.log("[POST] Received request");
     const { eventId } = await req.json();
-    console.log("[POST] Event ID:", eventId);
 
     const session = await getServerSession(authOptions);
-    console.log("[POST] Session:", session);
 
     if (!session?.user) {
       console.log("[POST] Unauthorized: No user session");
@@ -25,7 +22,6 @@ export async function POST(req: Request) {
     const event = await db.query.events.findFirst({
       where: eq(events.id, parseInt(eventId)),
     });
-    console.log("[POST] Event details:", event);
 
     if (!event) {
       console.log("[POST] Event not found");
@@ -60,9 +56,7 @@ export async function POST(req: Request) {
         attendeeId: session.user.id,
       },
     });
-    console.log("[POST] Stripe session created:", stripeSession);
 
-    console.log("[POST] Returning Stripe session URL");
     return NextResponse.json({ url: stripeSession.url });
   } catch (error) {
     console.error("[STRIPE_ERROR]", error);

@@ -2,7 +2,7 @@
 
 import { db } from '@/lib/db/drizzle'
 import { savedEvents, events } from '@/lib/db/schema'
-import { eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 import { authOptions } from '@/lib/auth/authOptions'
@@ -46,7 +46,7 @@ export async function removeSavedEvent(savedEventId: number) {
   try {
     await db
       .delete(savedEvents)
-      .where(eq(savedEvents.id, savedEventId))
+      .where(and(eq(savedEvents.id, savedEventId), eq(savedEvents.attendeeId, +session.user.id)))
   } catch (error) {
     console.error('Error removing saved event:', error)
     throw new Error('Failed to remove saved event')

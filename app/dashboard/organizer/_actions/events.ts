@@ -2,25 +2,80 @@
 
 import { db } from "@/lib/db/drizzle";
 import { events, tickets, EventStatus } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth/authOptions";
+import { z } from "zod";
+
+const eventInputSchema = z.object({
+  name: z.string().min(3),
+  description: z.string().min(10),
+  location: z.string().min(2),
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date(),
+  ticketPrice: z.coerce.number().nonnegative(),
+  seatsAvailable: z.coerce.number().int().positive(),
+  venue: z.string().optional(),
+  venueCapacity: z.coerce.number().int().nonnegative(),
+  isPublic: z.boolean(),
+  registrationDeadline: z.coerce.date(),
+});
+
+async function ownedEventCondition(eventId: number) {
+  const session = await getServerSession(authOptions);
+  if (!session || session.user.role !== 'ORGANIZER') {
+    return null;
+  }
+  return and(eq(events.id, eventId), eq(events.organizerId, Number(session.user.id)));
+}
+
+async function ownsEvent(eventId: number) {
+  const condition = await ownedEventCondition(eventId);
+  if (!condition) return false;
+  const rows = await db.select({ id: events.id }).from(events).where(condition).limit(1);
+  return rows.length > 0;
+}
 
 export async function createEvent(formData: FormData) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session || session.user.role !== 'ORGANIZER') {
+      return { error: 'Unauthorized' };
+    }
+
+    const parsed = eventInputSchema.safeParse({
+      name: formData.get('name'),
+      description: formData.get('description'),
+      location: formData.get('location'),
+      startDate: formData.get('startDate'),
+      endDate: formData.get('endDate'),
+      ticketPrice: formData.get('ticketPrice'),
+      seatsAvailable: formData.get('seatsAvailable'),
+      venue: formData.get('venue'),
+      venueCapacity: formData.get('venueCapacity') ?? 0,
+      isPublic: formData.get('isPublic') === 'true',
+      registrationDeadline: formData.get('registrationDeadline'),
+    });
+
+    if (!parsed.success) {
+      return { error: 'Invalid event details' };
+    }
+
     const data = {
-      name: formData.get("name") as string,
-      description: formData.get("description") as string,
-      location: formData.get("location") as string,
-      startDate: new Date(formData.get("startDate") as string),
-      endDate: new Date(formData.get("endDate") as string),
-      ticketPrice: formData.get("ticketPrice") as string,
-      seatsAvailable: parseInt(formData.get("seatsAvailable") as string),
-      organizerId: parseInt(formData.get("organizerId") as string),
+      name: parsed.data.name,
+      description: parsed.data.description,
+      location: parsed.data.location,
+      startDate: parsed.data.startDate,
+      endDate: parsed.data.endDate,
+      ticketPrice: parsed.data.ticketPrice.toString(),
+      seatsAvailable: parsed.data.seatsAvailable,
+      organizerId: Number(session.user.id),
       eventStatus: "PUBLISHED" as const,
-      venue: formData.get("venue") as string,
-      venueCapacity: parseInt(formData.get("venueCapacity") as string),
-      isPublic: formData.get("isPublic") === "true",
-      registrationDeadline: new Date(formData.get("registrationDeadline") as string),
+      venue: parsed.data.venue ?? null,
+      venueCapacity: parsed.data.venueCapacity,
+      isPublic: parsed.data.isPublic,
+      registrationDeadline: parsed.data.registrationDeadline,
     };
 
     await db.insert(events).values(data);
@@ -33,23 +88,28 @@ export async function createEvent(formData: FormData) {
 }
 
 export async function updateEvent(eventId: number, formData: FormData) {
+  const condition = await ownedEventCondition(eventId);
+  if (!condition) {
+    return { error: 'Unauthorized' };
+  }
+
   try {
     const data = {
-      name: formData.get("name") as string,
-      description: formData.get("description") as string,
-      location: formData.get("location") as string,
-      startDate: new Date(formData.get("startDate") as string),
-      endDate: new Date(formData.get("endDate") as string),
-      ticketPrice: formData.get("ticketPrice") as string,
-      seatsAvailable: parseInt(formData.get("seatsAvailable") as string),
-      eventStatus: formData.get("eventStatus") as keyof typeof EventStatus,
+      name: String(formData.get("name") ?? ""),
+      description: String(formData.get("description") ?? ""),
+      location: String(formData.get("location") ?? ""),
+      startDate: new Date(String(formData.get("startDate") ?? "")),
+      endDate: new Date(String(formData.get("endDate") ?? "")),
+      ticketPrice: String(formData.get("ticketPrice") ?? "0"),
+      seatsAvailable: Number(formData.get("seatsAvailable") ?? 0),
+      eventStatus: String(formData.get("eventStatus") ?? "PUBLISHED") as keyof typeof EventStatus,
       venue: formData.get("venue") as string,
       venueCapacity: parseInt(formData.get("venueCapacity") as string),
       isPublic: formData.get("isPublic") === "true",
       registrationDeadline: new Date(formData.get("registrationDeadline") as string),
     };
 
-    await db.update(events).set(data).where(eq(events.id, eventId));
+    await db.update(events).set(data).where(condition);
     revalidatePath("/dashboard/organizer/events");
     revalidatePath(`/dashboard/organizer/events/${eventId}`);
     return { success: true };
@@ -60,8 +120,13 @@ export async function updateEvent(eventId: number, formData: FormData) {
 }
 
 export async function deleteEvent(eventId: number) {
+  const condition = await ownedEventCondition(eventId);
+  if (!condition) {
+    return { error: 'Unauthorized' };
+  }
+
   try {
-    await db.delete(events).where(eq(events.id, eventId));
+    await db.delete(events).where(condition);
     revalidatePath("/dashboard/organizer/events");
     return { success: true };
   } catch (error) {
@@ -71,10 +136,15 @@ export async function deleteEvent(eventId: number) {
 }
 
 export async function publishEvent(eventId: number) {
+  const condition = await ownedEventCondition(eventId);
+  if (!condition) {
+    return { error: 'Unauthorized' };
+  }
+
   try {
     await db.update(events)
       .set({ eventStatus: "PUBLISHED" })
-      .where(eq(events.id, eventId));
+      .where(condition);
     revalidatePath(`/dashboard/organizer/events/${eventId}`);
     return { success: true };
   } catch (error) {
@@ -84,6 +154,10 @@ export async function publishEvent(eventId: number) {
 }
 
 export async function getEventTickets(eventId: number) {
+  if (!(await ownsEvent(eventId))) {
+    return { error: 'Unauthorized' };
+  }
+
   try {
     const eventTickets = await db.query.tickets.findMany({
       where: eq(tickets.eventId, eventId),
@@ -100,6 +174,10 @@ export async function getEventTickets(eventId: number) {
 }
 
 export async function getEventAttendees(eventId: number) {
+  if (!(await ownsEvent(eventId))) {
+    return { error: 'Unauthorized' };
+  }
+
   try {
     const eventAttendees = await db.query.tickets.findMany({
       where: eq(tickets.eventId, eventId),
