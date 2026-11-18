@@ -15,6 +15,7 @@ const publicRoutes = [
   "/docs",
   "/changelog",
   "/events",
+  "/api/health",
   "/api/stripe/webhook",
   "/api/uploadthing",
 ];
