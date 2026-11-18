@@ -17,7 +17,7 @@ export default async function TicketsPage() {
   const session = await getServerSession(authOptions);
 
   if (!session) {
-    redirect("/auth/signin");
+    redirect("/auth/attendee/signin");
   }
 
   return (

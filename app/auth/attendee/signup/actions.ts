@@ -3,6 +3,7 @@
 import { hash } from "bcryptjs";
 import { db } from "@/lib/db/drizzle";
 import { attendees } from "@/lib/db/schema";
+import { z } from "zod";
 
 type RegisterResponse = {
   success: boolean;
@@ -13,13 +14,19 @@ export async function register(
   email: string,
   password: string
 ): Promise<RegisterResponse> {
+  const parsed = z.object({
+    email: z.string().email(),
+    password: z.string().min(8),
+  }).safeParse({ email, password });
+
+  if (!parsed.success) {
+    return {
+      success: false,
+      message: "Enter a valid email and a password of at least 8 characters",
+    };
+  }
+
   try {
-    if (!email || !password) {
-      return {
-        success: false,
-        message: "Missing required fields",
-      };
-    }
 
     // Check if user already exists
     const existingUser = await db.query.attendees.findFirst({

@@ -12,6 +12,9 @@ const publicRoutes = [
   "/about",
   "/contact",
   "/pricing",
+  "/docs",
+  "/changelog",
+  "/events",
   "/api/stripe/webhook",
   "/api/uploadthing",
 ];
@@ -42,7 +45,9 @@ export const config = {
 export default withAuth(
   function middleware(req) {
     const isPublicRoute = publicRoutes.some(route => 
-      req.nextUrl.pathname === route || req.nextUrl.pathname.startsWith("/api/auth/")
+      req.nextUrl.pathname === route ||
+      (route === "/events" && req.nextUrl.pathname.startsWith("/events/")) ||
+      req.nextUrl.pathname.startsWith("/api/auth/")
     );
 
     if (isPublicRoute) {
@@ -69,8 +74,9 @@ export default withAuth(
   {
     callbacks: {
       authorized: ({ req, token }) => {
-        const isPublicRoute = publicRoutes.some(route => 
-          req.nextUrl.pathname === route
+        const isPublicRoute = publicRoutes.some(route =>
+          req.nextUrl.pathname === route ||
+          (route === "/events" && req.nextUrl.pathname.startsWith("/events/"))
         );
         
         if (isPublicRoute) {

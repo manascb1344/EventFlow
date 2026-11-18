@@ -1,5 +1,8 @@
 import { Metadata } from 'next';
 import { getMyTickets } from './actions';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth/authOptions';
+import { redirect } from 'next/navigation';
 import { format } from 'date-fns';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -21,6 +24,13 @@ export const metadata: Metadata = {
 };
 
 export default async function MyTicketsPage() {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect('/auth/attendee/signin');
+  }
+  if (session.user.role !== 'ATTENDEE') {
+    redirect('/dashboard');
+  }
   const tickets = await getMyTickets();
 
   const activeTickets = tickets.filter(

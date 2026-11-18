@@ -4,9 +4,49 @@ import { db } from "@/lib/db/drizzle";
 import { events, tickets, EventStatus } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth/authOptions";
+import { z } from "zod";
+
+const eventInputSchema = z.object({
+  name: z.string().min(3),
+  description: z.string().min(10),
+  location: z.string().min(2),
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date(),
+  ticketPrice: z.coerce.number().nonnegative(),
+  seatsAvailable: z.coerce.number().int().positive(),
+  venue: z.string().optional(),
+  venueCapacity: z.coerce.number().int().nonnegative(),
+  isPublic: z.boolean(),
+  registrationDeadline: z.coerce.date(),
+});
 
 export async function createEvent(formData: FormData) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session || session.user.role !== 'ORGANIZER') {
+      return { error: 'Unauthorized' };
+    }
+
+    const parsed = eventInputSchema.safeParse({
+      name: formData.get('name'),
+      description: formData.get('description'),
+      location: formData.get('location'),
+      startDate: formData.get('startDate'),
+      endDate: formData.get('endDate'),
+      ticketPrice: formData.get('ticketPrice'),
+      seatsAvailable: formData.get('seatsAvailable'),
+      venue: formData.get('venue'),
+      venueCapacity: formData.get('venueCapacity') ?? 0,
+      isPublic: formData.get('isPublic') === 'true',
+      registrationDeadline: formData.get('registrationDeadline'),
+    });
+
+    if (!parsed.success) {
+      return { error: 'Invalid event details' };
+    }
+
     const data = {
       name: formData.get("name") as string,
       description: formData.get("description") as string,
@@ -15,12 +55,12 @@ export async function createEvent(formData: FormData) {
       endDate: new Date(formData.get("endDate") as string),
       ticketPrice: formData.get("ticketPrice") as string,
       seatsAvailable: parseInt(formData.get("seatsAvailable") as string),
-      organizerId: parseInt(formData.get("organizerId") as string),
+      organizerId: Number(session.user.id),
       eventStatus: "PUBLISHED" as const,
-      venue: formData.get("venue") as string,
-      venueCapacity: parseInt(formData.get("venueCapacity") as string),
-      isPublic: formData.get("isPublic") === "true",
-      registrationDeadline: new Date(formData.get("registrationDeadline") as string),
+      venue: parsed.data.venue ?? null,
+      venueCapacity: parsed.data.venueCapacity,
+      isPublic: parsed.data.isPublic,
+      registrationDeadline: parsed.data.registrationDeadline,
     };
 
     await db.insert(events).values(data);
@@ -35,14 +75,14 @@ export async function createEvent(formData: FormData) {
 export async function updateEvent(eventId: number, formData: FormData) {
   try {
     const data = {
-      name: formData.get("name") as string,
-      description: formData.get("description") as string,
-      location: formData.get("location") as string,
-      startDate: new Date(formData.get("startDate") as string),
-      endDate: new Date(formData.get("endDate") as string),
-      ticketPrice: formData.get("ticketPrice") as string,
-      seatsAvailable: parseInt(formData.get("seatsAvailable") as string),
-      eventStatus: formData.get("eventStatus") as keyof typeof EventStatus,
+      name: String(formData.get("name") ?? ""),
+      description: String(formData.get("description") ?? ""),
+      location: String(formData.get("location") ?? ""),
+      startDate: new Date(String(formData.get("startDate") ?? "")),
+      endDate: new Date(String(formData.get("endDate") ?? "")),
+      ticketPrice: String(formData.get("ticketPrice") ?? "0"),
+      seatsAvailable: Number(formData.get("seatsAvailable") ?? 0),
+      eventStatus: String(formData.get("eventStatus") ?? "PUBLISHED") as keyof typeof EventStatus,
       venue: formData.get("venue") as string,
       venueCapacity: parseInt(formData.get("venueCapacity") as string),
       isPublic: formData.get("isPublic") === "true",
