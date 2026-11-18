@@ -1,5 +1,5 @@
-import { pgTable, serial, text, timestamp, varchar, decimal, integer, boolean } from 'drizzle-orm/pg-core';
-import { relations } from 'drizzle-orm';
+import { pgTable, serial, text, timestamp, varchar, decimal, integer, boolean, index, uniqueIndex, check } from 'drizzle-orm/pg-core';
+import { relations, sql } from 'drizzle-orm';
 
 export const UserRole = {
   ORGANIZER: 'ORGANIZER',
@@ -107,7 +107,10 @@ export const events = pgTable('events', {
   registrationDeadline: timestamp('registration_deadline'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
-});
+}, (table) => ({
+  statusStartDateIdx: index('events_status_start_date_idx').on(table.eventStatus, table.startDate),
+  seatsNonNegative: check('events_seats_non_negative', sql`${table.seatsAvailable} >= 0`),
+}));
 
 export const tickets = pgTable('tickets', {
   id: serial('id').primaryKey(),
@@ -129,7 +132,10 @@ export const tickets = pgTable('tickets', {
   qrCode: text('qr_code'),
   groupSize: integer('group_size').default(1),
   specialRequirements: text('special_requirements'),
-});
+}, (table) => ({
+  eventIdx: index('tickets_event_id_idx').on(table.eventId),
+  attendeeIdx: index('tickets_attendee_id_idx').on(table.attendeeId),
+}));
 
 export const speakers = pgTable('speakers', {
   id: serial('id').primaryKey(),
@@ -155,7 +161,7 @@ export const speakers = pgTable('speakers', {
 
 export const payments = pgTable('payments', {
   id: serial('id').primaryKey(),
-  ticketId: integer('ticket_id').notNull().references(() => tickets.id),
+  ticketId: integer('ticket_id').notNull().references(() => tickets.id, { onDelete: 'cascade' }),
   amount: decimal('amount', { precision: 10, scale: 2 }).notNull(),
   paymentMethod: varchar('payment_method', { length: 50 }).notNull(),
   paymentStatus: varchar('payment_status', { length: 20 }).notNull().$type<keyof typeof PaymentStatus>(),
@@ -165,7 +171,9 @@ export const payments = pgTable('payments', {
   stripeRefundId: varchar('stripe_refund_id', { length: 255 }).unique(),
   refundReason: text('refund_reason'),
   paymentDate: timestamp('payment_date').defaultNow().notNull(),
-});
+}, (table) => ({
+  ticketIdx: index('payments_ticket_id_idx').on(table.ticketId),
+}));
 
 export const surveys = pgTable('surveys', {
   id: serial('id').primaryKey(),
@@ -210,7 +218,10 @@ export const savedEvents = pgTable('saved_events', {
     onUpdate: 'cascade'
   }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
-});
+}, (table) => ({
+  attendeeEventUnique: uniqueIndex('saved_events_attendee_event_idx').on(table.attendeeId, table.eventId),
+  attendeeIdx: index('saved_events_attendee_id_idx').on(table.attendeeId),
+}));
 
 export const organizersRelations = relations(organizers, ({ many }) => ({
   events: many(events),

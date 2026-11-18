@@ -2,9 +2,10 @@ import Stripe from 'stripe';
 import { stripe } from '@/lib/payments/stripe';
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db/drizzle';
-import { events, tickets, payments } from '@/lib/db/schema';
+import { events, tickets } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { sendEmail, generatePaymentSuccessEmail, generatePaymentErrorEmail } from '@/lib/email';
+import { issueTicket } from '@/lib/ticketing/issue-ticket';
 
 export const runtime = 'nodejs';
 
@@ -74,7 +75,6 @@ export async function POST(request: NextRequest) {
 }
 
 async function handleCheckoutSessionCompleted(event: Stripe.Event) {
-  console.log('Processing checkout.session.completed event');
   const session = event.data.object as Stripe.Checkout.Session;
   const { eventId, attendeeId } = session.metadata || {};
 
@@ -82,49 +82,27 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event) {
     throw new Error('Missing eventId or attendeeId in session metadata');
   }
 
-  const existingTicket = await db.query.tickets.findFirst({
-    where: eq(tickets.stripePaymentIntentId, session.payment_intent as string),
+  const paymentIntentId = session.payment_intent as string;
+  const eventRow = await db.query.events.findFirst({
+    where: eq(events.id, parseInt(eventId, 10)),
   });
 
-  if (!existingTicket) {
-    await createTicketAndPayment(session, eventId, attendeeId);
-  }
-}
-
-async function createTicketAndPayment(session: Stripe.Checkout.Session, eventId: string, attendeeId: string) {
-  const event = await db.query.events.findFirst({
-    where: eq(events.id, parseInt(eventId)),
-  });
-
-  if (!event) {
+  if (!eventRow) {
     throw new Error('Event not found');
   }
 
-  const [ticket] = await db.insert(tickets).values({
-    eventId: event.id,
-    attendeeId: parseInt(attendeeId),
-    ticketType: "REGULAR",
-    status: "CONFIRMED",
-    attendeeName: session.customer_details?.name || "",
-    ticketNumber: `TKT-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
-    stripePaymentIntentId: session.payment_intent as string,
-  }).returning();
-
-  await db.insert(payments).values({
-    ticketId: ticket.id,
-    amount: event.ticketPrice,
-    paymentMethod: "CARD",
-    paymentStatus: "COMPLETED",
-    transactionId: session.id,
-    stripeSessionId: session.id,
-    stripePaymentIntentId: session.payment_intent as string,
+  const { ticket, created } = await issueTicket({
+    eventId: eventRow.id,
+    attendeeId: parseInt(attendeeId, 10),
+    attendeeName: session.customer_details?.name || '',
+    paymentIntentId,
+    checkoutSessionId: session.id,
+    amount: eventRow.ticketPrice,
   });
 
-  await db.update(events)
-    .set({ seatsAvailable: event.seatsAvailable - 1 })
-    .where(eq(events.id, event.id));
-
-  await sendSuccessEmail(session, event, ticket);
+  if (created) {
+    await sendSuccessEmail(session, eventRow, ticket);
+  }
 }
 
 async function sendSuccessEmail(session: Stripe.Checkout.Session, event: typeof events.$inferSelect, ticket: typeof tickets.$inferSelect) {
@@ -137,7 +115,7 @@ async function sendSuccessEmail(session: Stripe.Checkout.Session, event: typeof 
 
     const emailContent = generatePaymentSuccessEmail(
       session.customer_details?.name || 'Valued Customer',
-      Number(event.ticketPrice),
+      Math.round(Number(event.ticketPrice) * 100),
       ticket.ticketNumber,
       invoiceUrl,
       {
