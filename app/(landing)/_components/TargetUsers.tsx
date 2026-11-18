@@ -74,7 +74,7 @@ export function TargetUsers() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            Whether you're organizing a corporate conference or a local community gathering, EventFlow has you covered.
+            Whether you&apos;re organizing a corporate conference or a local community gathering, EventFlow has you covered.
           </motion.p>
         </div>
 

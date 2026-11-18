@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
-import { LineChart, BarChart, Calendar, Users, Ticket, Sparkles } from "lucide-react";
+import { LineChart, Calendar, Users, Ticket, Sparkles } from "lucide-react";
 import Image from "next/image";
 
 const tabs = [

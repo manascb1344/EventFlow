@@ -116,7 +116,7 @@ async function seed() {
     'Startup Pitch Night 2023'
   ];
 
-  const pastEvents = await Promise.all(
+  await Promise.all(
     pastEventNames.map(async (name, index) => {
       const startDate = new Date();
       startDate.setMonth(startDate.getMonth() - 6);

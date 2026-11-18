@@ -53,7 +53,7 @@ export default function OrganizerSignIn() {
 
       router.push("/dashboard/organizer");
       router.refresh();
-    } catch (error) {
+    } catch {
       setError("Something went wrong");
     }
   };

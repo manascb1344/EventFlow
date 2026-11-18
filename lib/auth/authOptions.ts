@@ -21,8 +21,12 @@ declare module "next-auth" {
       email: string;
       role: keyof typeof UserRole;
       onboardingCompleted: boolean;
+      image?: string | null;
     }
   }
+}
+
+declare module "next-auth/jwt" {
   interface JWT {
     id: string;
     role: keyof typeof UserRole;
@@ -60,7 +64,7 @@ export const authOptions: AuthOptions = {
           }
 
           // Verify password
-          const passwordMatch = await bcrypt.compare(credentials.password, organizer.password);
+          const passwordMatch = await bcrypt.compare(credentials.password as string, organizer.password ?? "");
           if (!passwordMatch) {
             throw new Error("Invalid credentials");
           }
@@ -84,7 +88,7 @@ export const authOptions: AuthOptions = {
         }
 
         // Verify password
-        const passwordMatch = await bcrypt.compare(credentials.password, attendee.password);
+        const passwordMatch = await bcrypt.compare(credentials.password as string, attendee.password ?? "");
         if (!passwordMatch) {
           throw new Error("Invalid credentials");
         }

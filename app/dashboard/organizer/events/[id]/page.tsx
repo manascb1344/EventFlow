@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth/authOptions";
 import { getEvent } from "../../_actions/getEvent";
 import EventDetailClient from "./_components/EventDetailClient";
 
-export default async function EventDetailPage({ params }: { params: { id: string } }) {
+export default async function EventDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -15,7 +15,8 @@ export default async function EventDetailPage({ params }: { params: { id: string
     redirect("/");
   }
 
-  const eventId = parseInt(params.id);
+  const { id } = await params;
+  const eventId = parseInt(id);
   const result = await getEvent(eventId);
 
   if (result.error || !result.event) {

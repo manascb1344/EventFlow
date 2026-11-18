@@ -24,5 +24,5 @@ export default async function OrganizerDashboard() {
     return <div>Error loading organizer stats: {statsResult.error}</div>;
   }
 
-  return <OrganizerDashboardContent stats={statsResult.stats} profile={profile} />;
+  return <OrganizerDashboardContent stats={statsResult.stats} profile={profile ?? null} />;
 }

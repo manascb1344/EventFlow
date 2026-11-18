@@ -9,8 +9,8 @@ export default async function SuccessPage({
   params,
   searchParams,
 }: {
-  params: { id: string };
-  searchParams: { session_id: string };
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ session_id: string }>;
 }) {
   const session = await getServerSession(authOptions);
   if (!session?.user) {
@@ -27,6 +27,10 @@ export default async function SuccessPage({
   
   if (!result.success) {
     redirect(`/events/${id}?error=${result.error}`);
+  }
+
+  if (!result.event || !result.ticket) {
+    redirect(`/events/${id}?error=Ticket+not+found`);
   }
 
   return (

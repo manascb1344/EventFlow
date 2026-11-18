@@ -23,7 +23,7 @@ export function NotificationForm() {
                     emailNotifications: settings.organizerSettings?.emailNotifications || false,
                     pushNotifications: settings.organizerSettings?.pushNotifications || false
                 })
-            } catch (error) {
+            } catch {
                 toast.error("Failed to load notification settings")
             }
         }
@@ -44,7 +44,13 @@ export function NotificationForm() {
     }
 
     return (
-        <form onSubmit={onSubmit} className="space-y-8">
+        <form
+            onSubmit={(event) => {
+                event.preventDefault();
+                void onSubmit(new FormData(event.currentTarget));
+            }}
+            className="space-y-8"
+        >
             <div className="space-y-6">
                 <div className="flex items-center justify-between py-3 border-b border-white/10">
                     <div className="space-y-0.5">

@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -65,15 +64,19 @@ export default function CreateEventPage() {
       startDate: "",
       endDate: "",
       description: "",
-      ticketPrice: "",
-      seatsAvailable: "",
+      ticketPrice: 0,
+      seatsAvailable: 0,
       venue: "",
-      venueCapacity: "",
+      venueCapacity: 0,
       isPublic: true,
       registrationDeadline: "",
     },
   });
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
+    if (!session?.user) {
+      toast.error("You must be signed in to create an event");
+      return;
+    }
     try {
       setIsSubmitting(true);
       

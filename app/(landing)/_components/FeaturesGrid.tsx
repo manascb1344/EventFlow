@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowUpRight, BarChart, CalendarIcon, CheckCircle2, ClipboardCheck, CreditCard, Sparkles, Ticket, Users } from "lucide-react";
+import { ArrowUpRight, BarChart, CalendarIcon, ClipboardCheck, CreditCard, Sparkles, Ticket, Users } from "lucide-react";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },

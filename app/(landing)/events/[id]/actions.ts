@@ -6,13 +6,12 @@ import { eq } from "drizzle-orm";
 import { stripe } from "@/lib/payments/stripe";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth/authOptions";
-import { redirect } from "next/navigation";
 
 export type PaymentProcessResult = {
   success: boolean;
   error?: string;
-  event?: any;
-  ticket?: any;
+  event?: typeof events.$inferSelect;
+  ticket?: typeof tickets.$inferSelect;
 };
 
 export async function processPayment(

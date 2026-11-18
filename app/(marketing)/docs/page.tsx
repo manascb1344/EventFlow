@@ -87,7 +87,7 @@ export default function DocsPage() {
           <div>
             <h2 className="text-2xl font-semibold text-white mb-2">Need Help?</h2>
             <p className="text-zinc-400 mb-4">
-              Can't find what you're looking for? Our support team is here to help.
+              Can&apos;t find what you&apos;re looking for? Our support team is here to help.
             </p>
             <div className="flex gap-4">
               <Button className="bg-indigo-500 hover:bg-indigo-600">

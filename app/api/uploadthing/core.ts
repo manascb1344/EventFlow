@@ -4,12 +4,12 @@ import { authOptions } from "@/lib/auth/authOptions";
 
 const f = createUploadthing();
 
-const auth = async (req: Request) => {
+const auth = async () => {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user) throw new Error("Unauthorized");
     return session.user;
-  } catch (error) {
+  } catch {
     throw new Error("Authentication failed");
   }
 };
@@ -22,21 +22,21 @@ export const uploadRouter = {
             minFileCount: 1
         }
     })
-        .middleware(async ({ req }) => await auth(req))
+        .middleware(async () => auth())
         .onUploadComplete(async ({ metadata, file }) => {
             return { uploadedBy: metadata.name, url: file.url };
         }),
 
     // This route takes an attached image OR video
     messageAttachment: f(["image", "video"])
-        .middleware(async ({ req }) => await auth(req))
+        .middleware(async () => auth())
         .onUploadComplete(() => {}),
 
     // Takes exactly ONE image up to 2MB
     strictImageAttachment: f({
         image: { maxFileSize: "2MB", maxFileCount: 1, minFileCount: 1 },
     })
-        .middleware(async ({ req }) => await auth(req))
+        .middleware(async () => auth())
         .onUploadComplete(async ({ metadata, file }) => {
             return { uploadedBy: metadata.name, url: file.url };
         }),
@@ -45,7 +45,7 @@ export const uploadRouter = {
     strictPdfAttachment: f({
         pdf: { maxFileSize: "128MB", maxFileCount: 1, minFileCount: 1 },
     })
-        .middleware(async ({ req }) => await auth(req))
+        .middleware(async () => auth())
         .onUploadComplete(() => {}),
 
     // Takes up to 4 2mb images and/or 1 256mb video
@@ -53,7 +53,7 @@ export const uploadRouter = {
         image: { maxFileSize: "2MB", maxFileCount: 4 },
         video: { maxFileSize: "256MB", maxFileCount: 1 },
     })
-        .middleware(async ({ req }) => await auth(req))
+        .middleware(async () => auth())
         .onUploadComplete(() => {}),
 
     // Takes up to 4 2mb images, and the client will not resolve
@@ -62,8 +62,8 @@ export const uploadRouter = {
         { image: { maxFileSize: "2MB", maxFileCount: 4 } },
         { awaitServerData: true },
     )
-        .middleware(async ({ req }) => await auth(req))
-        .onUploadComplete((data) => {
+        .middleware(async () => auth())
+        .onUploadComplete(() => {
             return { foo: "bar" as const };
         }),
 } satisfies FileRouter;

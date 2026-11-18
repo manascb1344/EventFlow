@@ -127,7 +127,7 @@ async function createTicketAndPayment(session: Stripe.Checkout.Session, eventId:
   await sendSuccessEmail(session, event, ticket);
 }
 
-async function sendSuccessEmail(session: Stripe.Checkout.Session, event: any, ticket: any) {
+async function sendSuccessEmail(session: Stripe.Checkout.Session, event: typeof events.$inferSelect, ticket: typeof tickets.$inferSelect) {
   try {
     let invoiceUrl: string | undefined;
     if (session.invoice) {
@@ -135,23 +135,14 @@ async function sendSuccessEmail(session: Stripe.Checkout.Session, event: any, ti
       invoiceUrl = invoice.hosted_invoice_url || undefined;
     }
 
-    const eventDate = event.startDate ? new Date(event.startDate).toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    }) : undefined;
-
     const emailContent = generatePaymentSuccessEmail(
       session.customer_details?.name || 'Valued Customer',
       Number(event.ticketPrice),
       ticket.ticketNumber,
       invoiceUrl,
       {
-        name: event.title,
-        date: event.eventDate || 'TBA',
+        name: event.name,
+        date: event.startDate ? new Date(event.startDate).toLocaleDateString('en-US') : 'TBA',
         location: event.venue || 'TBA'
       }
     );

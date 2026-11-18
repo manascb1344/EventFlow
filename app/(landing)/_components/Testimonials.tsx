@@ -94,7 +94,7 @@ export function Testimonials() {
                     ))}
                   </div>
                   <blockquote className="mb-6 text-lg leading-relaxed text-white/80">
-                    "{testimonial.content}"
+                    &quot;{testimonial.content}&quot;
                   </blockquote>
                   <div>
                     <div className="font-semibold text-white/90">{testimonial.name}</div>

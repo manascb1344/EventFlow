@@ -6,9 +6,6 @@ import { cn } from "@/lib/utils"
 import { 
   CalendarDays, 
   LayoutDashboard, 
-  Users, 
-  Ticket, 
-  MessageSquare,
   BarChart3,
   Settings
 } from "lucide-react"

@@ -1,8 +1,20 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import StatsResponse from '@/app/dashboard/organizer/analytics/page';
+type AnalyticsStats = {
+  totalEvents: number;
+  totalTickets: number;
+  totalRevenue: number;
+  averageRating: number;
+  eventCompletionRate: number;
+  averageAttendanceRate: number;
+  attendeeRetentionRate: number;
+  revenueData: Array<{ date: string; revenue: number }>;
+  revenueByTicketType: Array<{ type: string; revenue: number }>;
+  ticketTypeDistribution: Array<{ type: string; count: number }>;
+  firstTimeVsReturning: Array<{ type: string; count: number }>;
+};
 
-const drawChart = (canvas: HTMLCanvasElement, data: any[], config: {
+const drawChart = (canvas: HTMLCanvasElement, data: Array<Record<string, unknown>>, config: {
   xKey: string;
   yKey: string;
   width: number;
@@ -177,7 +189,7 @@ const drawChart = (canvas: HTMLCanvasElement, data: any[], config: {
   ctx.setLineDash([]);
 };
 
-export const generateAnalyticsReport = async (stats: StatsResponse['stats']) => {
+export const generateAnalyticsReport = async (stats: AnalyticsStats) => {
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.width;
 
@@ -193,17 +205,17 @@ export const generateAnalyticsReport = async (stats: StatsResponse['stats']) => 
   canvas.height = 300;
 
   // Utility functions for formatting
-  const formatNumber = (num: any) => {
+  const formatNumber = (num: unknown) => {
     const n = Number(num);
-    return isNaN(n) ? '0' : n;
+    return isNaN(n) ? 0 : n;
   };
 
-  const formatCurrency = (num: any) => {
+  const formatCurrency = (num: unknown) => {
     const n = formatNumber(num);
     return `$${n.toFixed(2)}`;
   };
 
-  const formatPercentage = (num: any) => {
+  const formatPercentage = (num: unknown) => {
     const n = formatNumber(num);
     return `${n.toFixed(1)}%`;
   };
@@ -245,7 +257,7 @@ export const generateAnalyticsReport = async (stats: StatsResponse['stats']) => 
   });
   doc.addImage(canvas.toDataURL(), 'PNG', 15, 30, 180, 100);
 
-  const revenueByType = (stats.revenueByTicketType || []).map(item => [
+  const revenueByType = (stats.revenueByTicketType || []).map((item: { type: string; revenue: number }) => [
     item.type || 'Unknown',
     formatCurrency(item.revenue)
   ]);
@@ -276,7 +288,7 @@ export const generateAnalyticsReport = async (stats: StatsResponse['stats']) => 
 
   const attendeeData = [
     ['Retention Rate', formatPercentage(stats.attendeeRetentionRate)],
-    ...(stats.firstTimeVsReturning || []).map(item => [
+    ...(stats.firstTimeVsReturning || []).map((item: { type: string; count: number }) => [
       item.type || 'Unknown',
       formatNumber(item.count).toString()
     ])
@@ -306,7 +318,7 @@ export const generateAnalyticsReport = async (stats: StatsResponse['stats']) => 
   });
   doc.addImage(canvas.toDataURL(), 'PNG', 15, 30, 180, 100);
 
-  const ticketTypeData = (stats.ticketTypeDistribution || []).map(item => [
+  const ticketTypeData = (stats.ticketTypeDistribution || []).map((item: { type: string; count: number }) => [
     item.type || 'Unknown',
     formatNumber(item.count).toString()
   ]);

@@ -57,7 +57,7 @@ export default function SignIn() {
 
       router.push("/dashboard");
       router.refresh();
-    } catch (error) {
+    } catch {
       setError("Something went wrong");
     }
   };

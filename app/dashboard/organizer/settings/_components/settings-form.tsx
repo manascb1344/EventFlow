@@ -26,7 +26,7 @@ export function SettingsForm() {
                     bio: settings.bio || "",
                     contactEmail: settings.contactEmail || ""
                 })
-            } catch (error) {
+            } catch {
                 toast.error("Failed to load settings")
             }
         }
@@ -47,7 +47,13 @@ export function SettingsForm() {
     }
 
     return (
-        <form onSubmit={onSubmit} className="space-y-8">
+        <form
+            onSubmit={(event) => {
+                event.preventDefault();
+                void onSubmit(new FormData(event.currentTarget));
+            }}
+            className="space-y-8"
+        >
             <div className="space-y-6">
                 <div className="grid gap-3">
                     <Label htmlFor="name" className="text-p4 font-medium">Name</Label>

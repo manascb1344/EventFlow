@@ -76,7 +76,7 @@ export default function OrganizerOnboarding() {
 
       router.push("/dashboard/organizer");
       router.refresh();
-    } catch (error) {
+    } catch {
       setError("Something went wrong");
     }
   };

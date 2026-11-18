@@ -60,7 +60,7 @@ export default function SavedEventsPage() {
                 event={event}
                 showSaveButton={true}
                 onUnsaveToggle={(savedEventId: number) => savedEventId ? handleUnsave(savedEventId) : Promise.resolve()}
-                onSaveToggle={(eventId: number) => Promise.resolve()}
+                onSaveToggle={() => Promise.resolve()}
               />
             ))}
           </div>

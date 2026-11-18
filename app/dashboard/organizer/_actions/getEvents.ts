@@ -32,7 +32,7 @@ export async function getEvents() {
     });
 
     return { events: eventsWithTickets };
-  } catch (error) {
+  } catch {
     return { error: "Internal server error" };
   }
 }

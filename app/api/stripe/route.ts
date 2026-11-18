@@ -2,7 +2,7 @@
 
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db/drizzle";
-import { events, tickets, payments } from "@/lib/db/schema";
+import { events } from "@/lib/db/schema";
 import { stripe } from "@/lib/payments/stripe";
 import { eq } from "drizzle-orm";
 import { getServerSession } from "next-auth";
