@@ -32,6 +32,10 @@ export async function POST(req: Request) {
       return new NextResponse("Event not found", { status: 404 });
     }
 
+    if (event.seatsAvailable <= 0 || event.eventStatus !== "PUBLISHED" || event.isPublic === false) {
+      return new NextResponse("Event is not available for registration", { status: 409 });
+    }
+
     const stripeSession = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
