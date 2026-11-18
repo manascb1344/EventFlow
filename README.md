@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EventFlow
 
-## Getting Started
+EventFlow is a two-sided event management and ticketing application. Organizers create and
+publish events, manage attendees, and read sales analytics. Attendees browse events, save the
+ones they like, buy tickets with Stripe, and view their tickets in a dashboard.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Next.js 15 App Router, React 19, TypeScript
+- PostgreSQL with Drizzle ORM
+- NextAuth with credentials and Google sign-in
+- Stripe Checkout and webhooks in test mode
+- UploadThing for image uploads
+- SMTP email for payment receipts
+- Tailwind CSS and shadcn/ui
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Local setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Requirements: Node.js 20.9 or newer, pnpm, Docker, and a Stripe CLI for webhook forwarding.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Install dependencies with `pnpm install`.
+2. Copy `.env.example` to `.env` and fill in the values.
+3. Start PostgreSQL with `docker compose up -d`.
+4. Apply migrations with `pnpm db:migrate`. Use `pnpm db:seed` to load sample events.
+5. Start the app with `pnpm dev`.
 
-## Learn More
+Open http://localhost:3000.
 
-To learn more about Next.js, take a look at the following resources:
+## Environment variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`.env.example` lists every variable the app reads. The groups are database (`POSTGRES_URL`),
+auth (`NEXTAUTH_SECRET`, `NEXTAUTH_URL`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`), origin
+URLs (`NEXT_PUBLIC_APP_URL`, `BASE_URL`), payments (`STRIPE_SECRET_KEY`,
+`STRIPE_WEBHOOK_SECRET`), email (`SMTP_*`), and uploads (`UPLOADTHING_TOKEN`). The Unsplash key
+is only needed when regenerating seed data. Never commit real values.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Scripts
 
-## Deploy on Vercel
+- `pnpm dev` starts the development server.
+- `pnpm build` creates a production build.
+- `pnpm lint` runs ESLint.
+- `pnpm typecheck` runs the TypeScript compiler without emitting files.
+- `pnpm db:generate` creates a migration from schema changes.
+- `pnpm db:migrate` applies migrations.
+- `pnpm db:seed` loads sample data.
+- `pnpm db:reset` drops all tables. Use it only in development.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Architecture
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The browser talks to a single Next.js application on Vercel. NextAuth middleware gates protected
+routes, and pages and server actions check the session again on the server. Server components
+and server actions read and write PostgreSQL through Drizzle. Stripe Checkout creates a payment
+session from the price stored in the database. The webhook issues the ticket, payment record,
+and seat reservation in one transaction. Receipts go out over SMTP. UploadThing stores images.
+
+`DOCS/DEPLOYMENT_REQUIREMENTS.md` holds the deployment contract and gap register.
+`DOCS/adr/` records the main design decisions.
+
+## Testing
+
+Run `pnpm lint` and `pnpm typecheck` before opening a pull request. CI runs both plus a full
+production build on every pull request. The Python Selenium scripts and the generated DOCX
+reports under `test_reports/` are historical artifacts from a browser-testing exercise. They
+require a running app and Chrome and are not part of CI.
+
+## Deployment
+
+Vercel hosts the application. Neon hosts PostgreSQL. Set the environment variables in Vercel for
+each environment, apply migrations with `pnpm deploy-migrate` as a release step, and let Vercel
+run the build. Configure the Stripe webhook for each deployed origin and register the Google
+OAuth callback URLs. Stripe stays in test mode, so checkout can be demonstrated without real
+charges.
