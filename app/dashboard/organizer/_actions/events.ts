@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from "@/lib/db/drizzle";
-import { events, tickets, attendees } from "@/lib/db/schema";
+import { events, tickets, EventStatus } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
@@ -42,7 +42,7 @@ export async function updateEvent(eventId: number, formData: FormData) {
       endDate: new Date(formData.get("endDate") as string),
       ticketPrice: formData.get("ticketPrice") as string,
       seatsAvailable: parseInt(formData.get("seatsAvailable") as string),
-      eventStatus: formData.get("eventStatus") as string,
+      eventStatus: formData.get("eventStatus") as keyof typeof EventStatus,
       venue: formData.get("venue") as string,
       venueCapacity: parseInt(formData.get("venueCapacity") as string),
       isPublic: formData.get("isPublic") === "true",

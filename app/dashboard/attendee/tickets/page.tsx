@@ -6,7 +6,6 @@ import { DashboardShell } from "@/components/shell";
 import { DashboardHeader } from "@/components/header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, QrCode } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -37,7 +36,7 @@ export default async function TicketsPage() {
             <div className="rounded-lg border border-dashed p-8 text-center">
               <h3 className="mb-2 text-lg font-semibold">No Active Tickets</h3>
               <p className="text-sm text-muted-foreground mb-4">
-                You don't have any active tickets. Register for an event to get started!
+                You don&apos;t have any active tickets. Register for an event to get started!
               </p>
               <Button variant="outline" asChild>
                 <Link href="/events">Browse Events</Link>

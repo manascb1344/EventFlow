@@ -14,7 +14,7 @@ import { CalendarDays, MapPin, Users, Edit, Trash2, Ticket, User } from "lucide-
 import Link from "next/link";
 import { format } from "date-fns";
 import { toast } from "sonner";
-import { EventStatus, TicketStatus } from "@/lib/db/schema";
+import { EventStatus } from "@/lib/db/schema";
 import { useRouter } from "next/navigation";
 import { deleteEvent, publishEvent, getEventTickets, getEventAttendees } from "../../../_actions/events";
 import { useEffect, useState } from "react";
@@ -30,9 +30,9 @@ interface Attendee {
 interface Ticket {
   id: number;
   ticketNumber: string;
-  ticketStatus: string;
+  status: string;
   ticketType: string;
-  purchaseDate: string;
+  purchaseDate: Date;
   attendee: Attendee;
 }
 
@@ -41,15 +41,15 @@ interface Event {
   name: string;
   description: string;
   location: string;
-  startDate: string;
-  endDate: string;
-  ticketPrice: number;
+  startDate: Date;
+  endDate: Date;
+  ticketPrice: string | number;
   seatsAvailable: number;
   eventStatus: keyof typeof EventStatus;
-  venue: string;
-  venueCapacity: number;
-  isPublic: boolean;
-  registrationDeadline: string;
+  venue: string | null;
+  venueCapacity: number | null;
+  isPublic: boolean | null;
+  registrationDeadline: Date | null;
   ticketsSold?: number;
 }
 
@@ -229,7 +229,7 @@ export default function EventDetailClient({ initialEvent }: EventDetailClientPro
                 <div>
                   <h4 className="font-medium text-white">Registration Deadline</h4>
                   <p className="text-sm text-white mt-1">
-                    {format(new Date(initialEvent.registrationDeadline), 'PPP')}
+                    {initialEvent.registrationDeadline ? format(new Date(initialEvent.registrationDeadline), 'PPP') : 'No deadline'}
                   </p>
                 </div>
                 <div>
@@ -266,8 +266,8 @@ export default function EventDetailClient({ initialEvent }: EventDetailClientPro
                           <p className="font-medium text-white">{ticket.attendee.name}</p>
                           <p className="text-sm text-zinc-400">Ticket #{ticket.ticketNumber}</p>
                           <div className="flex items-center space-x-2 mt-1">
-                            <Badge variant={ticket.ticketStatus === 'CONFIRMED' ? 'default' : 'secondary'}>
-                              {ticket.ticketStatus}
+                            <Badge variant={ticket.status === 'CONFIRMED' ? 'default' : 'secondary'}>
+                              {ticket.status}
                             </Badge>
                             <Badge variant="outline">{ticket.ticketType}</Badge>
                           </div>

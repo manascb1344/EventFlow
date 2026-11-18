@@ -37,7 +37,7 @@ export async function register(
     const hashedPassword = await hash(password, 12);
 
     // Create user
-    const [newUser] = await db
+    await db
       .insert(attendees)
       .values({
         email,

@@ -62,24 +62,28 @@ export default function EditEventPage() {
       try {
         const result = await getEvent(eventId);
         
-        if (result.error) {
-          toast.error(result.error);
+        if (result.error || !result.event) {
+          toast.error(result.error || "Event not found");
           return;
         }
 
         // Format dates for the form
         const startDate = new Date(result.event.startDate);
         const endDate = new Date(result.event.endDate);
-        const registrationDeadline = new Date(result.event.registrationDeadline);
+        const registrationDeadline = new Date(result.event.registrationDeadline ?? Date.now());
 
         form.reset({
-          ...result.event,
+          name: result.event.name,
+          location: result.event.location,
+          description: result.event.description,
+          venue: result.event.venue ?? "",
+          isPublic: result.event.isPublic ?? true,
           startDate: format(startDate, "yyyy-MM-dd'T'HH:mm"),
           endDate: format(endDate, "yyyy-MM-dd'T'HH:mm"),
           registrationDeadline: format(registrationDeadline, "yyyy-MM-dd'T'HH:mm"),
-          ticketPrice: result.event.ticketPrice.toString(),
-          seatsAvailable: result.event.seatsAvailable.toString(),
-          venueCapacity: result.event.venueCapacity.toString(),
+          ticketPrice: Number(result.event.ticketPrice),
+          seatsAvailable: Number(result.event.seatsAvailable),
+          venueCapacity: Number(result.event.venueCapacity ?? 0),
         });
       } catch (error) {
         console.error('Error fetching event:', error);

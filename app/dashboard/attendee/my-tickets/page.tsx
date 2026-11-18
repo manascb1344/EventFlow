@@ -10,8 +10,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { Separator } from '@/components/ui/separator';
-import { QrCode, Calendar, MapPin, Clock, ChevronRight } from 'lucide-react';
+import { Calendar, MapPin, Clock, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -271,10 +272,10 @@ export default async function MyTicketsPage() {
                       <Calendar className="h-12 w-12 text-muted-foreground/50" />
                       <h3 className="mt-4 text-lg font-semibold">No Active Tickets</h3>
                       <p className="mb-4 mt-2 text-sm text-muted-foreground">
-                        You don't have any upcoming event tickets. Browse our events to find your next experience!
+                        You don&apos;t have any upcoming event tickets. Browse our events to find your next experience!
                       </p>
                       <Button asChild>
-                        <a href="/events">Browse Events</a>
+                        <Link href="/events">Browse Events</Link>
                       </Button>
                     </div>
                   </div>

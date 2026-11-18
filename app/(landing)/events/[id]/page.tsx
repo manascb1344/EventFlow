@@ -7,7 +7,7 @@ import RegisterButton from "./RegisterButton";
 export default async function EventPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
   const event = await getEventById(id);

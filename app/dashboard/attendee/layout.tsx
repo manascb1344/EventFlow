@@ -1,4 +1,3 @@
-import { DashboardNav } from "@/components/nav";
 import { SidebarNav } from "@/components/sidebar-nav";
 
 const sidebarNavItems = [

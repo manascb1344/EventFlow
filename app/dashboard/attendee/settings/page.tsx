@@ -88,7 +88,7 @@ export default async function SettingsPage() {
               <Label htmlFor="show-attendance" className="flex flex-col space-y-1">
                 <span>Show Event Attendance</span>
                 <span className="text-sm text-muted-foreground">
-                  Show which events you're attending to other users
+                  Show which events you&apos;re attending to other users
                 </span>
               </Label>
               <Switch 

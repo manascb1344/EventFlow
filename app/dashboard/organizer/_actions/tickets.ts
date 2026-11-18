@@ -1,14 +1,14 @@
 'use server';
 
 import { db } from "@/lib/db/drizzle";
-import { tickets, events } from "@/lib/db/schema";
-import { eq, and } from "drizzle-orm";
+import { tickets, TicketStatus } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 export async function updateTicketStatus(ticketId: number, status: string) {
   try {
     await db.update(tickets)
-      .set({ status })
+      .set({ status: status as keyof typeof TicketStatus })
       .where(eq(tickets.id, ticketId));
     revalidatePath("/dashboard/organizer/events");
     return { success: true };

@@ -6,7 +6,7 @@ import { CalendarDays, Users, BarChart3, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 type DashboardProps = {
-  profile: any;
+  profile: { name?: string | null } | null;
   stats: {
     totalEvents: number;
     totalTickets: number;

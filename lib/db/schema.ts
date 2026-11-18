@@ -60,6 +60,8 @@ export const organizers = pgTable('organizers', {
   totalEventsOrganized: integer('total_events_organized').default(0),
   profileImage: text('profile_image'),
   onboardingCompleted: boolean('onboarding_completed').default(false).notNull(),
+  emailNotifications: boolean('email_notifications').default(true),
+  pushNotifications: boolean('push_notifications').default(false),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });

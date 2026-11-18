@@ -1,5 +1,4 @@
 import { Users, Calendar, Award, Target, Heart, Sparkles, Globe, Shield, Zap } from "lucide-react"
-import { Button } from "@/components/ui/button"
 
 export default function AboutPage() {
   const stats = [
@@ -92,7 +91,7 @@ export default function AboutPage() {
                 managed, and experienced.
               </p>
               <p className="text-zinc-400">
-                Today, we're proud to be the platform of choice for thousands of event organizers
+                Today, we&apos;re proud to be the platform of choice for thousands of event organizers
                 worldwide, powered by cutting-edge technology and a passionate team dedicated
                 to transforming the events industry.
               </p>

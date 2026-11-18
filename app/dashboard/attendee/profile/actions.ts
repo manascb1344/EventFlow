@@ -5,16 +5,6 @@ import { attendees } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
-interface AttendeeProfileData {
-  name: string;
-  phoneNumber: string | null;
-  interests: string | null;
-  dietaryRestrictions: string | null;
-  preferredPaymentMethod: string | null;
-  notificationPreferences: boolean;
-  profileImage: string | null;
-}
-
 export async function updateAttendeeProfile(attendeeId: number | undefined, formData: FormData) {
   if (!attendeeId) {
     throw new Error("Attendee ID is required");

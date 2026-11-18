@@ -2,28 +2,7 @@
 
 import { db } from "@/lib/db/drizzle";
 import { events, tickets, payments, surveys, EventStatus, PaymentStatus, TicketStatus } from "@/lib/db/schema";
-import { eq, and, sql, desc } from "drizzle-orm";
-
-interface EventStats {
-  totalTickets: number;
-  confirmedTickets: number;
-  usedTickets: number;
-  canceledTickets: number;
-}
-
-interface RevenueStats {
-  totalRevenue: number;
-  refundedAmount: number;
-}
-
-interface SurveyStats {
-  averageRating: number;
-  totalResponses: number;
-  averageSpeakerRating: number;
-  averageVenueRating: number;
-  averageContentRating: number;
-  recommendationRate: number;
-}
+import { eq, and, sql } from "drizzle-orm";
 
 export async function getEventStats(eventId: number) {
   try {
@@ -286,8 +265,8 @@ export async function getOrganizerStats(organizerId: number): Promise<{ success:
         attendeeRetentionRate,
         firstTimeVsReturning,
         popularEventTimes,
-        monthlyRecurringRevenue: revenueData,
-        registrationTimingDistribution: ticketsByEvent,
+        monthlyRecurringRevenue: (revenueData as Array<{ date: string; revenue: number }>).map((row) => ({ month: row.date, revenue: row.revenue })),
+        registrationTimingDistribution: (ticketsByEvent as Array<{ event: string; tickets: number }>).map((row) => ({ timing: row.event, count: row.tickets })),
       },
     };
   } catch (error) {

@@ -4,7 +4,6 @@ import { promisify } from 'node:util';
 import readline from 'node:readline';
 import crypto from 'node:crypto';
 import path from 'node:path';
-import os from 'node:os';
 
 const execAsync = promisify(exec);
 
@@ -28,7 +27,7 @@ async function checkStripeCLI() {
 
     try {
       await execAsync('stripe config --list');
-    } catch (error) {
+    } catch {
       const answer = await question(
         'Have you completed the authentication? (y/n): '
       );
@@ -38,11 +37,11 @@ async function checkStripeCLI() {
 
       try {
         await execAsync('stripe config --list');
-      } catch (error) {
+      } catch {
         process.exit(1);
       }
     }
-  } catch (error) {
+  } catch {
     process.exit(1);
   }
 }
@@ -63,7 +62,7 @@ async function getPostgresURL(): Promise<string> {
 async function setupLocalPostgres() {
   try {
     await execAsync('docker --version');
-  } catch (error) {
+  } catch {
     process.exit(1);
   }
 
@@ -92,7 +91,7 @@ volumes:
 
   try {
     await execAsync('docker compose up -d');
-  } catch (error) {
+  } catch {
     process.exit(1);
   }
 }
@@ -109,8 +108,8 @@ async function createStripeWebhook(): Promise<string> {
       throw new Error('Failed to extract Stripe webhook secret');
     }
     return match[0];
-  } catch (error) {
-    throw error;
+  } catch {
+    throw new Error('Failed to create Stripe webhook secret');
   }
 }
 

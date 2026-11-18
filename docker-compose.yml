@@ -12,28 +12,12 @@ services:
     networks:
       - eventflow_custom_bridge
 
-  eventflow_pgadmin:
-    image: dpage/pgadmin4:latest
-    container_name: eventflow_pgadmin_container
-    hostname: pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: mcb76593@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: 1m2m3m4m5m
-    volumes:
-      - eventflow_pgadmin_data:/var/lib/pgadmin
-    ports:
-      - "5050:80"
-    networks:
-      - eventflow_custom_bridge
-
 networks:
   eventflow_custom_bridge:
     driver: bridge
 
 volumes:
   eventflow_postgres_data:
-    driver: local
-  eventflow_pgadmin_data:
     driver: local
 
 # Postgres URL: postgres://postgres:postgres@localhost:5435/postgres

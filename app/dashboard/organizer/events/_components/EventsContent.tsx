@@ -50,7 +50,7 @@ export default function EventsContent({ initialEvents }: EventsContentProps) {
       }
       setEvents(events.filter((event) => event.id !== eventId));
       toast.success("Event deleted successfully");
-    } catch (error) {
+    } catch {
       toast.error("Failed to delete event");
     }
   };

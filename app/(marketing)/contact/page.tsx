@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, MessageSquare, Clock, Globe, Send } from "lucide-react"
+import { Mail, Phone, MapPin, Clock, Globe, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -52,7 +52,7 @@ export default function ContactPage() {
           Get in Touch
         </h1>
         <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-          Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+          Have questions? We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.
         </p>
       </div>
 
