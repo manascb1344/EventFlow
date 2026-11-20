@@ -25,6 +25,24 @@ export async function processPayment(
       return { success: false, error: "Unauthorized" };
     }
 
+    if (sessionId.startsWith("demo_cs_")) {
+      const demoPaymentIntentId = sessionId.replace("demo_cs_", "demo_pi_");
+      const [demoTicket] = await db
+        .select()
+        .from(tickets)
+        .where(eq(tickets.stripePaymentIntentId, demoPaymentIntentId))
+        .limit(1);
+      const event = await db.query.events.findFirst({
+        where: eq(events.id, parseInt(eventId, 10)),
+      });
+
+      if (!event || !demoTicket) {
+        return { success: false, error: "Demo ticket not found" };
+      }
+
+      return { success: true, event, ticket: demoTicket };
+    }
+
     const stripeSession = await stripe.checkout.sessions.retrieve(sessionId);
     if (!stripeSession || stripeSession.payment_status !== "paid") {
       return { success: false, error: "Payment not completed" };

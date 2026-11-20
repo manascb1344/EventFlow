@@ -10,7 +10,7 @@ export default async function SuccessPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ session_id: string }>;
+  searchParams: Promise<{ session_id: string; demo?: string }>;
 }) {
   const session = await getServerSession(authOptions);
   if (!session?.user) {
@@ -18,7 +18,7 @@ export default async function SuccessPage({
   }
 
   const { id } = await params;
-  const { session_id } = await searchParams;
+  const { session_id, demo } = await searchParams;
   if (!session_id) {
     redirect(`/events/${id}`);
   }
@@ -39,9 +39,13 @@ export default async function SuccessPage({
         <div className="mb-6">
           <CheckCircle2 className="w-16 h-16 text-green-500 mx-auto" />
         </div>
-        <h1 className="text-2xl font-bold text-white mb-2">Payment Successful!</h1>
+        <h1 className="text-2xl font-bold text-white mb-2">
+          {demo === "1" ? "Demo Registration Confirmed" : "Payment Successful!"}
+        </h1>
         <p className="text-gray-400 mb-6">
-          Thank you for registering for {result.event.name}. Your ticket has been confirmed.
+          {demo === "1"
+            ? `Your demo ticket for ${result.event.name} is confirmed. No payment was taken.`
+            : `Thank you for registering for ${result.event.name}. Your ticket has been confirmed.`}
         </p>
         <div className="space-y-4">
           <Link
