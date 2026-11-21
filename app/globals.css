@@ -10,7 +10,7 @@
   }
 
   body {
-    @apply font-poppins text-[16px] tracking-[-0.03em] text-p5;
+    @apply font-inter text-[16px] tracking-normal text-[#e7e9ee];
   }
 
   a {
@@ -142,6 +142,28 @@
 
   .caption {
     @apply small-2 mb-5 uppercase text-p3;
+  }
+
+  /* Editorial primitives */
+  .editorial-kicker {
+    @apply mb-6 inline-flex items-center gap-3 text-[12px] font-semibold uppercase tracking-[0.24em] text-p1;
+  }
+
+  .editorial-kicker::before {
+    content: "";
+    @apply block h-px w-8 bg-p1;
+  }
+
+  .editorial-title {
+    @apply font-poppins text-[44px] font-semibold leading-[1.05] tracking-[-0.035em] text-[#f4f5f7] md:text-[68px];
+  }
+
+  .editorial-lead {
+    @apply max-w-2xl text-[18px] leading-[1.75] text-[#a6adbb] md:text-[20px];
+  }
+
+  .hairline {
+    @apply border-0 border-t border-white/10;
   }
 
   .scroll-hide::-webkit-scrollbar {

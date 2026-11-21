@@ -44,7 +44,7 @@ export default function DocsPage() {
   return (
     <div className="container max-w-6xl py-12 md:py-24">
       <div className="text-center mb-16">
-        <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 mb-6">
+        <h1 className="editorial-title mb-8">
           Documentation
         </h1>
         <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
@@ -58,8 +58,8 @@ export default function DocsPage() {
             key={index}
             className="p-6 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:border-zinc-700 transition-colors"
           >
-            <div className="bg-indigo-500/10 p-3 rounded-lg w-fit mb-4">
-              <category.icon className="h-6 w-6 text-indigo-500" />
+            <div className="bg-p1/10 p-3 rounded-lg w-fit mb-4">
+              <category.icon className="h-6 w-6 text-p1" />
             </div>
             <h2 className="text-xl font-semibold text-white mb-2">{category.title}</h2>
             <p className="text-zinc-400 mb-4">{category.description}</p>
@@ -81,8 +81,8 @@ export default function DocsPage() {
 
       <div className="mt-16 p-8 rounded-xl border border-zinc-800 bg-zinc-900/50">
         <div className="flex items-start gap-6">
-          <div className="bg-indigo-500/10 p-3 rounded-lg">
-            <Lightbulb className="h-6 w-6 text-indigo-500" />
+          <div className="bg-p1/10 p-3 rounded-lg">
+            <Lightbulb className="h-6 w-6 text-p1" />
           </div>
           <div>
             <h2 className="text-2xl font-semibold text-white mb-2">Need Help?</h2>
@@ -90,7 +90,7 @@ export default function DocsPage() {
               Can&apos;t find what you&apos;re looking for? Our support team is here to help.
             </p>
             <div className="flex gap-4">
-              <Button className="bg-indigo-500 hover:bg-indigo-600">
+              <Button className="bg-p1 hover:bg-[#7bf6ff]">
                 Contact Support
               </Button>
               <Button variant="outline">

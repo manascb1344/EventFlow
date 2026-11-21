@@ -18,22 +18,22 @@ const Footer = () => {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-[#6366F1] via-[#8B94FA] to-[#6366F1]">EventFlow</h3>
+            <h3 className="text-lg font-semibold tracking-tight text-[#f4f5f7]">EventFlow</h3>
             <p className="text-sm text-zinc-400">
               Making event planning smarter and more efficient.
             </p>
             <div className="flex space-x-4">
-              <Button variant="ghost" size="icon" className="text-zinc-400 hover:text-white hover:bg-indigo-500/10" asChild>
+              <Button variant="ghost" size="icon" className="text-zinc-400 hover:text-white hover:bg-p1/10" asChild>
                 <Link href="https://twitter.com/eventflow" target="_blank">
                   <Twitter className="h-4 w-4" />
                 </Link>
               </Button>
-              <Button variant="ghost" size="icon" className="text-zinc-400 hover:text-white hover:bg-indigo-500/10" asChild>
+              <Button variant="ghost" size="icon" className="text-zinc-400 hover:text-white hover:bg-p1/10" asChild>
                 <Link href="https://github.com/eventflow" target="_blank">
                   <Github className="h-4 w-4" />
                 </Link>
               </Button>
-              <Button variant="ghost" size="icon" className="text-zinc-400 hover:text-white hover:bg-indigo-500/10" asChild>
+              <Button variant="ghost" size="icon" className="text-zinc-400 hover:text-white hover:bg-p1/10" asChild>
                 <Link href="https://linkedin.com/company/eventflow" target="_blank">
                   <Linkedin className="h-4 w-4" />
                 </Link>
@@ -90,9 +90,9 @@ const Footer = () => {
               <Input
                 type="email"
                 placeholder="Enter your email"
-                className="bg-zinc-900/50 border-zinc-800 focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 placeholder:text-zinc-600"
+                className="bg-zinc-900/50 border-zinc-800 focus:border-p1/50 focus:ring-1 focus:ring-p1/50 placeholder:text-zinc-600"
               />
-              <Button className="bg-indigo-600 hover:bg-indigo-500 transition-colors">
+              <Button className="bg-p1 hover:bg-[#7bf6ff] transition-colors">
                 Subscribe
               </Button>
             </div>

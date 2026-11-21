@@ -91,13 +91,13 @@ const Navbar = () => {
           : "bg-transparent"
       )}
     >
-      <div className="container flex h-16 items-center justify-between bg-gradient-to-r from-gray-950/50 via-transparent to-gray-950/50">
+      <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-8">
           <Link
             href="/"
             className="flex items-center space-x-2 transition-opacity hover:opacity-80"
           >
-            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#6366F1] via-[#8B94FA] to-[#6366F1]">EventFlow</span>
+            <span className="text-xl font-bold tracking-tight text-[#f4f5f7]">EventFlow</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -126,11 +126,11 @@ const Navbar = () => {
                   </p>
                 </div>
                 <DropdownMenuSeparator className="bg-zinc-800/50" />
-                <DropdownMenuItem asChild className="focus:bg-indigo-500/10">
+                <DropdownMenuItem asChild className="focus:bg-p1/10">
                   <Link href="/dashboard" className="cursor-pointer">Dashboard</Link>
                 </DropdownMenuItem>
                 {session.user?.role === "ATTENDEE" && !session.user?.onboardingCompleted && (
-                  <DropdownMenuItem asChild className="focus:bg-indigo-500/10">
+                  <DropdownMenuItem asChild className="focus:bg-p1/10">
                     <Link href="/onboarding" className="cursor-pointer">Complete Profile</Link>
                   </DropdownMenuItem>
                 )}
@@ -149,14 +149,14 @@ const Navbar = () => {
                 <Button
                   variant="ghost"
                   asChild
-                  className="text-zinc-300 hover:text-white hover:bg-indigo-500/10"
+                  className="text-zinc-300 hover:text-white hover:bg-p1/10"
                 >
                   <Link href="/auth/attendee/signin">Sign In</Link>
                 </Button>
               </div>
               <Button
                 asChild
-                className="relative h-10 px-6 text-sm font-medium rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-600 border-0 shadow-lg hover:shadow-indigo-500/25 transition-all duration-300"
+                className="h-10 rounded-md bg-p1 px-5 text-sm font-semibold text-[#05121a] hover:bg-[#7bf6ff]"
               >
                 <Link href="/auth/attendee/signup">Get Started</Link>
               </Button>
@@ -170,7 +170,7 @@ const Navbar = () => {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="text-zinc-300 hover:text-white hover:bg-indigo-500/10"
+                  className="text-zinc-300 hover:text-white hover:bg-p1/10"
                 >
                   <Menu className="h-5 w-5" />
                 </Button>
@@ -184,7 +184,7 @@ const Navbar = () => {
                     <Link
                       key={index}
                       href={item.href}
-                      className="text-zinc-300 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-indigo-500/10"
+                      className="text-zinc-300 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-p1/10"
                     >
                       {item.label}
                     </Link>
@@ -193,13 +193,13 @@ const Navbar = () => {
                     <>
                       <Link
                         href="/auth/attendee/signin"
-                        className="text-zinc-300 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-indigo-500/10"
+                        className="text-zinc-300 hover:text-white transition-colors px-4 py-2 rounded-lg hover:bg-p1/10"
                       >
                         Sign In
                       </Link>
                       <Link
                         href="/auth/attendee/signup"
-                        className="text-white bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-600 transition-colors px-4 py-2 rounded-lg"
+                        className="rounded-md bg-p1 px-4 py-2 font-semibold text-[#05121a] hover:bg-[#7bf6ff]"
                       >
                         Get Started
                       </Link>

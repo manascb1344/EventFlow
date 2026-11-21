@@ -54,7 +54,7 @@ export default function ChangelogPage() {
       case "fix":
         return "bg-orange-500/10 text-orange-500"
       case "major":
-        return "bg-indigo-500/10 text-indigo-500"
+        return "bg-p1/10 text-p1"
       default:
         return "bg-zinc-500/10 text-zinc-500"
     }
@@ -63,7 +63,7 @@ export default function ChangelogPage() {
   return (
     <div className="container max-w-4xl py-12 md:py-24">
       <div className="text-center mb-16">
-        <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 mb-6">
+        <h1 className="editorial-title mb-8">
           Changelog
         </h1>
         <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
@@ -97,7 +97,7 @@ export default function ChangelogPage() {
                   <ul className="space-y-2">
                     {release.changes.map((change, changeIndex) => (
                       <li key={changeIndex} className="flex items-center gap-2 text-zinc-400">
-                        <ArrowRight className="h-4 w-4 text-indigo-500" />
+                        <ArrowRight className="h-4 w-4 text-p1" />
                         {change}
                       </li>
                     ))}
@@ -110,7 +110,7 @@ export default function ChangelogPage() {
       </div>
 
       <div className="mt-16 text-center">
-        <Button className="bg-indigo-500 hover:bg-indigo-600">
+        <Button className="bg-p1 hover:bg-[#7bf6ff]">
           View Full Release History
         </Button>
       </div>
