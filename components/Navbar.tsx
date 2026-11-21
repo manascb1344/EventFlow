@@ -6,6 +6,7 @@ import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { signOut, useSession } from "next-auth/react"
+import { usePathname } from "next/navigation"
 import { MainNav } from "./MainNav"
 import { Menu } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -17,12 +18,18 @@ const Navbar = () => {
   const { data: session, status } = useSession()
   const [isScrolled, setIsScrolled] = React.useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = React.useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false)
   const [mounted, setMounted] = React.useState(false)
   const [profileImage, setProfileImage] = React.useState<string | null>(null)
+  const pathname = usePathname()
 
   React.useEffect(() => {
     setMounted(true)
   }, [])
+
+  React.useEffect(() => {
+    setIsMobileMenuOpen(false)
+  }, [pathname])
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -165,7 +172,7 @@ const Navbar = () => {
 
           {/* Mobile Menu */}
           <div className="flex md:hidden">
-            <Sheet>
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
