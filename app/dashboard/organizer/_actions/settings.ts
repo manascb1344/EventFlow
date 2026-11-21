@@ -64,11 +64,11 @@ export async function updateOrganizerProfile(formData: FormData) {
     }
 }
 
-export async function updateNotificationPreferences(formData: FormData) {
+export async function updateNotificationPreferences(preferences: { emailNotifications: boolean; pushNotifications: boolean }) {
     try {
         const organizerId = await currentOrganizerId()
-        const emailNotifications = formData.get("emailNotifications") === "true"
-        const pushNotifications = formData.get("pushNotifications") === "true"
+        const emailNotifications = preferences.emailNotifications
+        const pushNotifications = preferences.pushNotifications
 
         await db.update(organizers).set({
             emailNotifications,
