@@ -136,14 +136,14 @@ export default function AnalyticsPage() {
         // Ensure all numeric values are valid
         const sanitizedStats = {
           ...response.stats,
-          totalEvents: response.stats.totalEvents || 0,
-          totalTickets: response.stats.totalTickets || 0,
-          totalRevenue: response.stats.totalRevenue || 0,
-          averageRating: response.stats.averageRating || 0,
-          totalReviews: response.stats.totalReviews || 0,
-          newEvents: response.stats.newEvents || 0,
-          recentRevenue: response.stats.recentRevenue || 0,
-          ticketSalesGrowth: response.stats.ticketSalesGrowth || 0,
+          totalEvents: Number(response.stats.totalEvents) || 0,
+          totalTickets: Number(response.stats.totalTickets) || 0,
+          totalRevenue: Number(response.stats.totalRevenue) || 0,
+          averageRating: Number(response.stats.averageRating) || 0,
+          totalReviews: Number(response.stats.totalReviews) || 0,
+          newEvents: Number(response.stats.newEvents) || 0,
+          recentRevenue: Number(response.stats.recentRevenue) || 0,
+          ticketSalesGrowth: Number(response.stats.ticketSalesGrowth) || 0,
           revenueData: response.stats.revenueData?.map(d => ({
             date: d.date || '',
             revenue: d.revenue || 0
@@ -156,8 +156,8 @@ export default function AnalyticsPage() {
             rating: r.rating || 0,
             count: r.count || 0
           })) || [],
-          eventCompletionRate: response.stats.eventCompletionRate || 0,
-          averageAttendanceRate: response.stats.averageAttendanceRate || 0,
+          eventCompletionRate: Number(response.stats.eventCompletionRate) || 0,
+          averageAttendanceRate: Number(response.stats.averageAttendanceRate) || 0,
           popularEventTimes: response.stats.popularEventTimes?.map(t => ({
             time: t.time || '',
             count: t.count || 0
@@ -166,7 +166,7 @@ export default function AnalyticsPage() {
             type: t.type || '',
             count: t.count || 0
           })) || [],
-          refundRate: response.stats.refundRate || 0,
+          refundRate: Number(response.stats.refundRate) || 0,
           revenueByTicketType: response.stats.revenueByTicketType?.map(t => ({
             type: t.type || '',
             revenue: t.revenue || 0
@@ -175,7 +175,7 @@ export default function AnalyticsPage() {
             method: t.method || '',
             count: t.count || 0
           })) || [],
-          attendeeRetentionRate: response.stats.attendeeRetentionRate || 0,
+          attendeeRetentionRate: Number(response.stats.attendeeRetentionRate) || 0,
           firstTimeVsReturning: response.stats.firstTimeVsReturning?.map(t => ({
             type: t.type || '',
             count: t.count || 0
