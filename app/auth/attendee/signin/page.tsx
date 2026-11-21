@@ -116,7 +116,7 @@ export default function SignIn() {
           >
             {isSubmitting ? (
               <div className="flex items-center justify-center gap-2">
-                <div className="h-5 w-5 animate-spin rounded-full border-3 border-current border-t-transparent" />
+                <div className="h-5 w-5 animate-spin rounded-full border-2 border-current border-t-transparent" />
                 <span>Signing in...</span>
               </div>
             ) : (
@@ -138,7 +138,7 @@ export default function SignIn() {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full border-white/30 hover:border-white/40 bg-transparent backdrop-blur-sm text-white transition-all hover:shadow-[0_0_25px_rgba(0,0,0,0.1)] active:scale-[0.98] flex items-center justify-center gap-2"
+                className="w-full border-white/20 hover:border-p1/60 bg-transparent text-white transition-colors flex items-center justify-center gap-2"
                 onClick={() => signIn("google", { callbackUrl: "/" })}
                 disabled={isSubmitting}
               >

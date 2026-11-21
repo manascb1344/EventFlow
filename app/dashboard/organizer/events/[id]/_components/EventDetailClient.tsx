@@ -18,6 +18,7 @@ import { EventStatus } from "@/lib/db/schema";
 import { useRouter } from "next/navigation";
 import { deleteEvent, publishEvent, getEventTickets, getEventAttendees } from "../../../_actions/events";
 import { useEffect, useState } from "react";
+import Image from "next/image"
 
 interface Attendee {
   id: number;
@@ -313,10 +314,12 @@ export default function EventDetailClient({ initialEvent }: EventDetailClientPro
                     <div key={attendee.id + index} className="flex items-center justify-between p-4 rounded-lg bg-zinc-800/50">
                       <div className="flex items-center space-x-4">
                         {attendee.profileImage ? (
-                          <img
+                          <Image
                             src={attendee.profileImage}
                             alt={attendee.name}
-                            className="h-10 w-10 rounded-full"
+                            width={40}
+                            height={40}
+                            className="h-10 w-10 rounded-full object-cover"
                           />
                         ) : (
                           <User className="h-10 w-10 text-indigo-500" />

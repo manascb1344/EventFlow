@@ -58,7 +58,7 @@ function StatCard({
 }) {
   if (isLoading) {
     return (
-      <Card className="relative overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 border border-primary/10 bg-gradient-to-b from-background/80 via-background to-background backdrop-blur-sm">
+      <Card className="overflow-hidden rounded-md border border-white/10 bg-card">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium text-zinc-200">
             <Skeleton className="h-4 w-[100px]" />
@@ -68,18 +68,18 @@ function StatCard({
           <Skeleton className="h-8 w-[160px]" />
           <Skeleton className="mt-4 h-4 w-[100px]" />
         </CardContent>
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-transparent pointer-events-none" />
+        <div className="" />
       </Card>
     );
   }
 
   return (
-    <Card className="relative overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 border border-primary/10 bg-gradient-to-b from-background/80 via-background to-background backdrop-blur-sm">
+    <Card className="overflow-hidden rounded-md border border-white/10 bg-card">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium text-zinc-200">{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
+        <div className="text-2xl font-semibold tracking-tight text-[#f4f5f7]">
           {value}
         </div>
         {change && (
@@ -96,7 +96,7 @@ function StatCard({
           </p>
         )}
       </CardContent>
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-transparent pointer-events-none" />
+      <div className="" />
     </Card>
   );
 }
@@ -226,7 +226,7 @@ export default function AnalyticsPage() {
         <Button
           onClick={handleGenerateReport}
           disabled={loading || generatingPdf || !stats}
-          className="flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white transition-all duration-200 shadow-lg hover:shadow-indigo-500/25"
+          className="flex items-center gap-2 rounded-md bg-p1 px-4 font-semibold text-[#05121a] hover:bg-[#7bf6ff] transition-colors"
         >
           <FileDown className="h-4 w-4" />
           {generatingPdf ? 'Generating...' : 'Generate Report'}
@@ -276,7 +276,7 @@ export default function AnalyticsPage() {
               </div>
 
               <div className="grid gap-6 md:grid-cols-2">
-                <Card className="relative overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 border border-primary/10 bg-gradient-to-b from-background/80 via-background to-background backdrop-blur-sm">
+                <Card className="overflow-hidden rounded-md border border-white/10 bg-card">
                   <CardHeader>
                     <CardTitle className="text-zinc-200">Revenue Trend</CardTitle>
                     <CardDescription className="text-zinc-400">Revenue over time</CardDescription>
@@ -313,10 +313,10 @@ export default function AnalyticsPage() {
                       </ResponsiveContainer>
                     </div>
                   </CardContent>
-                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-transparent pointer-events-none" />
+                  <div className="" />
                 </Card>
 
-                <Card className="relative overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 border border-primary/10 bg-gradient-to-b from-background/80 via-background to-background backdrop-blur-sm">
+                <Card className="overflow-hidden rounded-md border border-white/10 bg-card">
                   <CardHeader>
                     <CardTitle className="text-zinc-200">Tickets by Event</CardTitle>
                     <CardDescription className="text-zinc-400">Distribution of ticket sales</CardDescription>
@@ -347,7 +347,7 @@ export default function AnalyticsPage() {
                       </ResponsiveContainer>
                     </div>
                   </CardContent>
-                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-transparent pointer-events-none" />
+                  <div className="" />
                 </Card>
               </div>
             </TabsContent>
@@ -372,7 +372,7 @@ export default function AnalyticsPage() {
               </div>
 
               <div className="grid gap-6 md:grid-cols-2">
-                <Card className="relative overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 border border-primary/10 bg-gradient-to-b from-background/80 via-background to-background backdrop-blur-sm">
+                <Card className="overflow-hidden rounded-md border border-white/10 bg-card">
                   <CardHeader>
                     <CardTitle className="text-zinc-200">Popular Event Times</CardTitle>
                     <CardDescription className="text-zinc-400">Most common start times for events</CardDescription>
@@ -397,10 +397,10 @@ export default function AnalyticsPage() {
                       </ResponsiveContainer>
                     </div>
                   </CardContent>
-                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-transparent pointer-events-none" />
+                  <div className="" />
                 </Card>
 
-                <Card className="relative overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 border border-primary/10 bg-gradient-to-b from-background/80 via-background to-background backdrop-blur-sm">
+                <Card className="overflow-hidden rounded-md border border-white/10 bg-card">
                   <CardHeader>
                     <CardTitle className="text-zinc-200">Ticket Type Distribution</CardTitle>
                     <CardDescription className="text-zinc-400">Breakdown of tickets by type</CardDescription>
@@ -433,7 +433,7 @@ export default function AnalyticsPage() {
                       </ResponsiveContainer>
                     </div>
                   </CardContent>
-                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-transparent pointer-events-none" />
+                  <div className="" />
                 </Card>
               </div>
             </TabsContent>

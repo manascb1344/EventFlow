@@ -201,7 +201,7 @@ export default function AttendeeProfilePage() {
 
               <Button 
                 type="submit" 
-                className="w-full h-12 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl hover:shadow-indigo-500/20 font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed" 
+                className="w-full h-12 bg-p1 text-[#05121a] hover:bg-[#7bf6ff] font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed" 
                 disabled={isSaving}
               >
                 {isSaving ? 'Saving...' : 'Save Changes'}

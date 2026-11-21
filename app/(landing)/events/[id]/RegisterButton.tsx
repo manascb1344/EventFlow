@@ -33,7 +33,7 @@ export default function RegisterButton({
       onClick={handleRegister}
       className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 ${
         seatsAvailable > 0 && eventStatus !== 'COMPLETED'
-          ? "bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl hover:shadow-indigo-500/20"
+          ? "bg-p1 text-[#05121a] hover:bg-[#7bf6ff] font-semibold"
           : "bg-gray-800 text-gray-400 cursor-not-allowed"
       }`}
       disabled={seatsAvailable <= 0 || eventStatus === 'COMPLETED'}

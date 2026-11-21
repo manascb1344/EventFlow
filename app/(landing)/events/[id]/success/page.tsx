@@ -50,7 +50,7 @@ export default async function SuccessPage({
         <div className="space-y-4">
           <Link
             href="/dashboard/attendee/my-tickets"
-            className="block w-full py-3 px-4 rounded-lg font-medium bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white shadow-lg hover:shadow-xl hover:shadow-indigo-500/20 transition-all duration-200"
+            className="block w-full py-3 px-4 rounded-md font-semibold bg-p1 text-[#05121a] hover:bg-[#7bf6ff] transition-colors"
           >
             View My Tickets
           </Link>
