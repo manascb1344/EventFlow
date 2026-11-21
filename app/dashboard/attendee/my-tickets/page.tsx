@@ -84,7 +84,7 @@ export default async function MyTicketsPage() {
                                 <Card className="group cursor-pointer overflow-hidden border-2 transition-all hover:border-primary/50 hover:shadow-md">
                                   <div className="relative aspect-video w-full overflow-hidden">
                                     <Image
-                                      src={event.bannerImage || '/placeholder-event.jpg'}
+                                      src={event.bannerImage || '/images/placeholder-event.png'}
                                       alt={event.name}
                                       fill
                                       className="object-cover transition-transform group-hover:scale-105"
@@ -146,7 +146,7 @@ export default async function MyTicketsPage() {
                                 <div className="mt-4 space-y-6">
                                   <div className="relative aspect-video w-full overflow-hidden rounded-lg border">
                                     <Image
-                                      src={event.bannerImage || '/placeholder-event.jpg'}
+                                      src={event.bannerImage || '/images/placeholder-event.png'}
                                       alt={event.name}
                                       fill
                                       className="object-cover"
@@ -228,7 +228,7 @@ export default async function MyTicketsPage() {
                           >
                             <div className="relative aspect-video w-full">
                               <Image
-                                src={event.bannerImage || '/placeholder-event.jpg'}
+                                src={event.bannerImage || '/images/placeholder-event.png'}
                                 alt={event.name}
                                 fill
                                 className="rounded-t-lg object-cover"
@@ -299,7 +299,7 @@ export default async function MyTicketsPage() {
                       <Card key={ticket.id} className="group overflow-hidden border-2">
                         <div className="relative aspect-video w-full">
                           <Image
-                            src={event.bannerImage || '/placeholder-event.jpg'}
+                            src={event.bannerImage || '/images/placeholder-event.png'}
                             alt={event.name}
                             fill
                             className="object-cover opacity-75 grayscale"
