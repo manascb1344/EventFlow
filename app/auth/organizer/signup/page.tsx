@@ -113,6 +113,7 @@ export default function Register() {
             <Input
               id="password"
               type="password"
+              autoComplete="new-password"
               className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors"
               {...registerField("password")}
             />
@@ -126,6 +127,7 @@ export default function Register() {
             <Input
               id="confirmPassword"
               type="password"
+              autoComplete="new-password"
               className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors"
               {...registerField("confirmPassword")}
             />
