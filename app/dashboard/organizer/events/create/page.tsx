@@ -48,14 +48,6 @@ export default function CreateEventPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
-  if (status === "unauthenticated") {
-    redirect("/auth/organizer/signin");
-  }
-
-  if (session?.user?.role !== "ORGANIZER") {
-    redirect("/");
-  }
-
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
     defaultValues: {
@@ -72,6 +64,19 @@ export default function CreateEventPage() {
       registrationDeadline: "",
     },
   });
+
+  if (status === "loading") {
+    return <div className="p-8 text-sm text-[#8b93a3]">Loading...</div>;
+  }
+
+  if (status === "unauthenticated") {
+    redirect("/auth/organizer/signin");
+  }
+
+  if (session?.user?.role !== "ORGANIZER") {
+    redirect("/");
+  }
+
   async function onSubmit(values: z.infer<typeof eventFormSchema>) {
     if (!session?.user) {
       toast.error("You must be signed in to create an event");
