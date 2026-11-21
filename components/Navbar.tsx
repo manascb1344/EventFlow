@@ -139,7 +139,7 @@ const Navbar = () => {
                 </DropdownMenuItem>
                 {session.user?.role === "ATTENDEE" && !session.user?.onboardingCompleted && (
                   <DropdownMenuItem asChild className="focus:bg-p1/10">
-                    <Link href="/onboarding" className="cursor-pointer">Complete Profile</Link>
+                    <Link href="/onboarding/attendee" className="cursor-pointer">Complete Profile</Link>
                   </DropdownMenuItem>
                 )}
                 <DropdownMenuSeparator className="bg-zinc-800/50" />
