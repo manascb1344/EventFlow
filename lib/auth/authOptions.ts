@@ -45,59 +45,49 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
 
-        if (!credentials?.email || !credentials?.password || !credentials?.role) {
+        if (!credentials?.email || !credentials?.password) {
           throw new Error("Invalid credentials");
         }
 
-        const role = credentials.role.toUpperCase() as keyof typeof UserRole;
+        const email = credentials.email;
+        const password = credentials.password as string;
+        const claimedRole = credentials.role?.toUpperCase() as keyof typeof UserRole | undefined;
 
-        // Organizers can only use credentials provider
-        if (role === "ORGANIZER") {
-          const organizer = await db.query.organizers.findFirst({
-            where: (organizers, { eq }) => eq(organizers.email, credentials.email),
+        // Resolve the role from the account when the caller does not claim one.
+        // Prefer the attendee match on an email shared by both tables.
+        if (claimedRole !== "ORGANIZER") {
+          const attendee = await db.query.attendees.findFirst({
+            where: (attendees, { eq }) => eq(attendees.email, email),
           });
 
-          if (!organizer) {
-            throw new Error("Invalid credentials");
+          if (attendee && await bcrypt.compare(password, attendee.password ?? "")) {
+            return {
+              id: attendee.id.toString(),
+              email: attendee.email,
+              name: attendee.name,
+              role: "ATTENDEE" as const,
+              onboardingCompleted: attendee.onboardingCompleted,
+            };
           }
+        }
 
-          // Verify password
-          const passwordMatch = await bcrypt.compare(credentials.password as string, organizer.password ?? "");
-          if (!passwordMatch) {
-            throw new Error("Invalid credentials");
+        if (claimedRole !== "ATTENDEE") {
+          const organizer = await db.query.organizers.findFirst({
+            where: (organizers, { eq }) => eq(organizers.email, email),
+          });
+
+          if (organizer && await bcrypt.compare(password, organizer.password ?? "")) {
+            return {
+              id: organizer.id.toString(),
+              email: organizer.email,
+              name: organizer.name,
+              role: "ORGANIZER" as const,
+              onboardingCompleted: organizer.onboardingCompleted,
+            };
           }
-
-          return {
-            id: organizer.id.toString(),
-            email: organizer.email,
-            name: organizer.name,
-            role: role,
-            onboardingCompleted: organizer.onboardingCompleted,
-          };
         }
 
-        // For attendees, check credentials
-        const attendee = await db.query.attendees.findFirst({
-          where: (attendees, { eq }) => eq(attendees.email, credentials.email),
-        });
-
-        if (!attendee) {
-          throw new Error("Invalid credentials");
-        }
-
-        // Verify password
-        const passwordMatch = await bcrypt.compare(credentials.password as string, attendee.password ?? "");
-        if (!passwordMatch) {
-          throw new Error("Invalid credentials");
-        }
-
-        return {
-          id: attendee.id.toString(),
-          email: attendee.email,
-          name: attendee.name,
-          role: role,
-          onboardingCompleted: attendee.onboardingCompleted,
-        };
+        throw new Error("Invalid credentials");
       },
     }),
     GoogleProvider({
