@@ -75,6 +75,7 @@ const Navbar = () => {
         { href: "/dashboard/attendee/my-tickets", label: "My Tickets" },
         { href: "/dashboard/attendee/saved-events", label: "Saved Events" },
         { href: "/dashboard/attendee/profile", label: "Profile" },
+        { href: "/dashboard/attendee/settings", label: "Settings" },
       ];
     }
 
