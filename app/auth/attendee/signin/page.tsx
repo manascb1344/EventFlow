@@ -46,7 +46,6 @@ export default function SignIn() {
       const result = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        role: "ATTENDEE",
         redirect: false,
       });
 
