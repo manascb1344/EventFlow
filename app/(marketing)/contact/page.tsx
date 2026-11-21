@@ -1,192 +1,80 @@
-import { Mail, Phone, MapPin, Clock, Globe, Send } from "lucide-react"
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import Link from "next/link"
 
 export default function ContactPage() {
-  const contactInfo = [
-    {
-      icon: Mail,
-      title: "Email",
-      details: ["support@eventflow.com", "sales@eventflow.com"],
-      description: "We aim to respond within 24 hours"
-    },
-    {
-      icon: Phone,
-      title: "Phone",
-      details: ["+91 99999 99999", "+91 87654 32109"],
-      description: "Mon-Fri from 9:30am to 6:30pm IST"
-    },
-    {
-      icon: MapPin,
-      title: "Office",
-      details: ["VJTI", "Mumbai, Maharashtra 400019"],
-      description: "Come visit us!"
-    }
-  ]
-
-  const faqs = [
-    {
-      question: "How quickly can I get started with EventFlow?",
-      answer: "You can start using EventFlow immediately after signing up. Our intuitive platform allows you to create your first event within minutes."
-    },
-    {
-      question: "What payment methods do you accept?",
-      answer: "We accept all major credit cards, PayPal, and offer invoice payment options for enterprise customers."
-    },
-    {
-      question: "Do you offer custom solutions for large events?",
-      answer: "Yes! Our enterprise team can work with you to create custom solutions tailored to your specific needs."
-    },
-    {
-      question: "Is there a limit to the number of events I can create?",
-      answer: "No, there's no limit to the number of events you can create. Different pricing tiers offer various features and attendee limits."
-    }
-  ]
-
   return (
-    <div className="container max-w-6xl py-12 md:py-24">
-      {/* Header */}
-      <div className="text-center mb-16">
-        <h1 className="editorial-title mb-8">
-          Get in Touch
-        </h1>
-        <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-          Have questions? We&apos;d love to hear from you. Send us a message and we&apos;ll respond as soon as possible.
-        </p>
-      </div>
+    <div className="container max-w-5xl py-20 lg:py-28">
+      <p className="editorial-kicker">Contact</p>
+      <h1 className="editorial-title max-w-2xl">Questions about the project?</h1>
+      <p className="editorial-lead mt-8">
+        EventFlow is a portfolio project. The fastest way to reach the author is
+        to open an issue on GitHub. Bug reports, questions about the code, and
+        suggestions for students using it are all welcome.
+      </p>
 
-      {/* Main Content */}
-      <div className="grid lg:grid-cols-2 gap-12 mb-24">
-        {/* Contact Form */}
+      <div className="mt-14 grid gap-12 lg:grid-cols-2 lg:gap-20">
         <div>
-          <div className="p-8 rounded-xl border border-zinc-800 bg-zinc-900/50">
-            <h2 className="text-2xl font-bold text-white mb-6">Send us a message</h2>
-            <form className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label htmlFor="firstName" className="text-sm font-medium text-zinc-400">
-                    First name
-                  </label>
-                  <Input 
-                    id="firstName"
-                    placeholder="John" 
-                    className="bg-zinc-800/50 border-zinc-700 focus:border-p1" 
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="lastName" className="text-sm font-medium text-zinc-400">
-                    Last name
-                  </label>
-                  <Input 
-                    id="lastName"
-                    placeholder="Doe" 
-                    className="bg-zinc-800/50 border-zinc-700 focus:border-p1" 
-                  />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium text-zinc-400">
-                  Email
-                </label>
-                <Input 
-                  id="email"
-                  type="email"
-                  placeholder="john@example.com" 
-                  className="bg-zinc-800/50 border-zinc-700 focus:border-p1" 
-                />
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="subject" className="text-sm font-medium text-zinc-400">
-                  Subject
-                </label>
-                <Input 
-                  id="subject"
-                  placeholder="How can we help?" 
-                  className="bg-zinc-800/50 border-zinc-700 focus:border-p1" 
-                />
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-medium text-zinc-400">
-                  Message
-                </label>
-                <Textarea 
-                  id="message"
-                  placeholder="Tell us about your inquiry..." 
-                  className="bg-zinc-800/50 border-zinc-700 focus:border-p1 min-h-[150px] resize-y" 
-                />
-              </div>
-              <Button type="submit" size="lg" className="w-full bg-p1 hover:bg-[#7bf6ff]">
-                <Send className="h-4 w-4 mr-2" />
-                Send Message
-              </Button>
-            </form>
-          </div>
-        </div>
-
-        <div className="space-y-6">
-          {contactInfo.map((item, index) => (
-            <div 
-              key={index}
-              className="p-6 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:bg-zinc-900/80 transition-all duration-200"
-            >
-              <div className="flex items-start gap-4">
-                <div className="shrink-0 bg-p1/10 p-3 rounded-lg">
-                  <item.icon className="h-6 w-6 text-p1" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
-                  {item.details.map((detail, i) => (
-                    <p key={i} className="text-zinc-400 leading-relaxed">{detail}</p>
-                  ))}
-                  <p className="text-sm text-zinc-500 mt-2">{item.description}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-
-          {/* Response Time Card */}
-          <div className="p-6 rounded-xl border border-zinc-800 bg-zinc-900/50">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="shrink-0 bg-p1/10 p-2 rounded-lg">
-                <Clock className="h-5 w-5 text-p1" />
-              </div>
-              <h3 className="text-lg font-semibold text-white">Response Time</h3>
-            </div>
-            <p className="text-zinc-400 mb-4 leading-relaxed">
-              We typically respond to all inquiries within 24 hours during business days. 
-              For urgent matters, please call our support line.
+          <div className="border-t border-white/10 pt-6">
+            <div className="font-mono text-xs uppercase tracking-[0.2em] text-p1">GitHub</div>
+            <p className="mt-4 leading-relaxed text-[#8b93a3]">
+              Open an issue with the page or file involved, what you expected,
+              and what happened. Read the contributing guide before opening a
+              pull request.
             </p>
-            <div className="flex items-center gap-3">
-              <div className="shrink-0 bg-p1/10 p-2 rounded-lg">
-                <Globe className="h-5 w-5 text-p1" />
-              </div>
-              <p className="text-zinc-400">
-                Available worldwide in multiple languages
-              </p>
+            <div className="mt-5 flex flex-wrap gap-4">
+              <Button variant="outline" className="rounded-md border-white/20 bg-transparent" asChild>
+                <Link href="https://github.com/manascb1344/EventFlow/issues" target="_blank">
+                  Open an issue
+                </Link>
+              </Button>
+              <Button variant="outline" className="rounded-md border-white/20 bg-transparent" asChild>
+                <Link href="https://github.com/manascb1344/EventFlow/blob/main/CONTRIBUTING.md" target="_blank">
+                  Contributing guide
+                </Link>
+              </Button>
             </div>
           </div>
+          <div className="mt-10 border-t border-white/10 pt-6">
+            <div className="font-mono text-xs uppercase tracking-[0.2em] text-p1">Live demo</div>
+            <p className="mt-4 leading-relaxed text-[#8b93a3]">
+              Use the hosted app to try the full organizer and attendee flow.
+              No account is needed to browse events.
+            </p>
+            <Button variant="outline" className="mt-5 rounded-md border-white/20 bg-transparent" asChild>
+              <Link href="https://eventflow.zephop.com" target="_blank">
+                Open the demo
+              </Link>
+            </Button>
+          </div>
         </div>
-      </div>
 
-      {/* FAQs Section */}
-      <div>
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-white mb-4">Frequently Asked Questions</h2>
-          <p className="text-zinc-400 max-w-2xl mx-auto">
-            Find quick answers to common questions about EventFlow
+        <div className="rounded-md border border-white/10 p-8">
+          <h2 className="text-xl font-semibold text-[#f4f5f7]">Send a message</h2>
+          <p className="mt-3 text-sm leading-relaxed text-[#8b93a3]">
+            This form is a UI example. It does not send email. Use GitHub issues
+            for anything you need a reply to.
           </p>
-        </div>
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
-          {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className="p-6 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:bg-zinc-900/80 transition-all duration-200"
-            >
-              <h3 className="text-lg font-semibold text-white mb-2">{faq.question}</h3>
-              <p className="text-zinc-400 leading-relaxed">{faq.answer}</p>
+          <form className="mt-8 space-y-5" onSubmit={(event) => event.preventDefault()}>
+            <div>
+              <label htmlFor="contact-email" className="text-sm font-medium text-[#e7e9ee]">Email</label>
+              <Input id="contact-email" type="email" placeholder="you@example.com" className="mt-2 rounded-md border-white/20 bg-transparent" />
             </div>
-          ))}
+            <div>
+              <label htmlFor="contact-subject" className="text-sm font-medium text-[#e7e9ee]">Subject</label>
+              <Input id="contact-subject" placeholder="What is this about?" className="mt-2 rounded-md border-white/20 bg-transparent" />
+            </div>
+            <div>
+              <label htmlFor="contact-message" className="text-sm font-medium text-[#e7e9ee]">Message</label>
+              <Textarea id="contact-message" placeholder="Tell me what you are working on..." className="mt-2 min-h-[140px] rounded-md border-white/20 bg-transparent" />
+            </div>
+            <Button type="submit" className="rounded-md bg-p1 font-semibold text-[#05121a] hover:bg-[#7bf6ff]">
+              Preview message
+            </Button>
+          </form>
         </div>
       </div>
     </div>

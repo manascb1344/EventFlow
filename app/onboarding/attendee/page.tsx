@@ -152,7 +152,7 @@ export default function AttendeeOnboarding() {
             <Input
               id="phoneNumber"
               type="tel"
-              placeholder="+91 99999 99999"
+              placeholder="+91 98765 43210"
               className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors"
               {...register("phoneNumber")}
             />

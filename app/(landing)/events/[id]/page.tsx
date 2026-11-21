@@ -143,7 +143,7 @@ export default async function EventPage({
 
             <div className="md:col-span-1">
               <div className="bg-gray-900/50 backdrop-blur-xl rounded-xl shadow-lg border border-gray-800 p-6 h-full flex flex-col sticky top-8">
-                <div className="text-center p-4 bg-gradient-to-b from-indigo-500/10 to-purple-500/10 rounded-lg border border-gray-800">
+                <div className="text-center p-4 rounded-md border border-white/10 bg-white/5">
                   <p className="text-2xl font-bold text-white">₹{event.ticketPrice}</p>
                   <p className="text-gray-400">per ticket</p>
                 </div>

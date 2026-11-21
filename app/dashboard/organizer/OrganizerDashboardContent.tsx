@@ -1,8 +1,7 @@
 'use client';
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CalendarDays, Users, BarChart3, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 type DashboardProps = {
@@ -20,109 +19,63 @@ type DashboardProps = {
 }
 
 export default function OrganizerDashboardContent({ profile, stats }: DashboardProps) {
+  const numbers = [
+    { label: "Events", value: stats.totalEvents, hint: "Published by you" },
+    { label: "Tickets sold", value: stats.totalTickets, hint: "Across all events" },
+    { label: "Revenue", value: `$${stats.totalRevenue.toLocaleString()}`, hint: "Test-mode total" },
+    { label: "Running", value: stats.newEvents, hint: "Currently live" },
+  ];
+
   return (
-    <div className="container mx-auto p-8 space-y-10">
-      {/* Header */}
-      <div className="flex justify-between items-center">
-        <div className="space-y-2">
-          <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
+    <div className="container mx-auto space-y-10 p-6 lg:p-8">
+      <div className="flex flex-wrap items-end justify-between gap-6 border-b border-white/10 pb-8">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-p1">Organizer overview</p>
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight text-[#f4f5f7]">
             {profile?.name ? `Welcome, ${profile.name}` : 'Welcome'}
           </h1>
-          <p className="text-zinc-400">Manage your events and track performance</p>
+          <p className="mt-2 text-sm text-[#8b93a3]">
+            Manage your events and track ticket sales.
+          </p>
         </div>
         <Button
-          className="relative h-10 px-6 text-sm font-medium rounded-full bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-600 border-0 shadow-lg hover:shadow-indigo-500/25 transition-all duration-300"
+          className="h-10 rounded-md bg-p1 px-5 font-semibold text-[#05121a] hover:bg-[#7bf6ff]"
+          asChild
         >
-          <Link href="/dashboard/organizer/events/create">
-            Create New Event
-          </Link>
+          <Link href="/dashboard/organizer/events/create">Create New Event</Link>
         </Button>
       </div>
 
-      {/* Stats and Upcoming Events Grid */}
-      <div className="grid grid-cols-1 gap-6">
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="relative overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 border border-primary/10 bg-gradient-to-b from-background/80 via-background to-background backdrop-blur-sm">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-zinc-200">Total Events</CardTitle>
-              <div className="p-2 rounded-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10">
-                <CalendarDays className="h-4 w-4 text-indigo-400" />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
-                {stats.totalEvents}
-              </div>
-              <p className="text-xs text-zinc-400 mt-1">Events created</p>
-            </CardContent>
-          </Card>
-
-          <Card className="relative overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 border border-primary/10 bg-gradient-to-b from-background/80 via-background to-background backdrop-blur-sm">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-zinc-200">Total Attendees</CardTitle>
-              <div className="p-2 rounded-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10">
-                <Users className="h-4 w-4 text-indigo-400" />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
-                {stats.totalTickets}
-              </div>
-              <p className="text-xs text-zinc-400 mt-1">Across all events</p>
-            </CardContent>
-          </Card>
-
-          <Card className="relative overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 border border-primary/10 bg-gradient-to-b from-background/80 via-background to-background backdrop-blur-sm">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-zinc-200">Revenue</CardTitle>
-              <div className="p-2 rounded-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10">
-                <BarChart3 className="h-4 w-4 text-indigo-400" />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
-                ${stats.totalRevenue.toLocaleString()}
-              </div>
-              <p className="text-xs text-zinc-400 mt-1">Total earnings</p>
-            </CardContent>
-          </Card>
-
-          <Card className="relative overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 border border-primary/10 bg-gradient-to-b from-background/80 via-background to-background backdrop-blur-sm">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-zinc-200">Active Events</CardTitle>
-              <div className="p-2 rounded-full bg-gradient-to-r from-indigo-500/10 to-purple-500/10">
-                <CalendarDays className="h-4 w-4 text-indigo-400" />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500">
-                {stats.newEvents}
-              </div>
-              <p className="text-xs text-zinc-400 mt-1">Currently running</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        <Card className="relative overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 border border-primary/10 bg-gradient-to-b from-background/80 via-background to-background backdrop-blur-sm">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <div>
-              <CardTitle className="text-lg font-medium text-zinc-200">Upcoming Events</CardTitle>
-              <CardDescription className="text-zinc-400">Your next scheduled events</CardDescription>
+      <div className="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-white/10 bg-white/10 lg:grid-cols-4">
+        {numbers.map((item) => (
+          <div key={item.label} className="bg-[#0a0c10] p-6">
+            <div className="font-mono text-xs uppercase tracking-[0.16em] text-[#8b93a3]">
+              {item.label}
             </div>
+            <div className="mt-3 text-3xl font-semibold tracking-tight text-[#f4f5f7]">
+              {item.value}
+            </div>
+            <div className="mt-1 text-xs text-[#8b93a3]">{item.hint}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="rounded-md border border-white/10">
+        <div className="flex items-center justify-between border-b border-white/10 p-6">
+          <div>
+            <h2 className="text-lg font-semibold text-[#f4f5f7]">Upcoming events</h2>
+            <p className="mt-1 text-sm text-[#8b93a3]">Your next scheduled events</p>
+          </div>
+          <Button variant="ghost" className="text-[#8b93a3] hover:text-[#f4f5f7]" asChild>
             <Link href="/dashboard/organizer/events">
-              <Button variant="ghost" className="text-zinc-400 hover:text-zinc-200">
-                View all
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </Button>
+              View all
+              <ChevronRight className="ml-2 h-4 w-4" />
             </Link>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <p className="text-zinc-400 text-sm">No upcoming events</p>
-            </div>
-          </CardContent>
-        </Card>
+          </Button>
+        </div>
+        <div className="p-6">
+          <p className="text-sm text-[#8b93a3]">No upcoming events</p>
+        </div>
       </div>
     </div>
   );
