@@ -91,6 +91,7 @@ export default function SignUp() {
               id="password"
               name="password"
               type="password"
+              autoComplete="new-password"
               required
               minLength={8}
               className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors"
@@ -104,6 +105,7 @@ export default function SignUp() {
               id="confirmPassword"
               name="confirmPassword"
               type="password"
+              autoComplete="new-password"
               required
               minLength={8}
               className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors"

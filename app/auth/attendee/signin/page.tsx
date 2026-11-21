@@ -100,6 +100,7 @@ export default function SignIn() {
             <Input
               id="password"
               type="password"
+              autoComplete="current-password"
               className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors"
               {...register("password")}
             />
