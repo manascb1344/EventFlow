@@ -9,7 +9,7 @@ import { signOut, useSession } from "next-auth/react"
 import { usePathname } from "next/navigation"
 import { MainNav } from "./MainNav"
 import { Menu } from "lucide-react"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { getProfileImage } from "@/app/actions/profile"
@@ -178,6 +178,7 @@ const Navbar = () => {
                 <Button
                   variant="ghost"
                   size="icon"
+                  aria-label="Open navigation menu"
                   className="text-zinc-300 hover:text-white hover:bg-p1/10"
                 >
                   <Menu className="h-5 w-5" />
@@ -187,6 +188,8 @@ const Navbar = () => {
                 side="right"
                 className="w-80 bg-gray-950 border-zinc-800/50"
               >
+                <SheetTitle className="sr-only">Navigation menu</SheetTitle>
+                <SheetDescription className="sr-only">Browse EventFlow pages and account options.</SheetDescription>
                 <nav className="flex flex-col gap-4 mt-8">
                   {getNavItems().map((item, index) => (
                     <Link
