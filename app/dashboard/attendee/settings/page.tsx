@@ -111,12 +111,14 @@ export default async function SettingsPage() {
               <Label htmlFor="two-factor" className="flex flex-col space-y-1">
                 <span>Two-Factor Authentication</span>
                 <span className="text-sm text-muted-foreground">
-                  Add an extra layer of security to your account
+                  Not available in this demo. No second factor is enrolled or enforced.
                 </span>
               </Label>
-              <Switch 
-                id="two-factor" 
-                className="border-white/10 data-[state=checked]:bg-p1" 
+              <Switch
+                id="two-factor"
+                disabled
+                aria-label="Two-factor authentication, unavailable in this demo"
+                className="border-white/10 data-[state=checked]:bg-p1"
               />
             </div>
           </CardContent>
