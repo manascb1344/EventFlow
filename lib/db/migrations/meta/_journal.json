@@ -15,6 +15,13 @@
       "when": 1794984830159,
       "tag": "0001_sturdy_tyger_tiger",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795256226900,
+      "tag": "0002_outgoing_scalphunter",
+      "breakpoints": true
     }
   ]
 }
