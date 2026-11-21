@@ -25,6 +25,11 @@ export async function updateAttendeeProfile(attendeeId: number | undefined, form
       throw new Error("Name is required");
     }
 
+    const phone = data.phoneNumber?.trim();
+    if (phone && !/^[+]?[0-9 ()-]{7,20}$/.test(phone)) {
+      throw new Error("Enter a valid phone number using digits, spaces, +, () or -");
+    }
+
     await db.update(attendees)
       .set(data)
       .where(eq(attendees.id, attendeeId));
