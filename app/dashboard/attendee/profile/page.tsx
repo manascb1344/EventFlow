@@ -103,6 +103,9 @@ export default function AttendeeProfilePage() {
                   <Input
                     id="phoneNumber"
                     name="phoneNumber"
+                    type="tel"
+                    pattern="[+]?[0-9 ()-]{7,20}"
+                    title="Use digits, spaces, +, () or -"
                     defaultValue={attendee?.phoneNumber ?? ''}
                     placeholder="Enter your phone number"
                     className="h-12 bg-s2/50 backdrop-blur-sm border-white/10 text-white placeholder:text-s3 focus:border-p1/50 hover:border-white/20 transition-colors"
