@@ -40,16 +40,8 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={cn(
         inter.className, poppins.variable,
-        "min-h-screen bg-gradient-to-b from-gray-950 via-slate-900 to-gray-950 relative overflow-x-hidden",
+        "min-h-screen bg-[#0a0c10] relative overflow-x-hidden antialiased",
       )}>
-        {/* Deep space gradient overlay */}
-        <div className="fixed inset-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900/50 via-gray-950 to-gray-950 pointer-events-none" />
-        
-        {/* Ambient orbs */}
-        <div className="fixed top-[-10%] left-[-20%] h-[500px] w-[500px] rounded-full bg-indigo-500/5 blur-[100px] pointer-events-none" />
-        <div className="fixed top-[-15%] right-[-20%] h-[500px] w-[500px] rounded-full bg-purple-500/5 blur-[100px] pointer-events-none" />
-        <div className="fixed bottom-[-10%] left-[25%] h-[500px] w-[500px] rounded-full bg-blue-400/5 blur-[100px] pointer-events-none" />
-        
         <div className="relative">
           <Providers>
             <Navbar />

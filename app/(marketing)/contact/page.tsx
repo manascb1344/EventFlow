@@ -48,7 +48,7 @@ export default function ContactPage() {
     <div className="container max-w-6xl py-12 md:py-24">
       {/* Header */}
       <div className="text-center mb-16">
-        <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-500 mb-6">
+        <h1 className="editorial-title mb-8">
           Get in Touch
         </h1>
         <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
@@ -71,7 +71,7 @@ export default function ContactPage() {
                   <Input 
                     id="firstName"
                     placeholder="John" 
-                    className="bg-zinc-800/50 border-zinc-700 focus:border-indigo-500" 
+                    className="bg-zinc-800/50 border-zinc-700 focus:border-p1" 
                   />
                 </div>
                 <div className="space-y-2">
@@ -81,7 +81,7 @@ export default function ContactPage() {
                   <Input 
                     id="lastName"
                     placeholder="Doe" 
-                    className="bg-zinc-800/50 border-zinc-700 focus:border-indigo-500" 
+                    className="bg-zinc-800/50 border-zinc-700 focus:border-p1" 
                   />
                 </div>
               </div>
@@ -93,7 +93,7 @@ export default function ContactPage() {
                   id="email"
                   type="email"
                   placeholder="john@example.com" 
-                  className="bg-zinc-800/50 border-zinc-700 focus:border-indigo-500" 
+                  className="bg-zinc-800/50 border-zinc-700 focus:border-p1" 
                 />
               </div>
               <div className="space-y-2">
@@ -103,7 +103,7 @@ export default function ContactPage() {
                 <Input 
                   id="subject"
                   placeholder="How can we help?" 
-                  className="bg-zinc-800/50 border-zinc-700 focus:border-indigo-500" 
+                  className="bg-zinc-800/50 border-zinc-700 focus:border-p1" 
                 />
               </div>
               <div className="space-y-2">
@@ -113,10 +113,10 @@ export default function ContactPage() {
                 <Textarea 
                   id="message"
                   placeholder="Tell us about your inquiry..." 
-                  className="bg-zinc-800/50 border-zinc-700 focus:border-indigo-500 min-h-[150px] resize-y" 
+                  className="bg-zinc-800/50 border-zinc-700 focus:border-p1 min-h-[150px] resize-y" 
                 />
               </div>
-              <Button type="submit" size="lg" className="w-full bg-indigo-500 hover:bg-indigo-600">
+              <Button type="submit" size="lg" className="w-full bg-p1 hover:bg-[#7bf6ff]">
                 <Send className="h-4 w-4 mr-2" />
                 Send Message
               </Button>
@@ -131,8 +131,8 @@ export default function ContactPage() {
               className="p-6 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:bg-zinc-900/80 transition-all duration-200"
             >
               <div className="flex items-start gap-4">
-                <div className="shrink-0 bg-indigo-500/10 p-3 rounded-lg">
-                  <item.icon className="h-6 w-6 text-indigo-500" />
+                <div className="shrink-0 bg-p1/10 p-3 rounded-lg">
+                  <item.icon className="h-6 w-6 text-p1" />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
@@ -148,8 +148,8 @@ export default function ContactPage() {
           {/* Response Time Card */}
           <div className="p-6 rounded-xl border border-zinc-800 bg-zinc-900/50">
             <div className="flex items-center gap-3 mb-4">
-              <div className="shrink-0 bg-indigo-500/10 p-2 rounded-lg">
-                <Clock className="h-5 w-5 text-indigo-500" />
+              <div className="shrink-0 bg-p1/10 p-2 rounded-lg">
+                <Clock className="h-5 w-5 text-p1" />
               </div>
               <h3 className="text-lg font-semibold text-white">Response Time</h3>
             </div>
@@ -158,8 +158,8 @@ export default function ContactPage() {
               For urgent matters, please call our support line.
             </p>
             <div className="flex items-center gap-3">
-              <div className="shrink-0 bg-indigo-500/10 p-2 rounded-lg">
-                <Globe className="h-5 w-5 text-indigo-500" />
+              <div className="shrink-0 bg-p1/10 p-2 rounded-lg">
+                <Globe className="h-5 w-5 text-p1" />
               </div>
               <p className="text-zinc-400">
                 Available worldwide in multiple languages
