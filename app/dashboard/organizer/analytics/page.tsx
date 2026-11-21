@@ -218,7 +218,7 @@ export default function AnalyticsPage() {
 
   return (
     <DashboardShell>
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <DashboardHeader
           heading="Analytics Dashboard"
           text="View detailed insights about your events and attendees"
@@ -242,11 +242,11 @@ export default function AnalyticsPage() {
       ) : (
         <div className="space-y-8">
           <Tabs defaultValue="overview" className="space-y-6">
-            <TabsList className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border border-primary/10 p-1">
-              <TabsTrigger value="overview" className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary">Overview</TabsTrigger>
-              <TabsTrigger value="events" className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary">Events</TabsTrigger>
-              <TabsTrigger value="revenue" className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary">Revenue</TabsTrigger>
-              <TabsTrigger value="attendees" className="data-[state=active]:bg-primary/20 data-[state=active]:text-primary">Attendees</TabsTrigger>
+            <TabsList className="flex w-full justify-start gap-1 overflow-x-auto bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border border-primary/10 p-1 sm:w-auto sm:justify-center">
+              <TabsTrigger value="overview" className="shrink-0 whitespace-nowrap data-[state=active]:bg-primary/20 data-[state=active]:text-primary">Overview</TabsTrigger>
+              <TabsTrigger value="events" className="shrink-0 whitespace-nowrap data-[state=active]:bg-primary/20 data-[state=active]:text-primary">Events</TabsTrigger>
+              <TabsTrigger value="revenue" className="shrink-0 whitespace-nowrap data-[state=active]:bg-primary/20 data-[state=active]:text-primary">Revenue</TabsTrigger>
+              <TabsTrigger value="attendees" className="shrink-0 whitespace-nowrap data-[state=active]:bg-primary/20 data-[state=active]:text-primary">Attendees</TabsTrigger>
             </TabsList>
 
             <TabsContent value="overview" className="space-y-6">
