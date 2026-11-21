@@ -25,6 +25,10 @@ export async function processPayment(
       return { success: false, error: "Unauthorized" };
     }
 
+    if (session.user.role !== "ATTENDEE") {
+      return { success: false, error: "Only attendee accounts can register for events" };
+    }
+
     if (sessionId.startsWith("demo_cs_")) {
       const demoPaymentIntentId = sessionId.replace("demo_cs_", "demo_pi_");
       const [demoTicket] = await db
@@ -77,6 +81,10 @@ export async function createStripeSession(eventId: number) {
     const session = await getServerSession(authOptions);
     if (!session?.user) {
       return { error: "Unauthorized" };
+    }
+
+    if (session.user.role !== "ATTENDEE") {
+      return { error: "Only attendee accounts can register for events" };
     }
 
     const event = await db.query.events.findFirst({

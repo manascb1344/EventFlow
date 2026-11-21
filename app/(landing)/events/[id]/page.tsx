@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import Image from "next/image";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth/authOptions";
 import { getEventById } from "../actions";
 import RegisterButton from "./RegisterButton";
 
@@ -15,6 +17,13 @@ export default async function EventPage({
   if (!event) {
     notFound();
   }
+
+  const session = await getServerSession(authOptions);
+  const registrationBlockedReason = !session
+    ? "Sign in to register"
+    : session.user.role !== "ATTENDEE"
+      ? "Sign in with an attendee account to register"
+      : undefined;
 
   return (
     <div className="relative min-h-screen">
@@ -172,6 +181,7 @@ export default async function EventPage({
                     eventId={event.id}
                     seatsAvailable={event.seatsAvailable}
                     eventStatus={event.eventStatus}
+                    registrationBlockedReason={registrationBlockedReason}
                   />
                 </div>
 

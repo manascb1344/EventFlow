@@ -21,6 +21,10 @@ export async function POST(req: Request) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    if (session.user.role !== "ATTENDEE") {
+      return new NextResponse("Only attendee accounts can register for events", { status: 403 });
+    }
+
     const event = await db.query.events.findFirst({
       where: eq(events.id, parseInt(eventId)),
     });
