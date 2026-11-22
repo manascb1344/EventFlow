@@ -73,6 +73,8 @@ function StatCard({
     );
   }
 
+  const changeValue = parseFloat(change ?? "") || 0;
+
   return (
     <Card className="overflow-hidden rounded-md border border-white/10 bg-card">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -84,12 +86,9 @@ function StatCard({
         </div>
         {change && (
           <p className="mt-2 flex items-center text-sm">
-            {Number(change) > 0 ? (
-              <TrendingUp className="mr-1 h-4 w-4 text-emerald-500" />
-            ) : (
-              <TrendingDown className="mr-1 h-4 w-4 text-rose-500" />
-            )}
-            <span className={`${Number(change) > 0 ? "text-emerald-500" : "text-rose-500"} font-medium`}>
+            {changeValue > 0 && <TrendingUp className="mr-1 h-4 w-4 text-emerald-500" />}
+            {changeValue < 0 && <TrendingDown className="mr-1 h-4 w-4 text-rose-500" />}
+            <span className={`${changeValue > 0 ? "text-emerald-500" : changeValue < 0 ? "text-rose-500" : "text-zinc-400"} font-medium`}>
               {change}
             </span>
             {changeLabel && <span className="text-zinc-400 ml-1">{changeLabel}</span>}
