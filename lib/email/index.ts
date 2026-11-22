@@ -79,7 +79,7 @@ export function generatePaymentSuccessEmail(
                 <h2 style="color: #2d3748; font-size: 18px; margin-bottom: 15px;">Payment Details</h2>
                 <div style="display: grid; grid-template-columns: auto 1fr; gap: 10px; margin-bottom: 15px;">
                   <div style="font-weight: bold; color: #4a5568;">Amount Paid:</div>
-                  <div style="color: #2d3748; text-align: right;">$${(amount / 100).toFixed(2)} USD</div>
+                  <div style="color: #2d3748; text-align: right;">₹${(amount / 100).toFixed(2)} INR</div>
                   <div style="font-weight: bold; color: #4a5568;">Payment Status:</div>
                   <div style="color: #48bb78; text-align: right;">Completed</div>
                   <div style="font-weight: bold; color: #4a5568;">Ticket Number:</div>
