@@ -119,9 +119,9 @@ export async function completeAttendeeOnboarding(formData: FormData) {
 
     const validatedFields = attendeeOnboardingSchema.parse({
       phoneNumber: formData.get("phoneNumber"),
-      interests: formData.get("interests"),
-      dietaryRestrictions: formData.get("dietaryRestrictions"),
-      preferredPaymentMethod: formData.get("preferredPaymentMethod"),
+      interests: formData.get("interests") ?? undefined,
+      dietaryRestrictions: formData.get("dietaryRestrictions") ?? undefined,
+      preferredPaymentMethod: formData.get("preferredPaymentMethod") ?? undefined,
       notificationPreferences: formData.get("notificationPreferences") === "true",
     });
 
@@ -164,7 +164,7 @@ export async function completeOrganizerOnboarding(formData: FormData) {
     const validatedFields = organizerOnboardingSchema.parse({
       organization: formData.get("organization"),
       phoneNumber: formData.get("phoneNumber"),
-      bio: formData.get("bio"),
+      bio: formData.get("bio") ?? undefined,
     });
 
     console.log("Validated organizer onboarding fields:", validatedFields);
