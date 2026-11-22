@@ -208,9 +208,11 @@ export async function getOrganizerStats(organizerId: number): Promise<{ success:
 
     console.log("Query results:", { basicStats, recentStats, revenueData, ticketsByEvent, ratingDistribution, salesGrowth, eventMetrics, ticketTypeStats, paymentStats, attendeeStats, timingStats });
 
-    const ticketSalesGrowth = salesGrowth[0].previousMonthSales === 0 
-      ? 100 
-      : Math.round(((salesGrowth[0].currentMonthSales - salesGrowth[0].previousMonthSales) / salesGrowth[0].previousMonthSales) * 100);
+    const currentMonthSales = Number(salesGrowth[0].currentMonthSales);
+    const previousMonthSales = Number(salesGrowth[0].previousMonthSales);
+    const ticketSalesGrowth = previousMonthSales === 0
+      ? (currentMonthSales > 0 ? 100 : 0)
+      : Math.round(((currentMonthSales - previousMonthSales) / previousMonthSales) * 100);
 
     const eventCompletionRate = eventMetrics[0].completedEvents / eventMetrics[0].totalEvents;
     const averageAttendanceRate = eventMetrics[0].totalAttendance / eventMetrics[0].totalEvents;

@@ -25,9 +25,10 @@ type OnboardingFormData = z.infer<typeof organizerOnboardingSchema>;
 export default function OrganizerOnboarding() {
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
-  const { data: session, update } = useSession()
+  const { data: session, status, update } = useSession()
 
   useEffect(() => {
+    if (status === "loading") return;
     if (!session) {
       router.push("/auth/organizer/signin");
       return;
@@ -40,7 +41,7 @@ export default function OrganizerOnboarding() {
       router.push("/dashboard/organizer");
       return;
     }
-  }, [session, router]);
+  }, [session, status, router]);
 
   const {
     register,

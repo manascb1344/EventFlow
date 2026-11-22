@@ -212,7 +212,7 @@ export const generateAnalyticsReport = async (stats: AnalyticsStats) => {
 
   const formatCurrency = (num: unknown) => {
     const n = formatNumber(num);
-    return `$${n.toFixed(2)}`;
+    return `INR ${n.toFixed(2)}`;
   };
 
   const formatPercentage = (num: unknown) => {
