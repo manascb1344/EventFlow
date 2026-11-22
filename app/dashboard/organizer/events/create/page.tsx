@@ -99,7 +99,8 @@ export default function CreateEventPage() {
       }
 
       toast.success('Event created successfully');
-      redirect('/dashboard/organizer/events');
+      router.push('/dashboard/organizer/events');
+      router.refresh();
     } catch (error) {
       console.error("Error creating event:", error);
       toast.error('Failed to create event');

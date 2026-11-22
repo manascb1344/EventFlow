@@ -185,7 +185,7 @@ export default function EventDetailClient({ initialEvent }: EventDetailClientPro
             <div>
               <CardTitle className="text-sm font-medium text-white">Capacity</CardTitle>
               <CardDescription className="text-white">
-                {initialEvent.ticketsSold || 0}/{initialEvent.seatsAvailable} seats filled
+                {initialEvent.ticketsSold || 0}/{(initialEvent.ticketsSold || 0) + initialEvent.seatsAvailable} seats filled
               </CardDescription>
             </div>
           </CardHeader>

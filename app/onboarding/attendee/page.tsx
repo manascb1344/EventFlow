@@ -35,9 +35,10 @@ const paymentMethods = [
 export default function AttendeeOnboarding() {
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
-  const { data: session, update } = useSession()
+  const { data: session, status, update } = useSession()
 
   useEffect(() => {
+    if (status === "loading") return;
     if (!session) {
       router.push("/auth/attendee/signin");
       return;
@@ -50,7 +51,7 @@ export default function AttendeeOnboarding() {
       router.push("/dashboard");
       return;
     }
-  }, [session, router]);
+  }, [session, status, router]);
 
   const {
     register,
