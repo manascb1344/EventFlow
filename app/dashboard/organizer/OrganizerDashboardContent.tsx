@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { formatCurrency, formatDate } from "@/lib/utils";
 
 type DashboardProps = {
   profile: { name?: string | null } | null;
@@ -16,14 +17,21 @@ type DashboardProps = {
     recentRevenue: number;
     ticketSalesGrowth: number;
   };
+  upcomingEvents: {
+    id: number;
+    name: string;
+    location: string;
+    startDate: Date;
+    seatsAvailable: number;
+  }[];
 }
 
-export default function OrganizerDashboardContent({ profile, stats }: DashboardProps) {
+export default function OrganizerDashboardContent({ profile, stats, upcomingEvents }: DashboardProps) {
   const numbers = [
     { label: "Events", value: stats.totalEvents, hint: "Published by you" },
     { label: "Tickets sold", value: stats.totalTickets, hint: "Across all events" },
-    { label: "Revenue", value: `$${stats.totalRevenue.toLocaleString()}`, hint: "Test-mode total" },
-    { label: "Running", value: stats.newEvents, hint: "Currently live" },
+    { label: "Revenue", value: formatCurrency(Number(stats.totalRevenue)), hint: "Test-mode total" },
+    { label: "New events", value: stats.newEvents, hint: "Created in the last 30 days" },
   ];
 
   return (
@@ -73,9 +81,30 @@ export default function OrganizerDashboardContent({ profile, stats }: DashboardP
             </Link>
           </Button>
         </div>
-        <div className="p-6">
-          <p className="text-sm text-[#8b93a3]">No upcoming events</p>
-        </div>
+        {upcomingEvents.length === 0 ? (
+          <div className="p-6">
+            <p className="text-sm text-[#8b93a3]">No upcoming events</p>
+          </div>
+        ) : (
+          <ul className="divide-y divide-white/10">
+            {upcomingEvents.map((event) => (
+              <li key={event.id}>
+                <Link
+                  href={`/dashboard/organizer/events/${event.id}`}
+                  className="flex items-center justify-between gap-4 p-6 hover:bg-white/5"
+                >
+                  <div>
+                    <p className="font-medium text-[#f4f5f7]">{event.name}</p>
+                    <p className="mt-1 text-sm text-[#8b93a3]">
+                      {formatDate(new Date(event.startDate))} · {event.location}
+                    </p>
+                  </div>
+                  <span className="text-sm text-[#8b93a3]">{event.seatsAvailable} seats left</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

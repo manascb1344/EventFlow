@@ -98,6 +98,10 @@ export default function EditEventPage() {
     }
   }, [session?.user?.id, eventId, form]);
 
+  if (status === "loading") {
+    return <div className="p-8 text-sm text-[#8b93a3]">Loading...</div>;
+  }
+
   if (status === "unauthenticated") {
     redirect("/auth/organizer/signin");
   }
@@ -246,7 +250,7 @@ export default function EditEventPage() {
                   name="ticketPrice"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-white">Ticket Price ($)</FormLabel>
+                      <FormLabel className="text-white">Ticket Price (₹)</FormLabel>
                       <FormControl>
                         <Input type="number" step="0.01" placeholder="99.99" {...field} className="bg-transparent backdrop-blur-sm border border-white/30 text-white placeholder:text-gray-400 focus:border-white/50 hover:border-white/40 transition-colors" />
                       </FormControl>

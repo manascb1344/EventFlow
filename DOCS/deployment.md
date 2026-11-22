@@ -50,4 +50,4 @@ Every pull request runs `pnpm lint`, `pnpm typecheck` and `pnpm build` in GitHub
 
 ## Known limitation
 
-Real Stripe payments remain blocked by account activation. Demo checkout is enabled so the full attendee flow can be exercised without a charge.
+Real Stripe payments remain blocked by account activation. Demo checkout is enabled so the full attendee flow can be exercised without a charge. The flow was last walked end to end on production on 22 November 2026; see [`user-guide.md`](user-guide.md) for the steps and screenshots.

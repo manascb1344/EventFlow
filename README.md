@@ -37,7 +37,9 @@ This is a portfolio project, built to be read as well as run. It uses a real Pos
 
 ## Screenshots
 
-**Organizer dashboard**
+Captured from the live deployment on 22 November 2026. The full step-by-step walkthrough, with 25 screenshots of both roles and the demo checkout, is in [`DOCS/user-guide.md`](DOCS/user-guide.md). A Word version is generated with `python scripts/generate_user_guide_docx.py`.
+
+**Organizer dashboard after a sale**
 
 ![Organizer dashboard](public/images/dashboard.png)
 
@@ -49,7 +51,7 @@ This is a portfolio project, built to be read as well as run. It uses a real Pos
 
 ![Event detail](public/images/event-detail.png)
 
-**Attendee tickets**
+**Attendee tickets after demo checkout**
 
 ![Attendee tickets](public/images/tickets.png)
 
@@ -62,17 +64,16 @@ EventFlow has two roles with separate dashboards.
 **Organizers**
 
 - Create an account and complete onboarding.
-- Publish events with a date, venue, capacity, ticket price, description, and banner image.
+- Publish events with a date, venue, capacity, ticket price (₹), registration deadline, and description.
 - Edit, publish, and delete their own events.
-- See event count, ticket sales, and revenue in a dashboard.
-- Receive an email receipt when a ticket is issued.
+- See event count, ticket sales, revenue, and upcoming events in a dashboard, plus charts in Analytics.
 
 **Attendees**
 
 - Browse public events and filter by search, date, and location.
 - Save events and see them later.
-- Buy a ticket through Stripe Checkout in test mode.
-- See purchased tickets in a personal dashboard.
+- Buy a ticket through Stripe Checkout in test mode, or through the labeled demo checkout.
+- See purchased tickets in a personal dashboard and receive an email receipt.
 - Sign in with email and password or with Google.
 
 **The ticketing flow**
@@ -82,7 +83,7 @@ EventFlow has two roles with separate dashboards.
 3. On success, the webhook or success page calls one function that inserts the ticket, records the payment, and decrements the available seats inside a single database transaction. The seat update is conditional on `seats_available > 0`, so a sold-out event cannot be oversold.
 4. A confirmation email goes out with the ticket number and event details.
 
-In the deployed demo, a `DEMO_CHECKOUT` flag can issue the same ticket without contacting Stripe. That keeps the flow demonstrable while Stripe account activation is pending.
+The deployed demo runs with `DEMO_CHECKOUT=true`, which issues the same ticket through the same transaction without contacting Stripe. Clicking **Register Now** goes straight to a "Demo Registration Confirmed" page, the ticket appears in **My Tickets**, and the seat count drops by one. This was verified on the live site on 22 November 2026.
 
 ---
 
@@ -198,7 +199,8 @@ lib/
   payments/           Stripe client
   ticketing/          Atomic ticket issuance
 providers/            Session provider
-DOCS/                 Deployment guide and architecture decision records
+DOCS/                 Deployment guide, user guide, screenshots and architecture decision records
+scripts/              python-docx generator for the Word user guide
 archive/              Historical Selenium scripts, reports and screenshots
 ```
 
@@ -273,6 +275,8 @@ The Python Selenium scripts, DOCX reports, screenshots and HTML reports are hist
 
 - Real Stripe test payments require account activation on the Stripe account. The labeled demo checkout works without it.
 - Email delivery is configured through SMTP but has not been verified end to end against a live inbox.
+- Organizers cannot upload an event banner from the UI. Banners only come from seed data, and events without one show a neutral placeholder.
+- Attendee sign-up asks only for email and password, so the attendee is greeted by their email prefix until they set a name in Profile.
 - The organizer and attendee dashboards use separate guards. An unauthenticated organizer is currently sent to the attendee sign-in page.
 - Stripe Connect payout columns exist in the schema, but there is no payout flow.
 
