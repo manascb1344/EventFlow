@@ -5,10 +5,11 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function DashboardPage() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
+    if (status === "loading") return;
     if (!session?.user) {
       router.push('/auth/attendee/signin');
       return;
@@ -28,7 +29,7 @@ export default function DashboardPage() {
     } else if (role === 'organizer') {
       router.push('/dashboard/organizer');
     }
-  }, [session, router]);
+  }, [session, status, router]);
 
   // Show loading state while redirecting
   return (
