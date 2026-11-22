@@ -37,10 +37,6 @@ This is a portfolio project, built to be read as well as run. It uses a real Pos
 
 ## Screenshots
 
-**Landing page**
-
-![EventFlow landing page](public/images/dashboard.png)
-
 **Organizer dashboard**
 
 ![Organizer dashboard](public/images/dashboard.png)
@@ -121,7 +117,7 @@ Browser
   -> Sentry-ready structured logging and /api/health
 ```
 
-Key decisions are recorded in [`DOCS/adr/`](DOCS/adr/). The deployment contract and the full gap register are in [`DOCS/DEPLOYMENT_REQUIREMENTS.md`](DOCS/DEPLOYMENT_REQUIREMENTS.md).
+Key decisions are recorded in [`DOCS/adr/`](DOCS/adr/). Current setup and release steps are in [`DOCS/deployment.md`](DOCS/deployment.md). The original pre-fix gap register is preserved in `archive/notes/DEPLOYMENT_REQUIREMENTS.md`.
 
 ---
 
@@ -201,9 +197,9 @@ lib/
   email/              Nodemailer transport and templates
   payments/           Stripe client
   ticketing/          Atomic ticket issuance
-hooks/                Toast state
 providers/            Session provider
-DOCS/                 Deployment requirements and architecture decision records
+DOCS/                 Deployment guide and architecture decision records
+archive/              Historical Selenium scripts, reports and screenshots
 ```
 
 ---
@@ -245,7 +241,7 @@ pnpm build
 
 GitHub Actions runs the same three commands on every pull request. Vercel builds every pull request as well.
 
-The Python Selenium scripts and the generated DOCX reports under `test_reports/` are historical artifacts from a browser-testing exercise. They are not part of CI.
+The Python Selenium scripts, DOCX reports, screenshots and HTML reports are historical artifacts from a browser-testing exercise. They live under `archive/selenium/` and are not part of CI. See `archive/selenium/README.md` before running them.
 
 ---
 
@@ -257,6 +253,7 @@ The Python Selenium scripts and the generated DOCX reports under `test_reports/`
 - Migrations are applied as a release step with `pnpm deploy-migrate`, not during the build.
 - Google OAuth allows both the custom domain and the Vercel domain.
 - Stripe stays in test mode. The webhook is registered for the custom domain.
+- See [DOCS/deployment.md](DOCS/deployment.md) for the current setup and release steps.
 
 ---
 
